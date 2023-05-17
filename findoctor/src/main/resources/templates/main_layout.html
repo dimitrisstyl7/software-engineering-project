@@ -1,31 +1,26 @@
 <!DOCTYPE html>
 <html lang="en, gr"
-      xmlns:th="http://www.thymeleaf.org"
+      xmlns:th="http://thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Find easily a doctor and book online an appointment">
-    <meta name="author" content="Ansonika">
     <title>FINDOCTOR - Find easily a doctor and book online an appointment</title>
 
     <!-- Favicons-->
-    <link rel="shortcut icon" href="common/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/common/img/favicon.ico}" type="image/x-icon">
 
     <!-- GOOGLE WEB FONT -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet">
 
     <!-- BASE CSS -->
-    <link href="common/css/bootstrap.min.css" rel="stylesheet">
-    <link href="common/css/style.css" rel="stylesheet">
-    <link href="common/css/menu.css" rel="stylesheet">
-    <link href="common/css/vendors.css" rel="stylesheet">
-    <link href="common/css/icon_fonts/css/all_icons_min.css" rel="stylesheet">
-
-    <!-- CUSTOM CSS -->
-    <link href="common/css/custom.css" rel="stylesheet">
+    <link th:href="@{/common/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/common/css/style.css}" rel="stylesheet">
+    <link th:href="@{/common/css/menu.css}" rel="stylesheet">
+    <link th:href="@{/common/css/vendors.css}" rel="stylesheet">
+    <link th:href="@{/common/css/icon_fonts/css/all_icons_min.css}" rel="stylesheet">
 
 </head>
 
@@ -50,13 +45,13 @@
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <div id="logo">
-                        <a href="index.html" title="Findoctor"><img src="common/img/logo.png" alt="" width="163"
+                        <a href="common/index.html" title="Findoctor"><img th:src="@{/common/img/logo.png}" alt="" width="163"
                                                                            height="36"></a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-6">
                     <ul id="top_access">
-                        <li><a href="login.html"><i class="pe-7s-user"></i></a></li>
+                        <li><a href="common/login.html"><i class="pe-7s-user"></i></a></li>
                         <li><a href="register-doctor.html"><i class="pe-7s-add-user"></i></a></li>
                     </ul>
                     <nav id="menu" class="main-menu">
@@ -110,8 +105,8 @@
                             <li>
                                 <span><a href="#0">Extra Elements</a></span>
                                 <ul>
-                                    <li><a href="booking-page.html">Booking page</a></li>
-                                    <li><a href="confirm.html">Confirm page</a></li>
+                                    <li><a href="booking.html">Booking page</a></li>
+                                    <li><a href="confirmation.html">Confirm page</a></li>
                                     <li><a href="faq.html">Faq page</a></li>
                                     <li><a href="coming_soon/index.html">Coming soon</a></li>
                                     <li>
@@ -147,8 +142,8 @@
             <div class="row">
                 <div class="col-lg-3 col-md-12">
                     <p>
-                        <a href="index.html" title="Findoctor">
-                            <img src="common/img/logo.png" alt="" width="163" height="36" class="img-fluid">
+                        <a href="common/index.html" title="Findoctor">
+                            <img th:src="@{/common/img/logo.png}" alt="" width="163" height="36" class="img-fluid">
                         </a>
                     </p>
                 </div>
@@ -157,8 +152,8 @@
                     <ul class="links">
                         <li><a href="#0">About us</a></li>
                         <li><a href="#0">FAQ</a></li>
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="register.html">Register</a></li>
+                        <li><a href="common/login.html">Login</a></li>
+                        <li><a href="common/register.html">Register</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-4">
@@ -212,9 +207,9 @@
 <!-- Back to top button -->
 
 <!-- COMMON SCRIPTS -->
-<script src="common/js/jquery-3.6.3.min.js"></script>
-<script src="common/js/common_scripts.min.js"></script>
-<script src="common/js/functions.js"></script>
+<script th:src="@{/common/js/jquery-3.6.3.min.js}"></script>
+<script th:src="@{/common/js/common_scripts.min.js}"></script>
+<script th:src="@{/common/js/functions.js}"></script>
 
 </body>
 </html>
