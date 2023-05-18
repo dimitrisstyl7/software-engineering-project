@@ -9,7 +9,6 @@ import static com.unipi.findoctor.constants.ControllerConstants.*;
 @NoArgsConstructor
 @Controller
 public class VisitorController {
-
     @GetMapping({ROOT_URL, INDEX_URL})
     public String indexPage() {
         return INDEX_FILE;
@@ -25,18 +24,13 @@ public class VisitorController {
         return BOOKING_FILE;
     }
 
-    @GetMapping(CONFIRM_URL)
-    public String confirmPage() {
-        return CONFIRM_FILE;
-    }
-
     @GetMapping(CONTACT_US_URL)
     public String contactUsPage() {
         return CONTACT_US_FILE;
     }
 
     @GetMapping(DETAIL_PAGE_URL)
-    public String detailPage1() {
+    public String detailPage() {
         return DETAIL_PAGE_FILE;
     }
 
@@ -63,11 +57,6 @@ public class VisitorController {
     @GetMapping(ICON_PACK_3_URL)
     public String iconPack3Page() {
         return ICON_PACK_3_FILE;
-    }
-
-    @GetMapping(REGISTER_2_URL)
-    public String register2Page() {
-        return REGISTER_2_FILE;
     }
 
     @GetMapping(SUBMIT_REVIEW_URL)

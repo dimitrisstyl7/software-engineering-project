@@ -9,49 +9,48 @@ import static com.unipi.findoctor.constants.ControllerConstants.*;
 @NoArgsConstructor
 @Controller
 public class AdminController {
-
-    @GetMapping(ADMIN_INDEX_URL)
-    public String adminIndex() {
+    @GetMapping({ADMIN_ROOT_URL, ADMIN_INDEX_URL})
+    public String adminIndexPage() {
         return ADMIN_INDEX_FILE;
     }
 
     @GetMapping(ADMIN_ADD_LISTING_URL)
-    public String adminAddListing() {
+    public String adminAddListingPage() {
         return ADMIN_ADD_LISTING_FILE;
     }
 
     @GetMapping(ADMIN_BOOKINGS_URL)
-    public String adminBookings() {
+    public String adminBookingsPage() {
         return ADMIN_BOOKINGS_FILE;
     }
 
     @GetMapping(ADMIN_CHARTS_URL)
-    public String adminCharts() {
+    public String adminChartsPage() {
         return ADMIN_CHARTS_FILE;
     }
 
     @GetMapping(ADMIN_DOCTOR_PROFILE_URL)
-    public String adminDoctorProfile() {
+    public String adminDoctorProfilePage() {
         return ADMIN_DOCTOR_PROFILE_FILE;
     }
 
     @GetMapping(ADMIN_MESSAGES_URL)
-    public String adminMessages() {
+    public String adminMessagesPage() {
         return ADMIN_MESSAGES_FILE;
     }
 
     @GetMapping(ADMIN_PATIENT_PROFILE_URL)
-    public String adminPatientProfile() {
+    public String adminPatientProfilePage() {
         return ADMIN_PATIENT_PROFILE_FILE;
     }
 
     @GetMapping(ADMIN_REVIEWS_URL)
-    public String adminReviews() {
+    public String adminReviewsPage() {
         return ADMIN_REVIEWS_FILE;
     }
 
     @GetMapping(ADMIN_TABLES_URL)
-    public String adminTables() {
+    public String adminTablesPage() {
         return ADMIN_TABLES_FILE;
     }
 }
