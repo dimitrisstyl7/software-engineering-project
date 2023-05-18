@@ -2,14 +2,11 @@ package com.unipi.findoctor.constants;
 
 public class ControllerConstants {
 
-    /* COMMON URL */
+    /* VISITOR URL */
     public static final String ROOT_URL = "/";
     public static final String INDEX_URL = "/index";
-    public static final String LOGIN_URL = "/login";
-    public static final String REGISTER_URL = "/register";
     public static final String ABOUT_URL = "/about";
     public static final String BOOKING_URL = "/booking";
-    public static final String CONFIRM_URL = "/confirmation";
     public static final String CONTACT_US_URL = "/contact-us";
     public static final String DETAIL_PAGE_URL = "/detail-page";
     public static final String FAQ_URL = "/faq";
@@ -17,16 +14,25 @@ public class ControllerConstants {
     public static final String ICON_PACK_1_URL = "/icon-pack-1";
     public static final String ICON_PACK_2_URL = "/icon-pack-2";
     public static final String ICON_PACK_3_URL = "/icon-pack-3";
-    public static final String REGISTER_2_URL = "/register-2";
     public static final String SUBMIT_REVIEW_URL = "/submit-review";
-    /* END OF COMMON URL */
+    /* END OF VISITOR URL */
 
 
     /* PATIENT URL */
+    public static final String PATIENT_ROOT_URL = "patient/";
+    public static final String PATIENT_INDEX_URL = "patient/index";
+    public static final String PATIENT_ABOUT_URL = "patient/about";
+    public static final String PATIENT_BOOKING_URL = "patient/booking";
+    public static final String PATIENT_CONTACT_US_URL = "patient/contact-us";
+    public static final String PATIENT_DETAIL_PAGE_URL = "patient/detail-page";
+    public static final String PATIENT_FAQ_URL = "patient/faq";
+    public static final String PATIENT_GRID_LIST_URL = "patient/grid-list";
+    public static final String PATIENT_SUBMIT_REVIEW_URL = "patient/submit-review";
     /* END OF PATIENT URL */
 
 
     /* DOCTOR URL */
+public static final String DOCTOR_ROOT_URL = "doctor/";
     public static final String DOCTOR_INDEX_URL = "doctor/index";
     public static final String DOCTOR_ADD_LISTING_URL = "doctor/add-listing";
     public static final String DOCTOR_BOOKINGS_URL = "doctor/bookings";
@@ -40,10 +46,15 @@ public class ControllerConstants {
 
 
     /* AUTH URL */
+    public static final String LOGIN_URL = "/login";
+    public static final String REGISTER_URL = "/register";
+    public static final String REGISTER_2_URL = "/register-2";
+    public static final String CONFIRMATION_URL = "/confirmation";
     /* END OF AUTH URL */
 
 
     /* ADMIN URL */
+    public static final String ADMIN_ROOT_URL = "/admin/";
     public static final String ADMIN_INDEX_URL = "/admin/index";
     public static final String ADMIN_ADD_LISTING_URL = "/admin/add-listing";
     public static final String ADMIN_BOOKINGS_URL = "/admin/bookings";
@@ -57,26 +68,30 @@ public class ControllerConstants {
 
 /* -------------------------------------------------------------------------- */
 
-    /* COMMON HTML FILE NAMES */
-    public static final String INDEX_FILE = "common/index";
-    public static final String LOGIN_FILE = "common/login";
-    public static final String REGISTER_FILE = "common/register";
-    public static final String ABOUT_FILE = "common/about";
-    public static final String BOOKING_FILE = "common/booking";
-    public static final String CONFIRM_FILE = "common/confirmation";
-    public static final String CONTACT_US_FILE = "common/contact-us";
-    public static final String DETAIL_PAGE_FILE = "common/detail-page";
-    public static final String FAQ_FILE = "common/faq";
-    public static final String GRID_LIST_FILE = "common/grid-list";
-    public static final String ICON_PACK_1_FILE = "common/icon-pack-1";
-    public static final String ICON_PACK_2_FILE = "common/icon-pack-2";
-    public static final String ICON_PACK_3_FILE = "common/icon-pack-3";
-    public static final String REGISTER_2_FILE = "common/register-2";
-    public static final String SUBMIT_REVIEW_FILE = "common/submit-review";
-    /* END OF COMMON HTML FILE NAMES */
+    /* VISITOR HTML FILE NAMES */
+    public static final String INDEX_FILE = "visitor/index";
+    public static final String ABOUT_FILE = "visitor/about";
+    public static final String BOOKING_FILE = "visitor/booking";
+    public static final String CONTACT_US_FILE = "visitor/contact-us";
+    public static final String DETAIL_PAGE_FILE = "visitor/detail-page";
+    public static final String FAQ_FILE = "visitor/faq";
+    public static final String GRID_LIST_FILE = "visitor/grid-list";
+    public static final String ICON_PACK_1_FILE = "visitor/icon-pack-1";
+    public static final String ICON_PACK_2_FILE = "visitor/icon-pack-2";
+    public static final String ICON_PACK_3_FILE = "visitor/icon-pack-3";
+    public static final String SUBMIT_REVIEW_FILE = "visitor/submit-review";
+    /* END OF VISITOR HTML FILE NAMES */
 
 
     /* PATIENT HTML FILE NAMES */
+    public static final String PATIENT_INDEX_FILE = "patient/index";
+    public static final String PATIENT_ABOUT_FILE = "patient/about";
+    public static final String PATIENT_BOOKING_FILE = "patient/booking";
+    public static final String PATIENT_CONTACT_US_FILE = "patient/contact-us";
+    public static final String PATIENT_DETAIL_PAGE_FILE = "patient/detail-page";
+    public static final String PATIENT_FAQ_FILE = "patient/faq";
+    public static final String PATIENT_GRID_LIST_FILE = "patient/grid-list";
+    public static final String PATIENT_SUBMIT_REVIEW_FILE = "patient/submit-review";
     /* END OF PATIENT HTML FILE NAMES */
 
 
@@ -94,6 +109,10 @@ public class ControllerConstants {
 
 
     /* AUTH HTML FILE NAMES */
+    public static final String LOGIN_FILE = "auth/login";
+    public static final String REGISTER_FILE = "auth/register";
+    public static final String REGISTER_2_FILE = "auth/register-2";
+    public static final String CONFIRMATION_FILE = "/confirmation";
     /* END OF AUTH HTML FILE NAMES */
 
 
