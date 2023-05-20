@@ -45,15 +45,15 @@
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <div id="logo">
-                        <a href="visitor/index.html" title="Findoctor"><img th:src="@{/visitor-patient/img/logo.png}"
-                                                                            alt="" width="163"
-                                                                            height="36"></a>
+                        <a href="#nothing" title="Findoctor"><img th:src="@{/visitor-patient/img/logo.png}"
+                                                                  alt="" width="163"
+                                                                  height="36"></a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-6">
                     <ul id="top_access">
-                        <li><a href="visitor/login.html"><i class="pe-7s-user"></i></a></li>
-                        <li><a href="register-doctor.html"><i class="pe-7s-add-user"></i></a></li>
+                        <li><a th:href="@{/login}"><i class="pe-7s-user"></i></a></li>
+                        <li><a th:href="@{/register}"><i class="pe-7s-add-user"></i></a></li>
                     </ul>
                     <nav id="menu" class="main-menu">
                         <ul>
@@ -154,8 +154,8 @@
                     <ul class="links">
                         <li><a href="#0">About us</a></li>
                         <li><a href="#0">FAQ</a></li>
-                        <li><a href="visitor/login.html">Login</a></li>
-                        <li><a href="visitor/register.html">Register</a></li>
+                        <li><a th:href="@{/login}">Login</a></li>
+                        <li><a th:href="@{/register}">Register</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-4">
@@ -164,7 +164,7 @@
                         <li><a href="#0">Doctors</a></li>
                         <!--<li><a href="#0">Clinics</a></li>
                         <li><a href="#0">Specialization</a></li>-->
-                        <li><a href="#0">Join as a Doctor</a></li>
+                        <li><a th:href="@{/register}">Join as a Doctor</a></li>
                         <li><a href="#0">Download App</a></li>
                     </ul>
                 </div>

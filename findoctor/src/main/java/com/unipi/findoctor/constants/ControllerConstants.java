@@ -48,7 +48,6 @@ public static final String DOCTOR_ROOT_URL = "doctor/";
     /* AUTH URL */
     public static final String LOGIN_URL = "/login";
     public static final String REGISTER_URL = "/register";
-    public static final String REGISTER_2_URL = "/register-2";
     public static final String CONFIRMATION_URL = "/confirmation";
     /* END OF AUTH URL */
 
@@ -111,7 +110,6 @@ public static final String DOCTOR_ROOT_URL = "doctor/";
     /* AUTH HTML FILE NAMES */
     public static final String LOGIN_FILE = "auth/login";
     public static final String REGISTER_FILE = "auth/register";
-    public static final String REGISTER_2_FILE = "auth/register-2";
     public static final String CONFIRMATION_FILE = "/confirmation";
     /* END OF AUTH HTML FILE NAMES */
 
