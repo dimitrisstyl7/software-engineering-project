@@ -2,7 +2,7 @@
 <html lang="en, gr"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{visitor-patient_layout}">
+      layout:decorate="~{visitor_layout}">
 <head>
     <title>Register</title>
 </head>
@@ -247,12 +247,8 @@
                                            id="submit_btn">
                                 </div>
                             </div>
-                            <p class="text-center"><small>Has voluptua vivendum accusamus cu. Ut per
-                                assueverit
-                                temporibus dissentiet. Eum no atqui putant democritum, velit nusquam
-                                sententiae
-                                vis
-                                no.</small></p>
+                            <p class="text-center link_bright">Have an account already? <a th:href="@{/login}"><strong>Log
+                                in</strong></a></p>
                         </form>
                     </div>
                 </div>
