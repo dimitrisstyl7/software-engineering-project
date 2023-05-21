@@ -1,7 +1,9 @@
 package com.unipi.findoctor.controllers;
 
+import com.unipi.findoctor.dto.RegistrationDto;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import static com.unipi.findoctor.constants.ControllerConstants.*;
@@ -15,7 +17,8 @@ public class AuthController {
     }
 
     @GetMapping(REGISTER_URL)
-    public String registerPage() {
+    public String registerPage(Model model) {
+        model.addAttribute("user", new RegistrationDto());
         return REGISTER_FILE;
     }
 
