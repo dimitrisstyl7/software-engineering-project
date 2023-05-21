@@ -26,7 +26,7 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor")
     private List<Rating> ratings;
 
-    private String speciality;
+    private String specialization;
     private String businessPhone;
     private String city;
     private String address;
