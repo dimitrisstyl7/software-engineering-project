@@ -27,10 +27,7 @@ public class RegisteredUser {
     private String personalPhone;
 
     @CreationTimestamp
-    private LocalDateTime createdOn;
-
-    @UpdateTimestamp
-    private LocalDateTime updatedOn;
+    private LocalDateTime registeredOn;
 
     @OneToOne(mappedBy = "registeredUser")
     private Doctor doctor;
