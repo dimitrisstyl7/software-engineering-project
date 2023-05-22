@@ -9,7 +9,7 @@ import static com.unipi.findoctor.constants.ControllerConstants.*;
 @NoArgsConstructor
 @Controller
 public class AdminController {
-    @GetMapping({ADMIN_ROOT_URL, ADMIN_INDEX_URL})
+    @GetMapping({ADMIN_ROOT_URL, ADMIN_INDEX_URL_1, ADMIN_INDEX_URL_2})
     public String adminIndexPage() {
         return ADMIN_INDEX_FILE;
     }
