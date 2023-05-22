@@ -13,7 +13,7 @@
                 <h1>Registration Form</h1>
                 <div class="row justify-content-center">
                     <div class="col-md-5">
-                        <form onsubmit="checkPassword()">
+                        <form method="post" th:action="@{/register}" th:object="${user}" onsubmit="checkPassword()">
                             <div class="box_form">
                                 <div class="form-group">
                                     <div class="form-check form-switch">
@@ -23,13 +23,21 @@
                                             doctor</label>
                                     </div>
                                 </div>
-                                <div id="doctorRegistrationBlock" style="display: none;">
-                                    <!-- HTML code for doctor registration -->
+                                <div id="RegistrationBlock">
+                                    <!-- HTML code for registration -->
                                     <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
+                                        <div class="col-lg-12" id="afm" style="display: none;">
+                                            <div class="form-group" id="div_doctor_afm">
                                                 <input type="tel" pattern="^[0-9]{9}$" class="form-control"
-                                                       placeholder="AFM" name="doctor_afm" id="doctor_afm" required>
+                                                       placeholder="AFM" name="doctor_afm" id="doctor_afm"
+                                                       th:field="*{afm}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12" id="amka">
+                                            <div class="form-group">
+                                                <input type="tel" pattern="^[0-9]{11}$" class="form-control"
+                                                       placeholder="AMKA" name="patient_amka" id="patient_amka"
+                                                       th:field="*{amka}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -38,13 +46,13 @@
                                         <div class="col-md-6 ">
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Name"
-                                                       name="doctor_name" id="doctor_name" required>
+                                                       th:field="*{name}" name="name" id="name" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Surname"
-                                                       name="doctor_surname" id="doctor_surname" required>
+                                                       th:field="*{surname}" name="surname" id="surname" required>
                                             </div>
                                         </div>
                                     </div>
@@ -53,60 +61,60 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <input type="email" class="form-control" placeholder="Email address"
-                                                       name="doctor_email" id="doctor_email" required>
+                                                       th:field="*{email}" name="email" id="email" required>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- /row -->
                                     <div class="row">
-                                        <div class="col-md-7">
+                                        <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control"
-                                                       placeholder="Specialization" name="doctor_specialization"
-                                                       id="doctor_specialization" required>
+                                                <input type="tel" pattern="^[0-9]{10}$" class="form-control"
+                                                       placeholder="Personal phone" name="personal_phone"
+                                                       th:field="*{personalPhone}" id="personal_phone" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="form-group">
                                                     <input type="date" class="form-control"
-                                                           placeholder="Date of birth"
-                                                           name="doctor_date_of_birth"
-                                                           id="doctor_date_of_birth" required>
+                                                           placeholder="Date of birth" name="doctor_date_of_birth"
+                                                           th:field="*{dateOfBirth}" id="date_of_birth" required>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- /row -->
                                     <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <input type="tel" pattern="^[0-9]{10}$" class="form-control"
-                                                       placeholder="Personal phone" name="doctor_personal_phone"
-                                                       id="doctor_personal_phone" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-6" id="businessPhone" style="display: none;">
                                             <div class="form-group">
                                                 <input type="tel" pattern="^[0-9]{10}$" class="form-control"
                                                        placeholder="Business phone" name="doctor_business_phone"
-                                                       id="doctor_business_phone" required>
+                                                       th:field="*{businessPhone}" id="doctor_business_phone" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" id="specialization" style="display: none;">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control"
+                                                       placeholder="Specialization" name="doctor_specialization"
+                                                       th:field="*{specialization}" id="doctor_specialization" required>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- /row -->
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-6" id="address" style="display: none;">
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Address"
-                                                       name="doctor_office_address" id="doctor_office_address" required>
+                                                       name="doctor_office_address" id="doctor_office_address"
+                                                       th:field="*{address}" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6" id="city" style="display: none;">
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="City"
                                                        name="doctor_office_city" id="doctor_office_city"
-                                                       required>
+                                                       th:field="*{city}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -115,8 +123,8 @@
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <input type="tel" class="form-control"
-                                                       placeholder="Password"
-                                                       name="doctor_password" id="doctor_password" required>
+                                                       placeholder="Password" name="password" id="password"
+                                                       th:field="*{password}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -125,96 +133,7 @@
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <input type="tel" class="form-control" placeholder="Confirm password"
-                                                       name="doctor_confirm_password" id="doctor_confirm_password"
-                                                       required oninput="checkPassword()">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /row -->
-                                </div>
-
-                                <div id="patientRegistrationBlock" style="display: block;">
-                                    <!-- HTML code for patient registration -->
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <input type="tel" pattern="^[0-9]{11}$" class="form-control"
-                                                       placeholder="AMKA"
-                                                       name="patient_amka" id="patient_amka"
-                                                       required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /row -->
-                                    <div class="row">
-                                        <div class="col-md-6 ">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Name"
-                                                       name="patient_name" id="patient_name"
-                                                       required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control"
-                                                       placeholder="Surname"
-                                                       name="patient_surname"
-                                                       id="patient_surname"
-                                                       required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /row -->
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <input type="email" class="form-control"
-                                                       placeholder="Email address"
-                                                       name="patient_email" id="patient_email"
-                                                       required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /row -->
-                                    <div class="row">
-                                        <div class="col-lg-7">
-                                            <div class="form-group">
-                                                <input type="tel" pattern="^[0-9]{10}$" class="form-control"
-                                                       placeholder="Personal phone"
-                                                       name="patient_personal_phone"
-                                                       id="patient_personal_phone" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <div class="form-group">
-                                                    <input type="date" class="form-control"
-                                                           placeholder="Date of birth"
-                                                           name="patient_date_of_birth"
-                                                           id="patient_date_of_birth" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /row -->
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <input type="tel" class="form-control"
-                                                       placeholder="Password"
-                                                       name="patient_password" id="patient_password"
-                                                       required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /row -->
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <input type="tel" class="form-control"
-                                                       placeholder="Confirm password"
-                                                       name="patient_confirm_password"
-                                                       id="patient_confirm_password"
+                                                       name="confirm_password" id="confirm_password"
                                                        required oninput="checkPassword()">
                                             </div>
                                         </div>
@@ -250,36 +169,40 @@
     <script th:inline="javascript">
         function toggleRegistrationBlock() {
             const checkbox = document.getElementById("flexSwitchCheckDefault"); // true if doctor, false if patient
-            const doctorRegistrationBlock = document.getElementById("doctorRegistrationBlock");
-            const patientRegistrationBlock = document.getElementById("patientRegistrationBlock");
+            const amka = document.getElementById("amka");
+            const afm = document.getElementById("afm");
+            const specialization = document.getElementById("specialization");
+            const businessPhone = document.getElementById("businessPhone");
+            const address = document.getElementById("address");
+            const city = document.getElementById("city");
 
             if (checkbox.checked) {
-                doctorRegistrationBlock.style.display = "block";
-                patientRegistrationBlock.style.display = "none";
+                amka.style.display = "none";
+                afm.style.display = "block";
+                specialization.style.display = "block";
+                businessPhone.style.display = "block";
+                address.style.display = "block";
+                city.style.display = "block";
             } else {
-                doctorRegistrationBlock.style.display = "none";
-                patientRegistrationBlock.style.display = "block";
+                amka.style.display = "block";
+                afm.style.display = "none";
+                specialization.style.display = "none";
+                businessPhone.style.display = "none";
+                address.style.display = "none";
+                city.style.display = "none";
             }
         }
 
         function checkPassword() {
-            const patient_password = document.getElementById("patient_password");
-            const patient_confirmPassword = document.getElementById("patient_confirm_password");
-            const doctor_password = document.getElementById("doctor_password");
-            const doctor_confirmPassword = document.getElementById("doctor_confirm_password");
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("confirm_password");
             const checkbox = document.getElementById("flexSwitchCheckDefault"); // true if doctor, false if patient
 
             if (checkbox.checked) {
-                if (doctor_password.value !== doctor_confirmPassword.value) {
-                    doctor_confirmPassword.setCustomValidity("Passwords don't match");
+                if (password.value !== confirmPassword.value) {
+                    confirmPassword.setCustomValidity("Passwords don't match");
                 } else {
-                    doctor_confirmPassword.setCustomValidity('');
-                }
-            } else {
-                if (patient_password.value !== patient_confirmPassword.value) {
-                    patient_confirmPassword.setCustomValidity("Passwords don't match");
-                } else {
-                    patient_confirmPassword.setCustomValidity('');
+                    confirmPassword.setCustomValidity('');
                 }
             }
         }
