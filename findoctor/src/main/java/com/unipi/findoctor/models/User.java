@@ -12,8 +12,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "user_tbl")
 public class User {
     @Id
-    private String username;
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true)
     private Long id;
