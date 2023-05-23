@@ -13,12 +13,13 @@
                 <h1>Registration Form</h1>
                 <div class="row justify-content-center">
                     <div class="col-md-5">
-                        <form method="post" th:action="@{/register}" th:object="${user}" onsubmit="checkPassword()">
+                        <form method="post" th:action="@{/register}" th:object="${user}" onsubmit="checkFields()">
                             <div class="box_form">
                                 <div class="form-group">
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" role="switch"
-                                               id="flexSwitchCheckDefault" onchange="toggleRegistrationBlock()">
+                                               name="isDoctor" id="flexSwitchCheckDefault"
+                                               onchange="toggleRegistrationBlock()">
                                         <label class="form-check-label" for="flexSwitchCheckDefault">Register as a
                                             doctor</label>
                                     </div>
@@ -30,14 +31,14 @@
                                             <div class="form-group" id="div_doctor_afm">
                                                 <input type="tel" pattern="^[0-9]{9}$" class="form-control"
                                                        placeholder="AFM" name="doctor_afm" id="doctor_afm"
-                                                       th:field="*{afm}" required>
+                                                       th:field="*{afm}">
                                             </div>
                                         </div>
                                         <div class="col-lg-12" id="amka">
                                             <div class="form-group">
                                                 <input type="tel" pattern="^[0-9]{11}$" class="form-control"
                                                        placeholder="AMKA" name="patient_amka" id="patient_amka"
-                                                       th:field="*{amka}" required>
+                                                       th:field="*{amka}">
                                             </div>
                                         </div>
                                     </div>
@@ -79,7 +80,7 @@
                                                 <div class="form-group">
                                                     <input type="date" class="form-control"
                                                            placeholder="Date of birth" name="doctor_date_of_birth"
-                                                           th:field="*{dateOfBirth}" id="date_of_birth" required>
+                                                           th:field="*{dateOfBirth}" id="date_of_birth">
                                                 </div>
                                             </div>
                                         </div>
@@ -90,14 +91,14 @@
                                             <div class="form-group">
                                                 <input type="tel" pattern="^[0-9]{10}$" class="form-control"
                                                        placeholder="Business phone" name="doctor_business_phone"
-                                                       th:field="*{businessPhone}" id="doctor_business_phone" required>
+                                                       th:field="*{businessPhone}" id="doctor_business_phone">
                                             </div>
                                         </div>
                                         <div class="col-md-6" id="specialization" style="display: none;">
                                             <div class="form-group">
                                                 <input type="text" class="form-control"
                                                        placeholder="Specialization" name="doctor_specialization"
-                                                       th:field="*{specialization}" id="doctor_specialization" required>
+                                                       th:field="*{specialization}" id="doctor_specialization">
                                             </div>
                                         </div>
                                     </div>
@@ -107,14 +108,14 @@
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Address"
                                                        name="doctor_office_address" id="doctor_office_address"
-                                                       th:field="*{address}" required>
+                                                       th:field="*{address}">
                                             </div>
                                         </div>
                                         <div class="col-md-6" id="city" style="display: none;">
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="City"
                                                        name="doctor_office_city" id="doctor_office_city"
-                                                       th:field="*{city}" required>
+                                                       th:field="*{city}">
                                             </div>
                                         </div>
                                     </div>
@@ -211,6 +212,41 @@
             const termsCheckBox = document.getElementById("terms_check_box");
             const submitBtn = document.getElementById("submit_btn");
             submitBtn.hidden = !termsCheckBox.checked;
+        }
+
+        function checkFields() {
+            const afm = document.getElementById("afm");
+            const amka = document.getElementById("amka");
+            const specialization = document.getElementById("specialization");
+            const businessPhone = document.getElementById("businessPhone");
+            const address = document.getElementById("address");
+            const city = document.getElementById("city");
+            const checkbox = document.getElementById("flexSwitchCheckDefault"); // true if doctor, false if patient
+
+            if (checkbox.checked) {
+                if (afm.value === "" || specialization.value === "" || businessPhone.value === "" || address.value === "" || city.value === "") {
+                    alert("Please fill in all the fields");
+                    return false;
+                }
+                if (afm.value.length !== 9) {
+                    alert("AFM must be 9 digits long");
+                    return false;
+                }
+                if (businessPhone.value.length !== 10) {
+                    alert("Business phone must be 10 digits long");
+                    return false;
+                }
+            } else {
+                if (amka.value === "") {
+                    alert("Please fill in all the fields");
+                    return false;
+                }
+                if (amka.value.length !== 11) {
+                    alert("AMKA must be 11 digits long");
+                    return false;
+                }
+            }
+            return true;
         }
     </script>
     <!-- /SCRIPT -->
