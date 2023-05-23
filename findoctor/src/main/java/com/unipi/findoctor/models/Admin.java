@@ -13,8 +13,6 @@ import lombok.NoArgsConstructor;
 public class Admin {
     @Id
     @OneToOne
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(referencedColumnName = "username")
     private User user;
-
-    private String contactPhone;
 }
