@@ -12,12 +12,13 @@ import lombok.NoArgsConstructor;
 @Table(name = "user_tbl")
 public class User {
     @Id
+    private String email;
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true)
     private Long id;
 
     private String password;
-    private String email;
     private String userType;
 
     @OneToOne(mappedBy = "user")
