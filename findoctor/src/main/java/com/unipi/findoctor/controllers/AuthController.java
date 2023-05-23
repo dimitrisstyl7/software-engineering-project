@@ -29,8 +29,9 @@ public class AuthController {
 
     @PostMapping(REGISTER_URL)
     public String registerSave(@Valid @ModelAttribute("user") RegistrationDto user,
-                               @RequestParam("terms_check_box") boolean isDoctor, BindingResult result, Model model) {
-        // TODO: if flag is checked, means that user is a doctor.
+                               @RequestParam("isDoctor") boolean isDoctor, BindingResult result, Model model) {
+        System.out.println("isDoctor: " + isDoctor);
+        System.out.println("user: " + user);
         return REGISTER_FILE;
     }
 
