@@ -166,7 +166,7 @@ body {
   font-size: 14px;
   font-size: 0.875rem;
   line-height: 1.4;
-  font-family: "Poppins", Helvetica, sans-serif;
+  font-family: "Ubuntu", Helvetica, sans-serif;
   color: #555;
 }
 
@@ -238,7 +238,7 @@ label {
   }
 }
 .main_title h2 {
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: -1px;
   font-size: 36px;
   margin: 0;
@@ -917,7 +917,7 @@ ul#additional_links li:after {
 .hero_home .content h3 {
   margin: 0 0 0 0;
   font-size: 60px;
-  font-size: 3.75rem;
+  font-size: 3rem;
   font-weight: 700;
   text-transform: uppercase;
   color: #fff;
