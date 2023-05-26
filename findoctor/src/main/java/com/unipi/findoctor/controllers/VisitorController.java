@@ -15,8 +15,8 @@ public class VisitorController {
 
     @GetMapping({ROOT_URL, INDEX_URL})
     public String indexPage() {
-        patientService.addPatient();
-        patientService.getPatient("1");
+        /*patientService.addPatient();
+        patientService.getPatient("1");*/
         return INDEX_FILE;
     }
 
