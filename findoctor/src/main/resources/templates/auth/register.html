@@ -19,7 +19,7 @@
                                 <div class="form-group">
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" role="switch"
-                                               name="isDoctor" id="flexSwitchCheckDefault"
+                                               name="isDoctor" id="flexSwitchCheckDefault" th:field="*{isDoctor}"
                                                onchange="toggleRegistrationBlock()">
                                         <label class="form-check-label" for="flexSwitchCheckDefault">Register as a
                                             doctor</label>
@@ -196,7 +196,7 @@
                                                 <label style="color:red" for="confirm_password"
                                                        id="confirm_password_label"
                                                        hidden></label><br>
-                                                <input type="tel"
+                                                <input type="password"
                                                        class="form-control"
                                                        placeholder="Confirm password"
                                                        name="confirm_password"
