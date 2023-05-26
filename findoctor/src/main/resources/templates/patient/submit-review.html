@@ -3,16 +3,16 @@
       layout:decorate="~{patient_layout}">
 
 <head>
-    <title>Log in page</title>
+    <title>Submit review</title>
 </head>
 
 <main layout:fragment="main">
     <div id="breadcrumb">
         <div class="container">
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Category</a></li>
-                <li>Page active</li>
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a href="#">Details</a></li>
+                <li>Submit a review</li>
             </ul>
         </div>
     </div>
@@ -22,7 +22,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="box_general_3 write_review">
-                    <h1>Write a review for Dr. Julia Smooths</h1>
+                    <h1 th:text="${'Write a review for ' + doctorFullName}"></h1>
                     <div class="rating_submit">
                         <div class="form-group">
                             <label class="d-block">Overall rating</label>
@@ -42,18 +42,9 @@
                     </div>
                     <!-- /rating_submit -->
                     <div class="form-group">
-                        <label>Title of your review</label>
-                        <input class="form-control" type="text"
-                               placeholder="If you could say it in one sentence, what would you say?">
-                    </div>
-                    <div class="form-group">
                         <label>Your review</label>
                         <textarea class="form-control" style="height: 180px;"
                                   placeholder="Write your review here ..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Add your photo (optional)</label>
-                        <div class="fileupload"><input type="file" name="fileupload" accept="image/*"></div>
                     </div>
                     <hr>
                     <div class="form-group">
@@ -65,7 +56,7 @@
                             </label>
                         </div>
                     </div>
-                    <a href="#0" class="btn_1">Submit review</a>
+                    <a href="#" class="btn_1">Submit review</a>
                 </div>
             </div>
         </div>

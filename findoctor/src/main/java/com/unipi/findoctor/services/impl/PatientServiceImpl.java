@@ -40,9 +40,9 @@ public class PatientServiceImpl implements PatientService {
     public Patient getPatient(String amka) {
         User user = userService.findByUsername("username2");
         System.out.println(user);
-        Patient patient1 = patientRepository.findByUser_Username(user.getUsername());
+//        Patient patient1 = patientRepository.findByUser_Username(user.getUsername());
         //Patient patient2 = patientRepository.findByAmka(amka);
-        System.out.println(patient1);
+//        System.out.println(patient1);
         //System.out.println(patient2);
         System.out.println();
         return null;

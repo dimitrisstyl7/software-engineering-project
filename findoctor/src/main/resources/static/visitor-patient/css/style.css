@@ -1900,6 +1900,7 @@ iframe {
 }
 .box_list ul {
   width: 100%;
+  height: 60px;
   padding: 20px 15px;
   border-top: 1px solid #ededed;
 }
@@ -2893,7 +2894,6 @@ ul.list_edu li strong {
 .reviews-container .review-box {
   position: relative;
   margin-bottom: 25px;
-  padding-left: 100px;
   min-height: 100px;
 }
 @media (max-width: 767px) {

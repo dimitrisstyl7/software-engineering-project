@@ -11,9 +11,9 @@
     <div id="breadcrumb">
         <div class="container">
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Category</a></li>
-                <li>Page active</li>
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/list}">List</a></li>
+                <li th:text="${doctorDetails.getFullName()}"></li>
             </ul>
         </div>
     </div>
@@ -27,17 +27,11 @@
                     <figure>
                         <img src="http://via.placeholder.com/565x565.jpg" alt="" class="img-fluid">
                     </figure>
-                    <small>Primary care - Internist</small>
-                    <h1>DR. Julia Jhones</h1>
+                    <small th:text="${doctorDetails.getSpecialization()}"></small>
+                    <h1 th:text="${doctorDetails.getFullName()}"></h1>
                     <span class="rating">
-					<i class="icon_star voted"></i>
-					<i class="icon_star voted"></i>
-					<i class="icon_star voted"></i>
-					<i class="icon_star voted"></i>
-					<i class="icon_star"></i>
-					<small>(145)</small>
-					<a href="badges.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Badge Level"
-                       class="badge_list_1"><img src="img/badges/badge_1.svg" width="15" height="15" alt=""></a>
+					<i th:each="star : ${#numbers.sequence(1, 5)}" th:class="${doctorDetails.getAverageRating() >= star} ? 'icon_star voted' : 'icon_star'"></i>
+					<small th:text="${'(' + doctorDetails.getRatings().size() + ')'}"></small>
 				</span>
                     <ul class="statistic">
                         <li>854 Views</li>
@@ -45,15 +39,12 @@
                     </ul>
                     <ul class="contacts">
                         <li>
-                            <h6>Address</h6>859 60th, Brooklyn, NY, 11220
+                            <h6>Address</h6><span th:text="${doctorDetails.getAddress() + ', ' + doctorDetails.getCity()}"></span>
                         </li>
                         <li>
-                            <h6>Phone</h6><a href="tel://000434323342">+00043 4323342</a>
+                            <h6>Phone</h6><span th:text="${doctorDetails.getBusinessPhone()}"></span>
                         </li>
                     </ul>
-                    <div class="text-center"><a
-                            href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
-                            class="btn_1 outline" target="_blank"><i class="icon_pin"></i> View on map</a></div>
                 </div>
             </aside>
             <!-- /asdide -->
@@ -350,21 +341,19 @@
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <div id="review_summary">
-                                            <strong>4.7</strong>
+                                            <strong th:text="${doctorDetails.getAverageRating()}">4.7</strong>
                                             <div class="rating">
-                                                <i class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                    class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                    class="icon_star"></i>
+                                                <i class="icon_star voted"></i>
                                             </div>
-                                            <small>Based on 4 reviews</small>
+                                            <small th:text="${'Based on ' + doctorDetails.getRatings().size() + ' reviews'}"></small>
                                         </div>
                                     </div>
                                     <div class="col-lg-9">
                                         <div class="row">
                                             <div class="col-lg-10 col-9">
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: 90%"
-                                                         aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar" role="progressbar" th:style="${'width: '+ doctorDetails.ratingValuePercentage(5) +'%'}"
+                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-3"><small><strong>5 stars</strong></small></div>
@@ -373,8 +362,8 @@
                                         <div class="row">
                                             <div class="col-lg-10 col-9">
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: 95%"
-                                                         aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar" role="progressbar" th:style="${'width: '+ doctorDetails.ratingValuePercentage(4) +'%'}"
+                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-3"><small><strong>4 stars</strong></small></div>
@@ -383,8 +372,8 @@
                                         <div class="row">
                                             <div class="col-lg-10 col-9">
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: 60%"
-                                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar" role="progressbar" th:style="${'width: '+ doctorDetails.ratingValuePercentage(3) +'%'}"
+                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-3"><small><strong>3 stars</strong></small></div>
@@ -393,8 +382,8 @@
                                         <div class="row">
                                             <div class="col-lg-10 col-9">
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: 20%"
-                                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar" role="progressbar" th:style="${'width: '+ doctorDetails.ratingValuePercentage(2) +'%'}"
+                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-3"><small><strong>2 stars</strong></small></div>
@@ -403,8 +392,8 @@
                                         <div class="row">
                                             <div class="col-lg-10 col-9">
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: 0"
-                                                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar" role="progressbar" th:style="${'width: '+ doctorDetails.ratingValuePercentage(1) +'%'}"
+                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-3"><small><strong>1 stars</strong></small></div>
@@ -416,76 +405,26 @@
 
                                 <hr>
 
-                                <div class="review-box clearfix">
-                                    <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
-                                    </figure>
+                                <div th:each="rating : ${doctorDetails.getRatings()}" class="review-box clearfix">
                                     <div class="rev-content">
                                         <div class="rating">
-                                            <i class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                class="icon_star"></i>
+                                            <i th:each="star : ${#numbers.sequence(1, 5)}" th:class="${rating.getRatingValue() >= star} ? 'icon_star voted' : 'icon_star'"></i>
                                         </div>
-                                        <div class="rev-info">
-                                            Admin – April 03, 2016:
+                                        <div class="rev-info" th:text="${rating.getPatient().getUser().getUsername() + ' – '  + rating.getDate()}">
                                         </div>
                                         <div class="rev-text">
-                                            <p>
-                                                Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar
-                                                hendrerit. Cum sociis natoque penatibus et magnis dis
+                                            <p th:text="${rating.getReview()}">
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- /review-box -->
 
-                                <div class="review-box clearfix">
-                                    <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
-                                    </figure>
-                                    <div class="rev-content">
-                                        <div class="rating">
-                                            <i class="icon-star voted"></i><i class="icon_star voted"></i><i
-                                                class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                class="icon_star"></i>
-                                        </div>
-                                        <div class="rev-info">
-                                            Ahsan – April 01, 2016
-                                        </div>
-                                        <div class="rev-text">
-                                            <p>
-                                                Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar
-                                                hendrerit. Cum sociis natoque penatibus et magnis dis
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End review-box -->
-
-                                <div class="review-box clearfix">
-                                    <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
-                                    </figure>
-                                    <div class="rev-content">
-                                        <div class="rating">
-                                            <i class="icon-star voted"></i><i class="icon_star voted"></i><i
-                                                class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                class="icon_star"></i>
-                                        </div>
-                                        <div class="rev-info">
-                                            Sara – March 31, 2016
-                                        </div>
-                                        <div class="rev-text">
-                                            <p>
-                                                Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar
-                                                hendrerit. Cum sociis natoque penatibus et magnis dis
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End review-box -->
 
                             </div>
                             <!-- End review-container -->
                             <hr>
-                            <div class="text-end"><a href="submit-review.html" class="btn_1 add_bottom_15">Submit
+                            <div class="text-end"><a th:href="${'/review/new/'+doctorDetails.getUser().getUsername()}" class="btn_1 add_bottom_15">Submit
                                 review</a>
                             </div>
                         </div>

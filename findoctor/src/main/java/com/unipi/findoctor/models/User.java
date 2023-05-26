@@ -1,10 +1,7 @@
 package com.unipi.findoctor.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "user_tbl")
-public class User {
+public class  User {
     @Id
     private String username;
 
