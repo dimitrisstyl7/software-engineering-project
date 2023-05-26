@@ -113,7 +113,7 @@ public class ControllerConstants {
     /* AUTH HTML FILE NAMES */
     public static final String LOGIN_FILE = "auth/login";
     public static final String REGISTER_FILE = "auth/register";
-    public static final String CONFIRMATION_FILE = "/confirmation";
+    public static final String CONFIRMATION_FILE = "auth/confirmation";
     /* END OF AUTH HTML FILE NAMES */
 
 
