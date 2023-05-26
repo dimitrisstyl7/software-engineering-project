@@ -29,8 +29,8 @@ public class AuthController {
 
     @PostMapping(REGISTER_URL)
     public String registerSave(@Valid @ModelAttribute("user") RegistrationDto user,
-                               @RequestParam("isDoctor") boolean isDoctor, BindingResult result, Model model) {
-        System.out.println("isDoctor: " + isDoctor);
+                               /*@RequestParam("isDoctor") boolean isDoctor,*/ BindingResult result, Model model) {
+//        System.out.println("isDoctor: " + isDoctor);
         System.out.println("user: " + user);
         return REGISTER_FILE;
     }
