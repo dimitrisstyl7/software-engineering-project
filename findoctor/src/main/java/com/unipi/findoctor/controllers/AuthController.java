@@ -9,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import static com.unipi.findoctor.constants.ControllerConstants.*;
 
@@ -29,10 +28,9 @@ public class AuthController {
 
     @PostMapping(REGISTER_URL)
     public String registerSave(@Valid @ModelAttribute("user") RegistrationDto user,
-                               /*@RequestParam("isDoctor") boolean isDoctor,*/ BindingResult result, Model model) {
-//        System.out.println("isDoctor: " + isDoctor);
+                               BindingResult result, Model model) {
         System.out.println("user: " + user);
-        return REGISTER_FILE;
+        return "redirect:" + CONFIRMATION_URL;
     }
 
     @GetMapping(CONFIRMATION_URL)
