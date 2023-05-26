@@ -28,26 +28,27 @@
                                 <div id="RegistrationBlock">
                                     <!-- HTML code for registration -->
                                     <div class="row">
-                                        <div class="col-lg-12" id="afm" style="display: none;">
-                                            <div class="form-group" id="div_doctor_afm">
-                                                <label for="doctor_afm" hidden></label><input type="tel"
-                                                                                              pattern="^[0-9]{9}$"
-                                                                                              class="form-control"
-                                                                                              placeholder="AFM"
-                                                                                              name="doctor_afm"
-                                                                                              id="doctor_afm"
-                                                                                              th:field="*{afm}">
+                                        <div class="col-lg-12" id="afm_div" style="display: none;">
+                                            <div class="form-group">
+                                                <label style="color:red" for="doctor_afm" id="afm_label" hidden></label><br>
+                                                <input type="tel"
+                                                       class="form-control"
+                                                       placeholder="AFM"
+                                                       name="doctor_afm"
+                                                       id="doctor_afm"
+                                                       th:field="*{afm}">
                                             </div>
                                         </div>
-                                        <div class="col-lg-12" id="amka">
+                                        <div class="col-lg-12" id="amka_div">
                                             <div class="form-group">
-                                                <label for="patient_amka" hidden></label><input type="tel"
-                                                                                                pattern="^[0-9]{11}$"
-                                                                                                class="form-control"
-                                                                                                placeholder="AMKA"
-                                                                                                name="patient_amka"
-                                                                                                id="patient_amka"
-                                                                                                th:field="*{amka}">
+                                                <label style="color:red" for="patient_amka" id="amka_label"
+                                                       hidden></label><br>
+                                                <input type="tel"
+                                                       class="form-control"
+                                                       placeholder="AMKA"
+                                                       name="patient_amka"
+                                                       id="patient_amka"
+                                                       th:field="*{amka}">
                                             </div>
                                         </div>
                                     </div>
@@ -55,20 +56,22 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="name" hidden></label><input type="text" class="form-control"
-                                                                                        placeholder="Name"
-                                                                                        th:field="*{name}" name="name"
-                                                                                        id="name" required>
+                                                <label style="color:red" for="name" id="name_label" hidden></label><br>
+                                                <input type="text" class="form-control"
+                                                       placeholder="Name"
+                                                       th:field="*{name}" name="name"
+                                                       id="name">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="surname" hidden></label><input type="text"
-                                                                                           class="form-control"
-                                                                                           placeholder="Surname"
-                                                                                           th:field="*{surname}"
-                                                                                           name="surname" id="surname"
-                                                                                           required>
+                                                <label style="color:red" for="surname" id="surname_label"
+                                                       hidden></label><br>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       placeholder="Surname"
+                                                       th:field="*{surname}"
+                                                       name="surname" id="surname">
                                             </div>
                                         </div>
                                     </div>
@@ -76,12 +79,13 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="email" hidden></label><input type="email"
-                                                                                         class="form-control"
-                                                                                         placeholder="Email address"
-                                                                                         th:field="*{email}"
-                                                                                         name="email" id="email"
-                                                                                         required>
+                                                <label style="color:red" for="email" id="email_label"
+                                                       hidden></label><br>
+                                                <input type="email"
+                                                       class="form-control"
+                                                       placeholder="Email address"
+                                                       th:field="*{email}"
+                                                       name="email" id="email">
                                             </div>
                                         </div>
                                     </div>
@@ -89,88 +93,84 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label for="personal_phone" hidden></label><input type="tel"
-                                                                                                  pattern="^[0-9]{10}$"
-                                                                                                  class="form-control"
-                                                                                                  placeholder="Personal phone"
-                                                                                                  name="personal_phone"
-                                                                                                  th:field="*{personalPhone}"
-                                                                                                  id="personal_phone"
-                                                                                                  required>
+                                                <label style="color:red" for="personal_phone" id="personal_phone_label"
+                                                       hidden></label><br>
+                                                <input type="tel"
+                                                       class="form-control"
+                                                       placeholder="Personal phone"
+                                                       name="personal_phone"
+                                                       th:field="*{personalPhone}"
+                                                       id="personal_phone">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="form-group">
-                                                    <label for="date_of_birth" hidden></label><input type="date"
-                                                                                                     class="form-control"
-                                                                                                     placeholder="Date of birth"
-                                                                                                     name="doctor_date_of_birth"
-                                                                                                     th:field="*{dateOfBirth}"
-                                                                                                     id="date_of_birth"
-                                                                                                     required>
+                                                    <label style="color:red" for="date_of_birth"
+                                                           id="date_of_birth_label"
+                                                           hidden></label><br>
+                                                    <input type="date"
+                                                           class="form-control"
+                                                           placeholder="Date of birth"
+                                                           name="doctor_date_of_birth"
+                                                           th:field="*{dateOfBirth}"
+                                                           id="date_of_birth">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- /row -->
                                     <div class="row">
-                                        <div class="col-lg-6" id="businessPhone" style="display: none;">
+                                        <div class="col-lg-6" id="business_phone_div" style="display: none;">
                                             <div class="form-group">
-                                                <label for="doctor_business_phone" hidden></label><input type="tel"
-                                                                                                         pattern="^[0-9]{10}$"
-                                                                                                         class="form-control"
-                                                                                                         placeholder="Business phone"
-                                                                                                         name="doctor_business_phone"
-                                                                                                         th:field="*{businessPhone}"
-                                                                                                         id="doctor_business_phone">
+                                                <label style="color:red" for="business_phone" id="business_phone_label"
+                                                       hidden></label><br>
+                                                <input type="tel"
+                                                       class="form-control"
+                                                       placeholder="Business phone"
+                                                       name="business_phone"
+                                                       th:field="*{businessPhone}"
+                                                       id="business_phone">
                                             </div>
                                         </div>
-                                        <div class="col-md-6" id="specialization" style="display: none;">
+                                        <div class="col-md-6" id="specialization_div" style="display: none;">
                                             <div class="form-group">
-                                                <label for="doctor_specialization" hidden></label><input type="text"
-                                                                                                         class="form-control"
-                                                                                                         placeholder="Specialization"
-                                                                                                         name="doctor_specialization"
-                                                                                                         th:field="*{specialization}"
-                                                                                                         id="doctor_specialization">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /row -->
-                                    <div class="row">
-                                        <div class="col-lg-6" id="address" style="display: none;">
-                                            <div class="form-group">
-                                                <label for="doctor_office_address" hidden></label><input type="text"
-                                                                                                         class="form-control"
-                                                                                                         placeholder="Address"
-                                                                                                         name="doctor_office_address"
-                                                                                                         id="doctor_office_address"
-                                                                                                         th:field="*{address}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6" id="city" style="display: none;">
-                                            <div class="form-group">
-                                                <label for="doctor_office_city" hidden></label><input type="text"
-                                                                                                      class="form-control"
-                                                                                                      placeholder="City"
-                                                                                                      name="doctor_office_city"
-                                                                                                      id="doctor_office_city"
-                                                                                                      th:field="*{city}">
+                                                <label style="color:red" for="doctor_specialization"
+                                                       id="specialization_label"
+                                                       hidden></label><br>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       placeholder="Specialization"
+                                                       name="doctor_specialization"
+                                                       th:field="*{specialization}"
+                                                       id="doctor_specialization">
                                             </div>
                                         </div>
                                     </div>
                                     <!-- /row -->
                                     <div class="row">
-                                        <div class="col-lg-12">
+                                        <div class="col-lg-6" id="address_div" style="display: none;">
                                             <div class="form-group">
-                                                <label for="password" hidden></label><input type="tel"
-                                                                                            class="form-control"
-                                                                                            placeholder="Password"
-                                                                                            name="password"
-                                                                                            id="password"
-                                                                                            th:field="*{password}"
-                                                                                            required>
+                                                <label style="color:red" for="doctor_office_address" id="address_label"
+                                                       hidden></label><br>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       placeholder="Address"
+                                                       name="doctor_office_address"
+                                                       id="doctor_office_address"
+                                                       th:field="*{address}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" id="city_div" style="display: none;">
+                                            <div class="form-group">
+                                                <label style="color:red" for="doctor_office_city" id="city_label"
+                                                       hidden></label><br>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       placeholder="City"
+                                                       name="doctor_office_city"
+                                                       id="doctor_office_city"
+                                                       th:field="*{city}">
                                             </div>
                                         </div>
                                     </div>
@@ -178,13 +178,29 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="confirm_password" hidden></label><input type="tel"
-                                                                                                    class="form-control"
-                                                                                                    placeholder="Confirm password"
-                                                                                                    name="confirm_password"
-                                                                                                    id="confirm_password"
-                                                                                                    oninput="checkPassword()"
-                                                                                                    required>
+                                                <label style="color:red" for="password" id="password_label"
+                                                       hidden></label><br>
+                                                <input type="tel"
+                                                       class="form-control"
+                                                       placeholder="Password"
+                                                       name="password"
+                                                       id="password"
+                                                       th:field="*{password}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /row -->
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label style="color:red" for="confirm_password"
+                                                       id="confirm_password_label"
+                                                       hidden></label><br>
+                                                <input type="tel"
+                                                       class="form-control"
+                                                       placeholder="Confirm password"
+                                                       name="confirm_password"
+                                                       id="confirm_password">
                                             </div>
                                         </div>
                                     </div>
@@ -214,45 +230,32 @@
             <!-- /register -->
         </div>
     </div>
-
     <!-- SCRIPT -->
     <script th:inline="javascript">
         const checkbox = document.getElementById("flexSwitchCheckDefault"); // true if doctor, false if patient
 
         function toggleRegistrationBlock() {
-            const amka = document.getElementById("amka");
-            const afm = document.getElementById("afm");
-            const specialization = document.getElementById("specialization");
-            const businessPhone = document.getElementById("businessPhone");
-            const address = document.getElementById("address");
-            const city = document.getElementById("city");
+            const amka_div = document.getElementById("amka_div");
+            const afm_div = document.getElementById("afm_div");
+            const specialization_div = document.getElementById("specialization_div");
+            const businessPhone_div = document.getElementById("business_phone_div");
+            const address_div = document.getElementById("address_div");
+            const city_div = document.getElementById("city_div");
+
             if (checkbox.checked) {
-                amka.style.display = "none";
-                afm.style.display = "block";
-                specialization.style.display = "block";
-                businessPhone.style.display = "block";
-                address.style.display = "block";
-                city.style.display = "block";
+                amka_div.style.display = "none";
+                afm_div.style.display = "block";
+                specialization_div.style.display = "block";
+                businessPhone_div.style.display = "block";
+                address_div.style.display = "block";
+                city_div.style.display = "block";
             } else {
-                amka.style.display = "block";
-                afm.style.display = "none";
-                specialization.style.display = "none";
-                businessPhone.style.display = "none";
-                address.style.display = "none";
-                city.style.display = "none";
-            }
-        }
-
-        function checkPassword() {
-            const password = document.getElementById("password");
-            const confirmPassword = document.getElementById("confirm_password");
-
-            if (password.value !== confirmPassword.value) {
-                confirmPassword.setCustomValidity("Passwords don't match");
-                return false;
-            } else {
-                confirmPassword.setCustomValidity('');
-                return true;
+                amka_div.style.display = "block";
+                afm_div.style.display = "none";
+                specialization_div.style.display = "none";
+                businessPhone_div.style.display = "none";
+                address_div.style.display = "none";
+                city_div.style.display = "none";
             }
         }
 
@@ -262,45 +265,154 @@
             submitBtn.hidden = !termsCheckBox.checked;
         }
 
+        function setInvalidInput(input, label, message) {
+            input.style.borderColor = "red";
+            label.hidden = false;
+            label.innerText = message;
+        }
+
         function validation() {
             const amka = document.getElementById("patient_amka");
             const afm = document.getElementById("doctor_afm");
+            const name = document.getElementById("name");
+            const surname = document.getElementById("surname");
+            const email = document.getElementById("email");
+            const personalPhone = document.getElementById("personal_phone");
+            const dateOfBirth = document.getElementById("date_of_birth");
+            const businessPhone = document.getElementById("business_phone");
             const specialization = document.getElementById("doctor_specialization");
-            const businessPhone = document.getElementById("doctor_business_phone");
             const address = document.getElementById("doctor_office_address");
             const city = document.getElementById("doctor_office_city");
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("confirm_password");
 
+            const amkaLabel = document.getElementById("amka_label");
+            const afmLabel = document.getElementById("afm_label");
+            const nameLabel = document.getElementById("name_label");
+            const surnameLabel = document.getElementById("surname_label");
+            const emailLabel = document.getElementById("email_label");
+            const personalPhoneLabel = document.getElementById("personal_phone_label");
+            const dateOfBirthLabel = document.getElementById("date_of_birth_label");
+            const businessPhoneLabel = document.getElementById("business_phone_label");
+            const specializationLabel = document.getElementById("specialization_label");
+            const addressLabel = document.getElementById("address_label");
+            const cityLabel = document.getElementById("city_label");
+            const passwordLabel = document.getElementById("password_label");
+            const confirmPasswordLabel = document.getElementById("confirm_password_label");
+
+            amka.style.borderColor = afm.style.borderColor = name.style.borderColor = surname.style.borderColor =
+                email.style.borderColor = personalPhone.style.borderColor = dateOfBirth.style.borderColor =
+                    businessPhone.style.borderColor = specialization.style.borderColor = address.style.borderColor =
+                        city.style.borderColor = password.style.borderColor = confirmPassword.style.borderColor = "initial";
+
+            amkaLabel.hidden = afmLabel.hidden = nameLabel.hidden = surnameLabel.hidden = emailLabel.hidden =
+                personalPhoneLabel.hidden = dateOfBirthLabel.hidden = businessPhoneLabel.hidden =
+                    specializationLabel.hidden = addressLabel.hidden = cityLabel.hidden = passwordLabel.hidden =
+                        confirmPasswordLabel.hidden = true;
+
+            let validationFailed = false;
+            const email_pattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+            const phone_pattern = /^[0-9]{10}$/;
+
+            /* Common fields */
+            if (name.value === "" || name.value === undefined) {
+                setInvalidInput(name, nameLabel, "Name is required");
+                validationFailed = true;
+            }
+
+            if (surname.value === "" || surname.value === undefined) {
+                setInvalidInput(surname, surnameLabel, "Surname is required");
+                validationFailed = true;
+            }
+
+            if (email.value === "" || email.value === undefined) {
+                setInvalidInput(email, emailLabel, "Email is required");
+                validationFailed = true;
+            } else if (!email_pattern.test(email.value)) {
+                setInvalidInput(email, emailLabel, "Email is invalid");
+                validationFailed = true;
+            }
+
+            if (personalPhone.value === "" || personalPhone.value === undefined) {
+                setInvalidInput(personalPhone, personalPhoneLabel, "Personal phone is required");
+                validationFailed = true;
+            } else if (!phone_pattern.test(personalPhone.value)) {
+                setInvalidInput(personalPhone, personalPhoneLabel, "Personal phone must be 10 digits");
+                validationFailed = true;
+            }
+
+            if (dateOfBirth.value === "" || dateOfBirth.value === undefined) {
+                setInvalidInput(dateOfBirth, dateOfBirthLabel, "Date of birth is required");
+                validationFailed = true;
+            }
+
+            if (password.value === "" || password.value === undefined) {
+                setInvalidInput(password, document.getElementById("password_label"), "Password is required");
+                validationFailed = true;
+            } else if (password.value !== confirmPassword.value) {
+                setInvalidInput(password, passwordLabel, "");
+                setInvalidInput(confirmPassword, confirmPasswordLabel, "Passwords do not match");
+                validationFailed = true;
+            }
+
+            /* Doctor fields */
             if (checkbox.checked) {
-                amka.value = "";
-                afm.style.borderColor = "#ced4da";
-                businessPhone.style.borderColor = "#ced4da";
-                specialization.style.borderColor = "#ced4da";
-                address.style.borderColor = "#ced4da";
-                city.style.borderColor = "#ced4da";
+                const afm_pattern = /^[0-9]{9}$/;
+
                 if (afm.value === "" || afm.value === undefined) {
-                    afm.style.borderColor = "red";
-                    return false;
-                } else if (businessPhone.value === "" || businessPhone.value === undefined) {
-                    businessPhone.style.borderColor = "red";
-                    return false;
-                } else if (specialization.value === "" || specialization.value === undefined) {
-                    specialization.style.borderColor = "red";
-                    return false;
-                } else if (address.value === "" || address.value === undefined) {
-                    address.style.borderColor = "red";
-                    return false;
-                } else if (city.value === "" || city.value === undefined) {
-                    city.style.borderColor = "red";
-                    return false;
+                    setInvalidInput(afm, afmLabel, "AFM is required");
+                    validationFailed = true;
+                } else if (!afm_pattern.test(afm.value)) {
+                    setInvalidInput(afm, afmLabel, "AFM must be 9 digits");
+                    validationFailed = true;
                 }
-            } else {
-                afm.value = specialization.value = businessPhone.value = address.value = city.value = "";
+
+                if (businessPhone.value === "" || businessPhone.value === undefined) {
+                    setInvalidInput(businessPhone, businessPhoneLabel, "Business phone is required");
+                    validationFailed = true;
+                } else if (!phone_pattern.test(businessPhone.value)) {
+                    setInvalidInput(businessPhone, businessPhoneLabel, "Business phone must be 10 digits");
+                    validationFailed = true;
+                }
+
+                if (specialization.value === "" || specialization.value === undefined) {
+                    setInvalidInput(specialization, specializationLabel, "Specialization is required");
+                    validationFailed = true;
+                }
+
+                if (address.value === "" || address.value === undefined) {
+                    setInvalidInput(address, addressLabel, "Address is required");
+                    validationFailed = true;
+                }
+
+                if (city.value === "" || city.value === undefined) {
+                    setInvalidInput(city, cityLabel, "City is required");
+                    validationFailed = true;
+                }
+            }
+            /* Patient fields */
+            else {
+                const amka_pattern = /^[0-9]{11}$/;
+
                 if (amka.value === "" || amka.value === undefined) {
-                    amka.style.borderColor = "red";
+                    setInvalidInput(amka, amkaLabel, "AMKA is required");
+                    return false;
+                } else if (!amka_pattern.test(amka.value)) {
+                    setInvalidInput(amka, amkaLabel, "AMKA must be 11 digits");
                     return false;
                 }
             }
-            return checkPassword(); // returns true if passwords match
+            if (validationFailed) {
+                return false;
+            } else {
+                amka.value = checkbox.checked ? "EMPTY" : amka.value;
+                afm.value = checkbox.checked ? afm.value : "EMPTY";
+                businessPhone.value = checkbox.checked ? businessPhone.value : "EMPTY";
+                specialization.value = checkbox.checked ? specialization.value : "EMPTY";
+                address.value = checkbox.checked ? address.value : "EMPTY";
+                city.value = checkbox.checked ? city.value : "EMPTY";
+                return true;
+            }
         }
     </script>
     <!-- /SCRIPT -->
