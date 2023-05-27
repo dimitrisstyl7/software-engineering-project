@@ -19,7 +19,7 @@ public class Doctor {
     @Id
     private String afm;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(referencedColumnName = "username")
     private User user;
 
