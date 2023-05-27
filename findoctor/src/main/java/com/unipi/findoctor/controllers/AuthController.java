@@ -1,8 +1,11 @@
 package com.unipi.findoctor.controllers;
 
 import com.unipi.findoctor.dto.RegistrationDto;
+import com.unipi.findoctor.mappers.UserMapper;
+import com.unipi.findoctor.models.User;
+import com.unipi.findoctor.services.UserService;
 import jakarta.validation.Valid;
-import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,9 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import static com.unipi.findoctor.constants.ControllerConstants.*;
 
-@NoArgsConstructor
+@AllArgsConstructor
 @Controller
 public class AuthController {
+    private final UserService userService;
+
     @GetMapping(LOGIN_URL)
     public String loginPage() {
         return LOGIN_FILE;
@@ -27,11 +32,23 @@ public class AuthController {
     }
 
     @PostMapping(REGISTER_URL)
-    public String registerSave(@Valid @ModelAttribute("user") RegistrationDto user,
+    public String registerSave(@Valid @ModelAttribute("user") RegistrationDto registrationDto,
                                BindingResult result, Model model) {
-        System.out.println("user: " + user);
+        if (result.hasErrors()) {
+            model.addAttribute("user", registrationDto);
+            return REGISTER_FILE;
+        }
+
+        User existingUser = userService.findByUsername(registrationDto.getUsername());
+        if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()) {
+            return "redirect:" + REGISTER_URL + "?fail";
+        }
+
+        User user = UserMapper.mapToUser(registrationDto);
+        userService.saveUser(user);
         return "redirect:" + CONFIRMATION_URL;
     }
+
 
     @GetMapping(CONFIRMATION_URL)
     public String confirmationPage() {
