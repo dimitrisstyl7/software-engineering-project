@@ -10,12 +10,16 @@ import java.time.LocalDate;
 @Data
 public class RegistrationDto {
     @NotEmpty
+    private String username;
+
+    @NotEmpty
     private String name;
 
     @NotEmpty
     private String surname;
 
     @NotNull
+    @Past
     private LocalDate dateOfBirth;
 
     @NotEmpty
@@ -27,7 +31,9 @@ public class RegistrationDto {
     @NotEmpty
     private String email;
 
+    @NotNull
     private Boolean isDoctor;
+
     private String afm;
     private String amka;
     private String specialization;
