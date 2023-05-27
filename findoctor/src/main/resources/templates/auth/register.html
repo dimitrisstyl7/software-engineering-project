@@ -9,6 +9,10 @@
 <main layout:fragment="main">
     <div class="bg_color_2">
         <div class="container margin_60_35">
+            <div th:object="${user}"><p th:if="${#fields.hasAnyErrors()}" class="alert alert-warning"
+                                        style="text-align: center; width: 40%; display: block; margin: 0 auto;">
+                Invalid input
+                fields, please try again.</p></div>
             <div id="register">
                 <h1>Registration Form</h1>
                 <div class="row justify-content-center">
@@ -30,7 +34,8 @@
                                     <div class="row">
                                         <div class="col-lg-12" id="afm_div" style="display: none;">
                                             <div class="form-group">
-                                                <label style="color:red" for="doctor_afm" id="afm_label" hidden></label><br>
+                                                <label style="color:red" for="doctor_afm" id="afm_label"
+                                                       hidden></label><br>
                                                 <input type="tel"
                                                        class="form-control"
                                                        placeholder="AFM"
@@ -56,7 +61,8 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label style="color:red" for="name" id="name_label" hidden></label><br>
+                                                <label style="color:red" for="name" id="name_label"
+                                                       hidden></label><br>
                                                 <input type="text" class="form-control"
                                                        placeholder="Name"
                                                        th:field="*{name}" name="name"
@@ -93,7 +99,8 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label style="color:red" for="personal_phone" id="personal_phone_label"
+                                                <label style="color:red" for="personal_phone"
+                                                       id="personal_phone_label"
                                                        hidden></label><br>
                                                 <input type="tel"
                                                        class="form-control"
@@ -123,7 +130,8 @@
                                     <div class="row">
                                         <div class="col-lg-6" id="business_phone_div" style="display: none;">
                                             <div class="form-group">
-                                                <label style="color:red" for="business_phone" id="business_phone_label"
+                                                <label style="color:red" for="business_phone"
+                                                       id="business_phone_label"
                                                        hidden></label><br>
                                                 <input type="tel"
                                                        class="form-control"
@@ -151,7 +159,8 @@
                                     <div class="row">
                                         <div class="col-lg-6" id="address_div" style="display: none;">
                                             <div class="form-group">
-                                                <label style="color:red" for="doctor_office_address" id="address_label"
+                                                <label style="color:red" for="doctor_office_address"
+                                                       id="address_label"
                                                        hidden></label><br>
                                                 <input type="text"
                                                        class="form-control"
@@ -178,9 +187,24 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="form-group">
+                                                <label style="color:red" for="username" id="username_label"
+                                                       hidden></label><br>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       placeholder="Username"
+                                                       name="username"
+                                                       id="username"
+                                                       th:field="*{username}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /row -->
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
                                                 <label style="color:red" for="password" id="password_label"
                                                        hidden></label><br>
-                                                <input type="tel"
+                                                <input type="password"
                                                        class="form-control"
                                                        placeholder="Password"
                                                        name="password"
@@ -220,7 +244,8 @@
                                            id="submit_btn">
                                 </div>
                             </div>
-                            <p class="text-center link_bright">Have an account already? <a th:href="@{/login}"><strong>Log
+                            <p class="text-center link_bright">Have an account already? <a
+                                    th:href="@{/login}"><strong>Log
                                 in</strong></a></p>
                         </form>
                     </div>
@@ -283,6 +308,7 @@
             const specialization = document.getElementById("doctor_specialization");
             const address = document.getElementById("doctor_office_address");
             const city = document.getElementById("doctor_office_city");
+            const username = document.getElementById("username");
             const password = document.getElementById("password");
             const confirmPassword = document.getElementById("confirm_password");
 
@@ -297,22 +323,25 @@
             const specializationLabel = document.getElementById("specialization_label");
             const addressLabel = document.getElementById("address_label");
             const cityLabel = document.getElementById("city_label");
+            const usernameLabel = document.getElementById("username_label");
             const passwordLabel = document.getElementById("password_label");
             const confirmPasswordLabel = document.getElementById("confirm_password_label");
 
             amka.style.borderColor = afm.style.borderColor = name.style.borderColor = surname.style.borderColor =
                 email.style.borderColor = personalPhone.style.borderColor = dateOfBirth.style.borderColor =
                     businessPhone.style.borderColor = specialization.style.borderColor = address.style.borderColor =
-                        city.style.borderColor = password.style.borderColor = confirmPassword.style.borderColor = "initial";
+                        city.style.borderColor = username.style.borderColor = password.style.borderColor =
+                            confirmPassword.style.borderColor = "initial";
 
             amkaLabel.hidden = afmLabel.hidden = nameLabel.hidden = surnameLabel.hidden = emailLabel.hidden =
                 personalPhoneLabel.hidden = dateOfBirthLabel.hidden = businessPhoneLabel.hidden =
-                    specializationLabel.hidden = addressLabel.hidden = cityLabel.hidden = passwordLabel.hidden =
-                        confirmPasswordLabel.hidden = true;
+                    specializationLabel.hidden = addressLabel.hidden = cityLabel.hidden = usernameLabel.hidden =
+                        passwordLabel.hidden = confirmPasswordLabel.hidden = true;
 
             let validationFailed = false;
             const email_pattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
             const phone_pattern = /^[0-9]{10}$/;
+            const username_pattern = /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 
             /* Common fields */
             if (name.value === "" || name.value === undefined) {
@@ -343,6 +372,17 @@
 
             if (dateOfBirth.value === "" || dateOfBirth.value === undefined) {
                 setInvalidInput(dateOfBirth, dateOfBirthLabel, "Date of birth is required");
+                validationFailed = true;
+            }
+
+            if (username.value === "" || username.value === undefined) {
+                setInvalidInput(username, usernameLabel, "Username is required");
+                validationFailed = true;
+            } else if (!username_pattern.test(username.value)) {
+                setInvalidInput(username, usernameLabel,
+                    "Username must be 8-20 characters long.\n" +
+                    "Valid usernames: username, username123, username_123\n" +
+                    "Invalid usernames: user name, username-123, username_123_");
                 validationFailed = true;
             }
 
