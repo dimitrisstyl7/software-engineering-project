@@ -106,7 +106,7 @@
                                             <div class="form-group">
                                                 <label style="color:red" for="email" id="email_label"
                                                        hidden></label><br>
-                                                <input type="email"
+                                                <input type="text"
                                                        class="form-control"
                                                        placeholder="Email address"
                                                        th:field="*{email}"
@@ -176,7 +176,7 @@
                                     </div>
                                     <!-- /row -->
                                     <div class="row">
-                                        <div class="col-lg-6" id="address_div" style="display: none;">
+                                        <div class="col-lg-8" id="address_div" style="display: none;">
                                             <div class="form-group">
                                                 <label style="color:red" for="doctor_office_address"
                                                        id="address_label"
@@ -189,7 +189,7 @@
                                                        th:field="*{address}">
                                             </div>
                                         </div>
-                                        <div class="col-md-6" id="city_div" style="display: none;">
+                                        <div class="col-md-4" id="city_div" style="display: none;">
                                             <div class="form-group">
                                                 <label style="color:red" for="doctor_office_city" id="city_label"
                                                        hidden></label><br>
@@ -361,6 +361,7 @@
             const email_pattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
             const phone_pattern = /^[0-9]{10}$/;
             const username_pattern = /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
+            const password_pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
             /* Common fields */
             if (name.value === "" || name.value === undefined) {
@@ -407,6 +408,10 @@
 
             if (password.value === "" || password.value === undefined) {
                 setInvalidInput(password, document.getElementById("password_label"), "Password is required");
+                validationFailed = true;
+            } else if (!password_pattern.test(password.value)) {
+                setInvalidInput(password, passwordLabel,
+                    "Password must be 8 characters long and contain at least one letter and one number.");
                 validationFailed = true;
             } else if (password.value !== confirmPassword.value) {
                 setInvalidInput(password, passwordLabel, "");
