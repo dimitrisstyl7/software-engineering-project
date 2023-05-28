@@ -9,10 +9,29 @@
 <main layout:fragment="main">
     <div class="bg_color_2">
         <div class="container margin_60_35">
-            <div th:object="${user}"><p th:if="${#fields.hasAnyErrors()}" class="alert alert-warning"
-                                        style="text-align: center; width: 40%; display: block; margin: 0 auto;">
-                Invalid input
-                fields, please try again.</p></div>
+            <div th:object="${user}">
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-warning"
+                   style="text-align: center; width: 40%; display: block; margin: 0 auto;"></p>
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="alert alert-warning"
+                   style="text-align: center; width: 40%; display: block; margin: 0 auto;"></p>
+                <p th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="alert alert-warning"
+                   style="text-align: center; width: 40%; display: block; margin: 0 auto;"></p>
+                <p th:if="${#fields.hasErrors('personalPhone')}" th:errors="*{personalPhone}"
+                   class="alert alert-warning"
+                   style="text-align: center; width: 40%; display: block; margin: 0 auto;"></p>
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-warning"
+                   style="text-align: center; width: 40%; display: block; margin: 0 auto;"></p>
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-warning"
+                   style="text-align: center; width: 40%; display: block; margin: 0 auto;"></p>
+                <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="alert alert-warning"
+                   style="text-align: center; width: 40%; display: block; margin: 0 auto;"></p>
+                <p th:if="${#fields.hasErrors('amka')}" th:errors="*{amka}" class="alert alert-warning"
+                   style="text-align: center; width: 40%; display: block; margin: 0 auto;"></p>
+                <p th:if="${#fields.hasErrors('afm')}" th:errors="*{afm}" class="alert alert-warning"
+                   style="text-align: center; width: 40%; display: block; margin: 0 auto;"></p>
+                <p th:if="${#fields.hasErrors('isDoctor')}" th:errors="*{isDoctor}" class="alert alert-warning"
+                   style="text-align: center; width: 40%; display: block; margin: 0 auto;"></p>
+            </div>
             <div id="register">
                 <h1>Registration Form</h1>
                 <div class="row justify-content-center">
@@ -445,12 +464,12 @@
             if (validationFailed) {
                 return false;
             } else {
-                amka.value = checkbox.checked ? "EMPTY" : amka.value;
-                afm.value = checkbox.checked ? afm.value : "EMPTY";
-                businessPhone.value = checkbox.checked ? businessPhone.value : "EMPTY";
-                specialization.value = checkbox.checked ? specialization.value : "EMPTY";
-                address.value = checkbox.checked ? address.value : "EMPTY";
-                city.value = checkbox.checked ? city.value : "EMPTY";
+                amka.value = checkbox.checked ? "" : amka.value;
+                afm.value = checkbox.checked ? afm.value : "";
+                businessPhone.value = checkbox.checked ? businessPhone.value : "";
+                specialization.value = checkbox.checked ? specialization.value : "";
+                address.value = checkbox.checked ? address.value : "";
+                city.value = checkbox.checked ? city.value : "";
                 return true;
             }
         }
