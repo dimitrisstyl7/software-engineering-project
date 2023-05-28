@@ -9,29 +9,29 @@ import java.time.LocalDate;
 
 @Data
 public class RegistrationDto {
-    @NotEmpty
+    @NotEmpty(message = "Username is required.")
     private String username;
 
-    @NotEmpty
+    @NotEmpty(message = "Name is required.")
     private String name;
 
-    @NotEmpty
+    @NotEmpty(message = "Surname is required.")
     private String surname;
 
-    @NotNull
-    @Past
+    @NotNull(message = "Date of birth is required.")
+    @Past(message = "Date of birth must be in the past.")
     private LocalDate dateOfBirth;
 
-    @NotEmpty
+    @NotEmpty(message = "Personal phone is required.")
     private String personalPhone;
 
-    @NotEmpty
+    @NotEmpty(message = "Password is required.")
     private String password;
 
-    @NotEmpty
+    @NotEmpty(message = "Email is required.")
     private String email;
 
-    @NotNull
+    @NotNull(message = "Something went wrong. Please try again.")
     private Boolean isDoctor;
 
     private String afm;
