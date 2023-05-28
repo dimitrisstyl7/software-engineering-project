@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import static com.unipi.findoctor.constants.ControllerConstants.*;
@@ -40,6 +41,7 @@ public class AuthController {
     @PostMapping(REGISTER_URL)
     public String registerSave(@Valid @ModelAttribute("user") RegistrationDto registrationDto, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            registrationDto.setIsDoctor(false); // reset isDoctor to false (reset radio button)
             model.addAttribute("user", registrationDto);
             return REGISTER_FILE;
         }
@@ -49,6 +51,7 @@ public class AuthController {
             if (existingDoctor != null && existingDoctor.getAfm() != null && !existingDoctor.getAfm().isEmpty()) {
                 result.rejectValue("afm", "afm.alreadyexists",
                         "There is already an account registered with this AFM.");
+                registrationDto.setIsDoctor(false);
                 model.addAttribute("user", registrationDto);
                 return REGISTER_FILE;
             }
@@ -57,6 +60,7 @@ public class AuthController {
             if (existingPatient != null && existingPatient.getAmka() != null && !existingPatient.getAmka().isEmpty()) {
                 result.rejectValue("amka", "amka.alreadyexists",
                         "There is already an account registered with this AMKA.");
+                registrationDto.setIsDoctor(false);
                 model.addAttribute("user", registrationDto);
                 return REGISTER_FILE;
             }
@@ -66,19 +70,18 @@ public class AuthController {
         if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()) {
             result.rejectValue("username", "username.alreadyexists",
                     "There is already an account registered with this username.");
+            registrationDto.setIsDoctor(false);
             model.addAttribute("user", registrationDto);
             return REGISTER_FILE;
         }
 
-
-        User user = UserMapper.mapToUser(registrationDto);
-        userService.saveUser(user);
-        return "redirect:" + CONFIRMATION_URL;
+        userService.saveUser(UserMapper.mapToUser(registrationDto));
+        return "redirect:" + CONFIRMATION_URL + "/" + registrationDto.getIsDoctor();
     }
 
-
-    @GetMapping(CONFIRMATION_URL)
-    public String confirmationPage() {
+    @GetMapping(CONFIRMATION_URL + "/{isDoctor}")
+    public String confirmationPage(@PathVariable("isDoctor") boolean isDoctor, Model model) {
+        model.addAttribute("isDoctor", isDoctor);
         return CONFIRMATION_FILE;
     }
 }
