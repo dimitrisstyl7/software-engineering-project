@@ -2,6 +2,7 @@ package com.unipi.findoctor.services.impl;
 
 import com.unipi.findoctor.models.User;
 import com.unipi.findoctor.repositories.UserRepository;
+import com.unipi.findoctor.security.SecurityConfig;
 import com.unipi.findoctor.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) {
+        user.setPassword(SecurityConfig.passwordEncoder().encode(user.getPassword()));
         userRepository.save(user);
     }
 }
