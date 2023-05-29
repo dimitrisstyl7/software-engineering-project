@@ -1,16 +1,22 @@
 package com.unipi.findoctor.controllers;
 
-import lombok.NoArgsConstructor;
+import com.unipi.findoctor.services.PatientService;
+import com.unipi.findoctor.services.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import static com.unipi.findoctor.constants.ControllerConstants.*;
 
-@NoArgsConstructor
+@AllArgsConstructor
 @Controller
 public class VisitorController {
+    private final PatientService patientService;
+
     @GetMapping({ROOT_URL, INDEX_URL})
     public String indexPage() {
+        patientService.addPatient();
+        patientService.getPatient("1");
         return INDEX_FILE;
     }
 

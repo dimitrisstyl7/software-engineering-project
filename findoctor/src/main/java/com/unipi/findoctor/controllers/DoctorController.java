@@ -9,7 +9,7 @@ import static com.unipi.findoctor.constants.ControllerConstants.*;
 @NoArgsConstructor
 @Controller
 public class DoctorController {
-    @GetMapping({DOCTOR_ROOT_URL, DOCTOR_INDEX_URL})
+    @GetMapping({DOCTOR_ROOT_URL, DOCTOR_INDEX_URL_1, DOCTOR_INDEX_URL_2})
     public String doctorIndexPage() {
         return DOCTOR_INDEX_FILE;
     }

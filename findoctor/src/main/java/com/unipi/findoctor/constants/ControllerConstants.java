@@ -20,7 +20,8 @@ public class ControllerConstants {
 
     /* PATIENT URL */
     public static final String PATIENT_ROOT_URL = "patient/";
-    public static final String PATIENT_INDEX_URL = "patient/index";
+    public static final String PATIENT_INDEX_URL_1 = "patient";
+    public static final String PATIENT_INDEX_URL_2 = "patient/index";
     public static final String PATIENT_ABOUT_URL = "patient/about";
     public static final String PATIENT_BOOKING_URL = "patient/booking";
     public static final String PATIENT_CONTACT_US_URL = "patient/contact-us";
@@ -32,8 +33,9 @@ public class ControllerConstants {
 
 
     /* DOCTOR URL */
-public static final String DOCTOR_ROOT_URL = "doctor/";
-    public static final String DOCTOR_INDEX_URL = "doctor/index";
+    public static final String DOCTOR_ROOT_URL = "doctor/";
+    public static final String DOCTOR_INDEX_URL_1 = "doctor";
+    public static final String DOCTOR_INDEX_URL_2 = "doctor/index";
     public static final String DOCTOR_ADD_LISTING_URL = "doctor/add-listing";
     public static final String DOCTOR_BOOKINGS_URL = "doctor/bookings";
     public static final String DOCTOR_CHARTS_URL = "doctor/charts";
@@ -48,14 +50,14 @@ public static final String DOCTOR_ROOT_URL = "doctor/";
     /* AUTH URL */
     public static final String LOGIN_URL = "/login";
     public static final String REGISTER_URL = "/register";
-    public static final String REGISTER_2_URL = "/register-2";
     public static final String CONFIRMATION_URL = "/confirmation";
     /* END OF AUTH URL */
 
 
     /* ADMIN URL */
     public static final String ADMIN_ROOT_URL = "/admin/";
-    public static final String ADMIN_INDEX_URL = "/admin/index";
+    public static final String ADMIN_INDEX_URL_1 = "/admin";
+    public static final String ADMIN_INDEX_URL_2 = "/admin/index";
     public static final String ADMIN_ADD_LISTING_URL = "/admin/add-listing";
     public static final String ADMIN_BOOKINGS_URL = "/admin/bookings";
     public static final String ADMIN_CHARTS_URL = "/admin/charts";
@@ -66,7 +68,7 @@ public static final String DOCTOR_ROOT_URL = "doctor/";
     public static final String ADMIN_TABLES_URL = "/admin/tables";
     /* END OF ADMIN URL */
 
-/* -------------------------------------------------------------------------- */
+    /* -------------------------------------------------------------------------- */
 
     /* VISITOR HTML FILE NAMES */
     public static final String INDEX_FILE = "visitor/index";
@@ -111,7 +113,6 @@ public static final String DOCTOR_ROOT_URL = "doctor/";
     /* AUTH HTML FILE NAMES */
     public static final String LOGIN_FILE = "auth/login";
     public static final String REGISTER_FILE = "auth/register";
-    public static final String REGISTER_2_FILE = "auth/register-2";
     public static final String CONFIRMATION_FILE = "/confirmation";
     /* END OF AUTH HTML FILE NAMES */
 

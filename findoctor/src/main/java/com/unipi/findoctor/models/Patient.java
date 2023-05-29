@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @NoArgsConstructor
@@ -16,9 +19,14 @@ public class Patient {
     @Id
     private String amka;
 
-    @OneToOne
-    @JoinColumn(name = "registered_user_id", referencedColumnName = "user_id")
-    private RegisteredUser registeredUser;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(referencedColumnName = "username")
+    private User user;
+
+    private LocalDate dateOfBirth;
+
+    @UpdateTimestamp
+    private LocalDateTime registeredOn;
 
     @OneToMany(mappedBy = "patient")
     private List<Appointment> appointments;

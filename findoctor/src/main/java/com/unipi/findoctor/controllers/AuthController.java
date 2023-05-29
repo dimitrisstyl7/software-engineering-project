@@ -19,11 +19,6 @@ public class AuthController {
         return REGISTER_FILE;
     }
 
-    @GetMapping(REGISTER_2_URL)
-    public String register2Page() {
-        return REGISTER_2_FILE;
-    }
-
     @GetMapping(CONFIRMATION_URL)
     public String confirmationPage() {
         return CONFIRMATION_FILE;
