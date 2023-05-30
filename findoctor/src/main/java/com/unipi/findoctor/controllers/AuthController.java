@@ -74,8 +74,8 @@ public class AuthController {
             model.addAttribute("user", registrationDto);
             return REGISTER_FILE;
         }
-
-        userService.saveUser(UserMapper.mapToUser(registrationDto));
+        User user = UserMapper.mapToUser(registrationDto);
+        userService.saveUser(user);
         return "redirect:" + CONFIRMATION_URL + "/" + registrationDto.getIsDoctor();
     }
 
