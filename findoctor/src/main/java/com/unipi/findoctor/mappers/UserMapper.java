@@ -9,7 +9,7 @@ public class UserMapper {
     public static User mapToUser(RegistrationDto registrationDto) {
         Doctor doctor = null;
         Patient patient = null;
-
+        
         if (registrationDto.getIsDoctor()) {
             doctor = Doctor.builder()
                     .afm(registrationDto.getAfm())
