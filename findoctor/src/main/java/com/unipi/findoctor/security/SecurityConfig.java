@@ -17,7 +17,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-/*    @Bean
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests()
@@ -29,16 +29,18 @@ public class SecurityConfig {
                 .and()
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/") // @TODO - IMPORTANT: must be changed to the correct url for each user
                         .loginProcessingUrl("/login")
                         .failureUrl("/login?error=true")
                         .permitAll()
                 ).logout(
                         logout -> logout
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                .logoutSuccessUrl("/login?logout") // Redirect to login page after successful logout
+                                .invalidateHttpSession(true) // Invalidate user session
+                                .clearAuthentication(true) // Clear user authentication
+                                .permitAll()
                 );
-
         return http.build();
-    }*/
-
+    }
 }
