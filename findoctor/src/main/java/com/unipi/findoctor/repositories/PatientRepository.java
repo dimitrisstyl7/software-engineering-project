@@ -5,5 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PatientRepository extends JpaRepository<Patient, String> {
     Patient findByAmka(String amka);
-    Patient findByUser_Username(String username);
 }

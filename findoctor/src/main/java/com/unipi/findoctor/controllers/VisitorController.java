@@ -1,7 +1,7 @@
 package com.unipi.findoctor.controllers;
 
-import com.unipi.findoctor.services.PatientService;
-import com.unipi.findoctor.services.UserService;
+import com.unipi.findoctor.dto.UserDto;
+import com.unipi.findoctor.security.SecurityUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +11,15 @@ import static com.unipi.findoctor.constants.ControllerConstants.*;
 @AllArgsConstructor
 @Controller
 public class VisitorController {
-    private final PatientService patientService;
-
     @GetMapping({ROOT_URL, INDEX_URL})
     public String indexPage() {
-        patientService.addPatient();
-        patientService.getPatient("1");
+        UserDto user = SecurityUtil.getSessionUser();
+
+        if (user != null) {
+            System.out.println(user.getUsername());
+            System.out.println(user.getUserType());
+        }
+
         return INDEX_FILE;
     }
 
