@@ -32,9 +32,9 @@ public class Doctor {
     @UpdateTimestamp
     private LocalDateTime registeredOn;
 
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.REFRESH)
     private List<Appointment> appointments;
 
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.REFRESH)
     private List<Rating> ratings;
 }
