@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
-@Service
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
 
