@@ -5,4 +5,6 @@ import com.unipi.findoctor.dto.DoctorDetailsDto;
 public interface DoctorService {
     DoctorDetailsDto getDoctorDetailsByUsername(String username);
     String getDoctorFullNameByUsername(String username);
+
+    Boolean doctorExists(String username);
 }
