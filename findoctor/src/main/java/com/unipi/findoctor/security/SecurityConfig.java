@@ -1,14 +1,23 @@
 package com.unipi.findoctor.security;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.io.IOException;
+
+import static com.unipi.findoctor.constants.ControllerConstants.*;
 
 @Configuration
 @EnableWebSecurity
@@ -31,8 +40,8 @@ public class SecurityConfig {
                 .and()
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/index") // @TODO - IMPORTANT: must be changed to the correct url for each user
                         .loginProcessingUrl("/login")
+                        .successHandler(this::redirectBasedOnUserRole)
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
@@ -45,5 +54,23 @@ public class SecurityConfig {
                                 .permitAll()
                 );
         return http.build();
+    }
+
+    private void redirectBasedOnUserRole(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            for (GrantedAuthority authority : authentication.getAuthorities()) {
+                if (authority.getAuthority().equals("admin")) {
+                    response.sendRedirect(ADMIN_ROOT_URL);
+                    return;
+                } else if (authority.getAuthority().equals("doctor")) {
+                    response.sendRedirect(DOCTOR_ROOT_URL);
+                    return;
+                } else if (authority.getAuthority().equals("patient")) {
+                    response.sendRedirect(PATIENT_ROOT_URL);
+                    return;
+                }
+            }
+        }
+        throw new IllegalStateException();
     }
 }
