@@ -1,5 +1,6 @@
 package com.unipi.findoctor.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,12 +21,4 @@ public class  User {
     private String surname;
     private String phone;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Admin admin;
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Doctor doctor;
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Patient patient;
 }
