@@ -9,10 +9,12 @@
 <main layout:fragment="main">
     <div class="bg_color_2">
         <div class="container margin_60_35">
-            <div th:if="${param.error}" class="alert alert-warning">
+            <div th:if="${param.error}" class="alert alert-warning"
+                 style="text-align: center; width: 30%; display: block; margin: 0 auto;">
                 Invalid username and password.
             </div>
-            <div th:if="${param.logout}" class="alert alert-success">
+            <div th:if="${param.logout}" class="alert alert-success"
+                 style="text-align: center; width: 30%; display: block; margin: 0 auto;">
                 You have successfully logged out.
             </div>
             <div id="login">
