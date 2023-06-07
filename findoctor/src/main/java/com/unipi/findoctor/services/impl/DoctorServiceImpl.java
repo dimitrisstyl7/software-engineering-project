@@ -8,6 +8,8 @@ import com.unipi.findoctor.services.DoctorService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @AllArgsConstructor
 @Service
@@ -17,6 +19,10 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public DoctorDetailsDto getDoctorDetailsByUsername(String username) {
         Doctor doctor = doctorRepository.findByUser_username(username);
+
+        if (doctor == null) {
+            return null;
+        }
 
         if (doctor.isVerified() == false) {
             return null;
@@ -34,5 +40,16 @@ public class DoctorServiceImpl implements DoctorService {
 //        }
 
         return "null";
+    }
+
+    @Override
+    public Boolean doctorExists(String username) {
+        Optional<Doctor> doctor = Optional.ofNullable(doctorRepository.findByUser_username(username));
+
+        if (doctor.isEmpty()) {
+            return false;
+        }
+
+        return true;
     }
 }
