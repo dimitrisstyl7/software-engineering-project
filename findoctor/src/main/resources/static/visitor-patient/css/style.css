@@ -364,14 +364,6 @@ label {
     display: none;
   }
 }
-.main_title_3 h3:before {
-  left: 25%;
-  background: url(../img/arrow_left.png) no-repeat 0 0;
-}
-.main_title_3 h3:after {
-  right: 25%;
-  background: url(../img/arrow_right.png) no-repeat 0 0;
-}
 
 .main_title_4 {
   background-color: #3f4079;
@@ -2962,6 +2954,10 @@ ul.list_edu li strong {
   color: #fff !important;
 }
 
+.datepicker .disabled.day, .datepicker .disabled.day:hover {
+  background-color: initial !important;
+}
+
 .datepicker .day:hover {
   background: #8ec549 !important;
   color: #fff;
@@ -3000,7 +2996,6 @@ ul.legend li:last-child strong {
 
 ul.time_select.version_2 li {
   float: left;
-  width: 50%;
 }
 ul.time_select li input[type="radio"] {
   display: none;
@@ -3029,6 +3024,13 @@ ul.time_select li label {
   text-align: center;
   cursor: pointer;
 }
+
+ul.time_select li input[type="radio"]:disabled + label {
+  color: #999999;
+  background-color: #dddddd;
+  cursor: not-allowed;
+}
+
 ul.time_select li label:hover {
   background-color: #e74e84;
   color: #fff;
