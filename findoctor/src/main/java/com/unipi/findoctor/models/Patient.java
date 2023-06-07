@@ -27,9 +27,9 @@ public class Patient {
     @UpdateTimestamp
     private LocalDateTime registeredOn;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.REFRESH)
     private List<Appointment> appointments;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.REFRESH)
     private List<Rating> ratings;
 }
