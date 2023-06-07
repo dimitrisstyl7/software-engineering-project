@@ -1,10 +1,7 @@
 package com.unipi.findoctor.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
@@ -21,7 +18,7 @@ public class Patient {
     @Id
     private String amka;
 
-    @OneToOne(cascade = CascadeType.REFRESH)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName = "username")
     private User user;
 
@@ -30,9 +27,9 @@ public class Patient {
     @UpdateTimestamp
     private LocalDateTime registeredOn;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.REFRESH)
     private List<Appointment> appointments;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.REFRESH)
     private List<Rating> ratings;
 }

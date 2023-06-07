@@ -3,15 +3,16 @@
       layout:decorate="~{patient_layout}">
 
 <head>
-    <title>Grid-list</title>
+    <title>List</title>
 </head>
 
+<body>
 <main layout:fragment="main">
     <div id="results">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h4><strong>Showing 10</strong> of 140 results</h4>
+                    <h4 th:text="${'Showing 9 of ' + totalDoctors + ' results'}"></h4>
                 </div>
                 <div class="col-md-6">
                     <div class="search_bar_list">
@@ -30,29 +31,10 @@
         <div class="container">
             <ul class="clearfix">
                 <li>
-                    <h6>Type</h6>
-                    <div class="switch-field">
-                        <input type="radio" id="all" name="type_patient" value="all" checked>
-                        <label for="all">All</label>
-                        <input type="radio" id="doctors" name="type_patient" value="doctors">
-                        <label for="doctors">Doctors</label>
-                        <input type="radio" id="clinics" name="type_patient" value="clinics">
-                        <label for="clinics">Clinics</label>
-                    </div>
-                </li>
-                <li>
-                    <h6>Layout</h6>
-                    <div class="layout_view">
-                        <a href="#0" class="active"><i class="icon-th"></i></a>
-                        <a href="list.html"><i class="icon-th-list"></i></a>
-                        <a href="list-map.html"><i class="icon-map-1"></i></a>
-                    </div>
-                </li>
-                <li>
                     <h6>Sort by</h6>
                     <select name="orderby" class="selectbox">
-                        <option value="Closest">Closest</option>
                         <option value="Best rated">Best rated</option>
+                        <option value="Closest">Closest</option>
                         <option value="Men">Men</option>
                         <option value="Women">Women</option>
                     </select>
@@ -65,226 +47,46 @@
 
     <div class="container margin_60_35">
         <div class="row">
-            <div>
-                <div class="row">
-                    <div class="col-md-6">
+
+            <div th:each="doctor : ${doctorDetails}" class="col-md-4">
                         <div class="box_list wow fadeIn">
                             <a href="#0" class="wish_bt"></a>
                             <figure>
-                                <a href="detail-page.html"><img src="http://via.placeholder.com/565x565.jpg"
-                                                                class="img-fluid" alt="">
-                                    <div class="preview"><span>Read more</span></div>
-                                </a>
+                            <img th:src="${doctor.getImageURL()}" class="img-fluid" alt="Doctor portrait">
                             </figure>
-                            <div class="wrapper">
-                                <small>Psicologist</small>
-                                <h3>Dr. Sickman</h3>
+                                <div class="wrapper">
+                                <small th:text="${doctor.getSpecialization()}"></small>
+                                <h3 th:text="${doctor.getFullName()}"></h3>
 
                                 <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti
                                     cuodo....</p>
-                                <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                        class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
-								<small>(145)</small></span>
-                                <a href="badges.html" data-bs-toggle="tooltip" data-bs-placement="top"
-                                   title="Badge Level"
-                                   class="badge_list_1"><img src="img/badges/badge_1.svg" width="15" height="15"
-                                                             alt=""></a>
+                                <span class="rating">
+                                    <i th:each="star : ${#numbers.sequence(1, 5)}" th:class="${doctor.getAverageRating() >= star} ? 'icon_star voted' : 'icon_star'"></i>
+                                    <small th:text="${'(' + doctor.getRatings().size() + ')'}"></small></span>
                             </div>
                             <ul>
-                                <li><a href="#0" onclick="onHtmlClick('Doctors', 0)"><i class="icon_pin_alt"></i>View on
-                                    map</a></li>
-                                <li>
-                                    <a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
-                                       target="_blank"><i class="icon_pin_alt"></i>Directions</a></li>
-                                <li><a href="detail-page.html">Book now</a></li>
+                                <li><a th:href="@{/details/{username}(username=${doctor.getUser().getUsername()})}">Book now</a></li>
                             </ul>
-                        </div>
                     </div>
-                    <!-- /box_list -->
-
-                    <div class="col-md-6">
-                        <div class="box_list wow fadeIn">
-                            <a href="#0" class="wish_bt"></a>
-                            <figure>
-                                <a href="detail-page.html"><img src="http://via.placeholder.com/565x565.jpg"
-                                                                class="img-fluid" alt="">
-                                    <div class="preview"><span>Read more</span></div>
-                                </a>
-                            </figure>
-                            <div class="wrapper">
-                                <small>Psicologist</small>
-                                <h3>Dr. Will Griever</h3>
-                                <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti
-                                    cuodo....</p>
-                                <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                        class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
-								<small>(145)</small></span>
-                                <a href="badges.html" data-bs-toggle="tooltip" data-bs-placement="top"
-                                   title="Badge Level"
-                                   class="badge_list_1"><img src="img/badges/badge_2.svg" width="15" height="15"
-                                                             alt=""></a>
-                            </div>
-                            <ul>
-                                <li><a href="#0" onclick="onHtmlClick('Doctors', 1)"><i class="icon_pin_alt"></i>View on
-                                    map</a></li>
-                                <li>
-                                    <a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
-                                       target="_blank"><i class="icon_pin_alt"></i>Directions</a></li>
-                                <li><a href="detail-page.html">Book now</a></li>
-                            </ul>
-                        </div>
                     </div>
-                    <!-- /box_list -->
+            <!-- /box_list -->
 
-                    <div class="col-md-6">
-                        <div class="box_list wow fadeIn">
-                            <a href="#0" class="wish_bt"></a>
-                            <figure>
-                                <a href="detail-page.html"><img src="http://via.placeholder.com/565x565.jpg"
-                                                                class="img-fluid" alt="">
-                                    <div class="preview"><span>Read more</span></div>
-                                </a>
-                            </figure>
-                            <div class="wrapper">
-                                <small>Pediatrician</small>
-                                <h3>Dr. Jhoanna Steel</h3>
-                                <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti
-                                    cuodo....</p>
-                                <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                        class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
-								<small>(145)</small></span>
-                                <a href="badges.html" data-bs-toggle="tooltip" data-bs-placement="top"
-                                   title="Badge Level"
-                                   class="badge_list_1"><img src="img/badges/badge_3.svg" width="15" height="15"
-                                                             alt=""></a>
-                            </div>
-                            <ul>
-                                <li><a href="#0" onclick="onHtmlClick('Doctors', 2)"><i class="icon_pin_alt"></i>View on
-                                    map</a></li>
-                                <li>
-                                    <a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
-                                       target="_blank"><i class="icon_pin_alt"></i>Directions</a></li>
-                                <li><a href="detail-page.html">Book now</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /box_list -->
+            <div th:if="${doctorDetails.isEmpty()}">
+                <p>No doctors found.</p>
+            </div>
 
-                    <div class="col-md-6">
-                        <div class="box_list wow fadeIn">
-                            <a href="#0" class="wish_bt"></a>
-                            <figure>
-                                <a href="detail-page.html"><img src="http://via.placeholder.com/565x565.jpg"
-                                                                class="img-fluid" alt="">
-                                    <div class="preview"><span>Read more</span></div>
-                                </a>
-                            </figure>
-                            <div class="wrapper">
-                                <small>Pediatrician</small>
-                                <h3>Dr. Slaughter</h3>
-                                <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti
-                                    cuodo....</p>
-                                <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                        class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
-								<small>(145)</small></span>
-                                <a href="badges.html" data-bs-toggle="tooltip" data-bs-placement="top"
-                                   title="Badge Level"
-                                   class="badge_list_1"><img src="img/badges/badge_3.svg" width="15" height="15"
-                                                             alt=""></a>
-                            </div>
-                            <ul>
-                                <li><a href="#0" onclick="onHtmlClick('Doctors', 3)"><i class="icon_pin_alt"></i>View on
-                                    map</a></li>
-                                <li>
-                                    <a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
-                                       target="_blank"><i class="icon_pin_alt"></i>Directions</a></li>
-                                <li><a href="detail-page.html">Book now</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /box_list -->
-
-                    <div class="col-md-6">
-                        <div class="box_list wow fadeIn">
-                            <a href="#0" class="wish_bt"></a>
-                            <figure>
-                                <a href="detail-page.html"><img src="http://via.placeholder.com/565x565.jpg"
-                                                                class="img-fluid" alt="">
-                                    <div class="preview"><span>Read more</span></div>
-                                </a>
-                            </figure>
-                            <div class="wrapper">
-                                <small>Psicologist</small>
-                                <h3>Dr. Watchmaker</h3>
-                                <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti
-                                    cuodo....</p>
-                                <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                        class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
-								<small>(145)</small></span>
-                                <a href="badges.html" data-bs-toggle="tooltip" data-bs-placement="top"
-                                   title="Badge Level"
-                                   class="badge_list_1"><img src="img/badges/badge_4.svg" width="15" height="15"
-                                                             alt=""></a>
-                            </div>
-                            <ul>
-                                <li><a href="#0" onclick="onHtmlClick('Doctors', 1)"><i class="icon_pin_alt"></i>View on
-                                    map</a></li>
-                                <li>
-                                    <a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
-                                       target="_blank"><i class="icon_pin_alt"></i>Directions</a></li>
-                                <li><a href="detail-page.html">Book now</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /box_list -->
-
-                    <div class="col-md-6">
-                        <div class="box_list wow fadeIn">
-                            <a href="#0" class="wish_bt"></a>
-                            <figure>
-                                <a href="detail-page.html"><img src="http://via.placeholder.com/565x565.jpg"
-                                                                class="img-fluid" alt="">
-                                    <div class="preview"><span>Read more</span></div>
-                                </a>
-                            </figure>
-                            <div class="wrapper">
-                                <small>Psicologist - Pediatrician</small>
-                                <h3>Dr. Sunshine</h3>
-                                <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti
-                                    cuodo....</p>
-                                <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                        class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
-								<small>(145)</small></span>
-                                <a href="badges.html" data-bs-toggle="tooltip" data-bs-placement="top"
-                                   title="Badge Level"
-                                   class="badge_list_1"><img src="img/badges/badge_4.svg" width="15" height="15"
-                                                             alt=""></a>
-                            </div>
-                            <ul>
-                                <li><a href="#0" onclick="onHtmlClick('Doctors', 2)"><i class="icon_pin_alt"></i>View on
-                                    map</a></li>
-                                <li>
-                                    <a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
-                                       target="_blank"><i class="icon_pin_alt"></i>Directions</a></li>
-                                <li><a href="detail-page.html">Book now</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /box_list -->
-
-                </div>
-                <!-- /row -->
 
                 <nav aria-label="" class="add_top_20">
                     <ul class="pagination pagination-sm">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        <li th:class="${currentPage - 1 < 1} ? 'page-item disabled' : 'page-item'">
+                            <a class="page-link" th:href="@{/list(page=${currentPage - 1})}" tabindex="-1">Previous</a>
                         </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
+                        <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+                            th:classappend="${pageNumber} == ${currentPage} ? 'page-item active' : 'page-item'">
+                            <a class="page-link" th:href="@{/list(page=${pageNumber})}" th:text="${pageNumber}"></a>
+                        </li>
+                        <li th:class="${currentPage + 1 > totalPages} ? 'page-item disabled' : 'page-item'">
+                            <a class="page-link" th:href="@{/list(page=${currentPage + 1})}">Next</a>
                         </li>
                     </ul>
                 </nav>
@@ -297,5 +99,5 @@
     <!-- /container -->
 </main>
 <!-- /main -->
-
+</body>
 </html>

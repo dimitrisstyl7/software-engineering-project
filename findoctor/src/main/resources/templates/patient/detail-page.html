@@ -5,15 +5,19 @@
 
 <head>
     <title>Details</title>
+
+    <!-- SPECIFIC CSS -->
+    <link th:href="@{/visitor-patient/css/date_picker.css}" rel="stylesheet">
 </head>
 
+<body>
 <main layout:fragment="main">
     <div id="breadcrumb">
         <div class="container">
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Category</a></li>
-                <li>Page active</li>
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/list}">List</a></li>
+                <li th:text="${doctorDetails.getFullName()}"></li>
             </ul>
         </div>
     </div>
@@ -25,19 +29,13 @@
             <aside class="col-xl-3 col-lg-4" id="sidebar">
                 <div class="box_profile">
                     <figure>
-                        <img src="http://via.placeholder.com/565x565.jpg" alt="" class="img-fluid">
+                        <img th:src="${doctorDetails.getImageURL()}" alt="" class="img-fluid">
                     </figure>
-                    <small>Primary care - Internist</small>
-                    <h1>DR. Julia Jhones</h1>
+                    <small th:text="${doctorDetails.getSpecialization()}"></small>
+                    <h1 th:text="${doctorDetails.getFullName()}"></h1>
                     <span class="rating">
-					<i class="icon_star voted"></i>
-					<i class="icon_star voted"></i>
-					<i class="icon_star voted"></i>
-					<i class="icon_star voted"></i>
-					<i class="icon_star"></i>
-					<small>(145)</small>
-					<a href="badges.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Badge Level"
-                       class="badge_list_1"><img src="img/badges/badge_1.svg" width="15" height="15" alt=""></a>
+					<i th:each="star : ${#numbers.sequence(1, 5)}" th:class="${doctorDetails.getAverageRating() >= star} ? 'icon_star voted' : 'icon_star'"></i>
+					<small th:text="${'(' + doctorDetails.getRatings().size() + ')'}"></small>
 				</span>
                     <ul class="statistic">
                         <li>854 Views</li>
@@ -45,15 +43,12 @@
                     </ul>
                     <ul class="contacts">
                         <li>
-                            <h6>Address</h6>859 60th, Brooklyn, NY, 11220
+                            <h6>Address</h6><span th:text="${doctorDetails.getAddress() + ', ' + doctorDetails.getCity()}"></span>
                         </li>
                         <li>
-                            <h6>Phone</h6><a href="tel://000434323342">+00043 4323342</a>
+                            <h6>Phone</h6><span th:text="${doctorDetails.getBusinessPhone()}"></span>
                         </li>
                     </ul>
-                    <div class="text-center"><a
-                            href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
-                            class="btn_1 outline" target="_blank"><i class="icon_pin"></i> View on map</a></div>
                 </div>
             </aside>
             <!-- /asdide -->
@@ -86,7 +81,7 @@
                                 adipiscing elit.</p>
                             <form>
                                 <div class="main_title_3">
-                                    <h3><strong>1</strong>Select your date</h3>
+                                    <h3><strong>1</strong>Select date and time</h3>
                                 </div>
                                 <div class="form-group add_bottom_45">
                                     <div id="calendar"></div>
@@ -95,131 +90,64 @@
                                         <li><strong></strong>Available</li>
                                         <li><strong></strong>Not available</li>
                                     </ul>
-                                </div>
-                                <div class="main_title_3">
-                                    <h3><strong>2</strong>Select your time</h3>
-                                </div>
-                                <div class="row justify-content-center add_bottom_45">
-                                    <div class="col-md-3 col-6 text-center">
-                                        <ul class="time_select">
+                                    <div class="row">
+                                        <ul class="time_select version_2 add_top_20 d-flex flex-wrap justify-content-center">
                                             <li>
                                                 <input type="radio" id="radio1" name="radio_time" value="09.30am">
-                                                <label for="radio1">09.30am</label>
+                                                <label for="radio1">08:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio2" name="radio_time" value="10.00am">
-                                                <label for="radio2">10.00am</label>
+                                                <label for="radio2">09:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio3" name="radio_time" value="10.30am">
-                                                <label for="radio3">10.30am</label>
+                                                <label for="radio3">10:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio4" name="radio_time" value="11.00am">
-                                                <label for="radio4">11.00am</label>
+                                                <label for="radio4">11:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio5" name="radio_time" value="11.30am">
-                                                <label for="radio5">11.30am</label>
+                                                <label for="radio5">12:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio6" name="radio_time" value="12.00am">
-                                                <label for="radio6">12.00am</label>
+                                                <label for="radio6">13:00</label>
                                             </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-3 col-6 text-center">
-                                        <ul class="time_select">
                                             <li>
                                                 <input type="radio" id="radio7" name="radio_time" value="01.30pm">
-                                                <label for="radio7">01.30pm</label>
+                                                <label for="radio7">14:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio8" name="radio_time" value="02.00pm">
-                                                <label for="radio8">02.00pm</label>
+                                                <label for="radio8">15:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio9" name="radio_time" value="02.30pm">
-                                                <label for="radio9">02.30pm</label>
+                                                <label for="radio9">16:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio10" name="radio_time" value="03.00pm">
-                                                <label for="radio10">03.00pm</label>
+                                                <label for="radio10">17:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio11" name="radio_time" value="03.30pm">
-                                                <label for="radio11">03.30pm</label>
+                                                <label for="radio11">18:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio12" name="radio_time" value="04.00pm">
-                                                <label for="radio12">04.00pm</label>
+                                                <label for="radio12">19:00</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="radio13" name="radio_time" value="04.00pm">
+                                                <label for="radio13">20:00</label>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                                 <!-- /row -->
-
-                                <div class="main_title_3">
-                                    <h3><strong>3</strong>Select visit</h3>
-                                </div>
-                                <ul class="treatments clearfix">
-                                    <li>
-                                        <div class="checkbox">
-                                            <input type="checkbox" class="css-checkbox" id="visit1" name="visit1">
-                                            <label for="visit1" class="css-label">Back Pain visit
-                                                <strong>$55</strong></label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <input type="checkbox" class="css-checkbox" id="visit2" name="visit2">
-                                            <label for="visit2" class="css-label">Cardiovascular screen
-                                                <strong>$55</strong></label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <input type="checkbox" class="css-checkbox" id="visit3" name="visit3">
-                                            <label for="visit3" class="css-label">Diabetes consultation
-                                                <strong>$55</strong></label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <input type="checkbox" class="css-checkbox" id="visit4" name="visit4">
-                                            <label for="visit4" class="css-label">Icontinence visit
-                                                <strong>$55</strong></label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <input type="checkbox" class="css-checkbox" id="visit5" name="visit5">
-                                            <label for="visit5" class="css-label">Foot Pain visit
-                                                <strong>$55</strong></label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <input type="checkbox" class="css-checkbox" id="visit6" name="visit6">
-                                            <label for="visit6" class="css-label">Food intollerance visit
-                                                <strong>$55</strong></label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <input type="checkbox" class="css-checkbox" id="visit7" name="visit7">
-                                            <label for="visit7" class="css-label">Neck Pain visit
-                                                <strong>$55</strong></label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <input type="checkbox" class="css-checkbox" id="visit8" name="visit8">
-                                            <label for="visit8" class="css-label">Back Pain visit
-                                                <strong>$55</strong></label>
-                                        </div>
-                                    </li>
-                                </ul>
                             </form>
                             <hr>
                             <p class="text-center"><a href="booking-page.html" class="btn_1 medium">Book Now</a></p>
@@ -350,21 +278,19 @@
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <div id="review_summary">
-                                            <strong>4.7</strong>
+                                            <strong th:text="${doctorDetails.getAverageRating()}">4.7</strong>
                                             <div class="rating">
-                                                <i class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                    class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                    class="icon_star"></i>
+                                                <i class="icon_star voted"></i>
                                             </div>
-                                            <small>Based on 4 reviews</small>
+                                            <small th:text="${'Based on ' + doctorDetails.getRatings().size() + ' reviews'}"></small>
                                         </div>
                                     </div>
                                     <div class="col-lg-9">
                                         <div class="row">
                                             <div class="col-lg-10 col-9">
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: 90%"
-                                                         aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar" role="progressbar" th:style="${'width: '+ doctorDetails.ratingValuePercentage(5) +'%'}"
+                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-3"><small><strong>5 stars</strong></small></div>
@@ -373,8 +299,8 @@
                                         <div class="row">
                                             <div class="col-lg-10 col-9">
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: 95%"
-                                                         aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar" role="progressbar" th:style="${'width: '+ doctorDetails.ratingValuePercentage(4) +'%'}"
+                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-3"><small><strong>4 stars</strong></small></div>
@@ -383,8 +309,8 @@
                                         <div class="row">
                                             <div class="col-lg-10 col-9">
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: 60%"
-                                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar" role="progressbar" th:style="${'width: '+ doctorDetails.ratingValuePercentage(3) +'%'}"
+                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-3"><small><strong>3 stars</strong></small></div>
@@ -393,8 +319,8 @@
                                         <div class="row">
                                             <div class="col-lg-10 col-9">
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: 20%"
-                                                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar" role="progressbar" th:style="${'width: '+ doctorDetails.ratingValuePercentage(2) +'%'}"
+                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-3"><small><strong>2 stars</strong></small></div>
@@ -403,8 +329,8 @@
                                         <div class="row">
                                             <div class="col-lg-10 col-9">
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: 0"
-                                                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar" role="progressbar" th:style="${'width: '+ doctorDetails.ratingValuePercentage(1) +'%'}"
+                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-3"><small><strong>1 stars</strong></small></div>
@@ -416,76 +342,26 @@
 
                                 <hr>
 
-                                <div class="review-box clearfix">
-                                    <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
-                                    </figure>
+                                <div th:each="rating : ${doctorDetails.getRatings()}" class="review-box clearfix">
                                     <div class="rev-content">
                                         <div class="rating">
-                                            <i class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                class="icon_star"></i>
+                                            <i th:each="star : ${#numbers.sequence(1, 5)}" th:class="${rating.getRatingValue() >= star} ? 'icon_star voted' : 'icon_star'"></i>
                                         </div>
-                                        <div class="rev-info">
-                                            Admin – April 03, 2016:
+                                        <div class="rev-info" th:text="${rating.getPatient().getUser().getUsername() + ' – '  + rating.getDate()}">
                                         </div>
                                         <div class="rev-text">
-                                            <p>
-                                                Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar
-                                                hendrerit. Cum sociis natoque penatibus et magnis dis
+                                            <p th:text="${rating.getReview()}">
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- /review-box -->
 
-                                <div class="review-box clearfix">
-                                    <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
-                                    </figure>
-                                    <div class="rev-content">
-                                        <div class="rating">
-                                            <i class="icon-star voted"></i><i class="icon_star voted"></i><i
-                                                class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                class="icon_star"></i>
-                                        </div>
-                                        <div class="rev-info">
-                                            Ahsan – April 01, 2016
-                                        </div>
-                                        <div class="rev-text">
-                                            <p>
-                                                Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar
-                                                hendrerit. Cum sociis natoque penatibus et magnis dis
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End review-box -->
-
-                                <div class="review-box clearfix">
-                                    <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
-                                    </figure>
-                                    <div class="rev-content">
-                                        <div class="rating">
-                                            <i class="icon-star voted"></i><i class="icon_star voted"></i><i
-                                                class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                                class="icon_star"></i>
-                                        </div>
-                                        <div class="rev-info">
-                                            Sara – March 31, 2016
-                                        </div>
-                                        <div class="rev-text">
-                                            <p>
-                                                Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar
-                                                hendrerit. Cum sociis natoque penatibus et magnis dis
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End review-box -->
 
                             </div>
                             <!-- End review-container -->
                             <hr>
-                            <div class="text-end"><a href="submit-review.html" class="btn_1 add_bottom_15">Submit
+                            <div class="text-end"><a th:href="${'/review/new/'+doctorDetails.getUser().getUsername()}" class="btn_1 add_bottom_15">Submit
                                 review</a>
                             </div>
                         </div>
@@ -500,7 +376,68 @@
         <!-- /row -->
     </div>
     <!-- /container -->
+
 </main>
 <!-- /main -->
 
+<div layout:fragment="additional-scripts">
+    <script th:src="@{/visitor-patient/js/bootstrap-datepicker.js}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#calendar').datepicker({
+                todayHighlight: true,
+                daysOfWeekDisabled: [0],
+                weekStart: 1,
+                format: "yyyy-mm-dd",
+                startDate: new Date()
+            }).on('changeDate', function(selected) {
+                var selectedDate = selected.format('yyyy-mm-dd');
+                // console.log('Selected date:', selectedDate);
+
+                fetch('/api/v1/available-time-slots?date=' + selectedDate + '&doctorUsername=dr.smith')
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+
+                        const timeSelect = document.querySelector('.time_select');
+
+                        // Clear existing <li> elements
+                        timeSelect.innerHTML = '';
+
+                        // Iterate over the map entries
+                        for (const [timeSlot, availability] of Object.entries(data)) {
+                            // Create a new li element
+                            const li = document.createElement('li');
+
+                            // Create the input element
+                            const input = document.createElement('input');
+                            input.type = 'radio';
+                            input.id = `radio-${timeSlot}`;
+                            input.name = 'radio_time';
+                            input.value = timeSlot;
+
+                            // Set the disabled property based on the availability
+                            input.disabled = !availability;
+
+                            // Create the label element
+                            const label = document.createElement('label');
+                            label.htmlFor = `radio-${timeSlot}`;
+                            label.textContent = timeSlot;
+
+                            // Append the input and label elements to the li element
+                            li.appendChild(input);
+                            li.appendChild(label);
+
+                            // Append the li element to the ul element
+                            timeSelect.appendChild(li); }
+
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    </script>
+</div>
+</body>
 </html>
