@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
@@ -21,7 +22,7 @@ public class Doctor {
     @Id
     private String afm;
 
-    @OneToOne(cascade = CascadeType.REFRESH)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName = "username")
     private User user;
 
@@ -30,9 +31,9 @@ public class Doctor {
     private String businessPhone;
     private String city;
     private String address;
-    private boolean isVerified; // by default false
+    private boolean isVerified;
 
-    @UpdateTimestamp
+    @CreationTimestamp
     private LocalDateTime registeredOn;
 
     @OneToMany(mappedBy = "doctor")
