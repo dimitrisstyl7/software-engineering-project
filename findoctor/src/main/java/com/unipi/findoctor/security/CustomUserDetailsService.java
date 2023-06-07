@@ -1,8 +1,5 @@
 package com.unipi.findoctor.security;
 
-import com.unipi.findoctor.models.Admin;
-import com.unipi.findoctor.models.Doctor;
-import com.unipi.findoctor.models.Patient;
 import com.unipi.findoctor.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
