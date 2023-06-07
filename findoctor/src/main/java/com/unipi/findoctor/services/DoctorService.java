@@ -1,9 +1,10 @@
 package com.unipi.findoctor.services;
 
 import com.unipi.findoctor.dto.DoctorDetailsDto;
-import com.unipi.findoctor.models.Doctor;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface DoctorService {
     DoctorDetailsDto getDoctorDetailsByUsername(String username);
 

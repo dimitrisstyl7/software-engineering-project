@@ -15,7 +15,6 @@ import java.util.Optional;
 
 
 @AllArgsConstructor
-@Service
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;

@@ -14,7 +14,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-@Service
 public class AppointmentServiceImpl implements AppointmentService {
     private final AppointmentRepository appointmentRepository;
 

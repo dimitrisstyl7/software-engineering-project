@@ -6,10 +6,8 @@ import com.unipi.findoctor.repositories.PatientRepository;
 import com.unipi.findoctor.services.PatientService;
 import com.unipi.findoctor.services.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
-@Service
 public class PatientServiceImpl implements PatientService {
     private final PatientRepository patientRepository;
     private final UserService userService;

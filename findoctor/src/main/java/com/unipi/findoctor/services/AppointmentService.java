@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public interface AppointmentService {
     Map<String, Boolean> getDoctorAvailableTimeSlots(String username, LocalDate date);
 }
