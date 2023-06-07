@@ -1,5 +1,6 @@
 package com.unipi.findoctor.security;
 
+import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +12,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
+@NoArgsConstructor
 public class SecurityConfig {
     @Bean
     public static PasswordEncoder passwordEncoder() {
@@ -20,20 +22,21 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeHttpRequests()
+                .authorizeRequests()
                 .requestMatchers(
-                        "/login", "/register", "/admin-doctor/css/**",
+                        "/", "/index", "/login", "/register", "/admin-doctor/css/**",
                         "/visitor-patient/css/**", "/visitor-patient/scss/**",
                         "/admin-doctor/js/**", "/admin-doctor/css/**", "/admin-doctor/scss/**")
                 .permitAll()
                 .and()
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/") // @TODO - IMPORTANT: must be changed to the correct url for each user
+                        .defaultSuccessUrl("/index") // @TODO - IMPORTANT: must be changed to the correct url for each user
                         .loginProcessingUrl("/login")
                         .failureUrl("/login?error=true")
                         .permitAll()
-                ).logout(
+                )
+                .logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .logoutSuccessUrl("/login?logout") // Redirect to login page after successful logout
