@@ -5,8 +5,12 @@
 
 <head>
     <title>Details</title>
+
+    <!-- SPECIFIC CSS -->
+    <link th:href="@{/visitor-patient/css/date_picker.css}" rel="stylesheet">
 </head>
 
+<body>
 <main layout:fragment="main">
     <div id="breadcrumb">
         <div class="container">
@@ -77,7 +81,7 @@
                                 adipiscing elit.</p>
                             <form>
                                 <div class="main_title_3">
-                                    <h3><strong>1</strong>Select your date</h3>
+                                    <h3><strong>1</strong>Select date and time</h3>
                                 </div>
                                 <div class="form-group add_bottom_45">
                                     <div id="calendar"></div>
@@ -86,131 +90,64 @@
                                         <li><strong></strong>Available</li>
                                         <li><strong></strong>Not available</li>
                                     </ul>
-                                </div>
-                                <div class="main_title_3">
-                                    <h3><strong>2</strong>Select your time</h3>
-                                </div>
-                                <div class="row justify-content-center add_bottom_45">
-                                    <div class="col-md-3 col-6 text-center">
-                                        <ul class="time_select">
+                                    <div class="row">
+                                        <ul class="time_select version_2 add_top_20 d-flex flex-wrap justify-content-center">
                                             <li>
                                                 <input type="radio" id="radio1" name="radio_time" value="09.30am">
-                                                <label for="radio1">09.30am</label>
+                                                <label for="radio1">08:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio2" name="radio_time" value="10.00am">
-                                                <label for="radio2">10.00am</label>
+                                                <label for="radio2">09:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio3" name="radio_time" value="10.30am">
-                                                <label for="radio3">10.30am</label>
+                                                <label for="radio3">10:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio4" name="radio_time" value="11.00am">
-                                                <label for="radio4">11.00am</label>
+                                                <label for="radio4">11:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio5" name="radio_time" value="11.30am">
-                                                <label for="radio5">11.30am</label>
+                                                <label for="radio5">12:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio6" name="radio_time" value="12.00am">
-                                                <label for="radio6">12.00am</label>
+                                                <label for="radio6">13:00</label>
                                             </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-3 col-6 text-center">
-                                        <ul class="time_select">
                                             <li>
                                                 <input type="radio" id="radio7" name="radio_time" value="01.30pm">
-                                                <label for="radio7">01.30pm</label>
+                                                <label for="radio7">14:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio8" name="radio_time" value="02.00pm">
-                                                <label for="radio8">02.00pm</label>
+                                                <label for="radio8">15:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio9" name="radio_time" value="02.30pm">
-                                                <label for="radio9">02.30pm</label>
+                                                <label for="radio9">16:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio10" name="radio_time" value="03.00pm">
-                                                <label for="radio10">03.00pm</label>
+                                                <label for="radio10">17:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio11" name="radio_time" value="03.30pm">
-                                                <label for="radio11">03.30pm</label>
+                                                <label for="radio11">18:00</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="radio12" name="radio_time" value="04.00pm">
-                                                <label for="radio12">04.00pm</label>
+                                                <label for="radio12">19:00</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="radio13" name="radio_time" value="04.00pm">
+                                                <label for="radio13">20:00</label>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                                 <!-- /row -->
-
-                                <div class="main_title_3">
-                                    <h3><strong>3</strong>Select visit</h3>
-                                </div>
-                                <ul class="treatments clearfix">
-                                    <li>
-                                        <div class="checkbox">
-                                            <input type="checkbox" class="css-checkbox" id="visit1" name="visit1">
-                                            <label for="visit1" class="css-label">Back Pain visit
-                                                <strong>$55</strong></label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <input type="checkbox" class="css-checkbox" id="visit2" name="visit2">
-                                            <label for="visit2" class="css-label">Cardiovascular screen
-                                                <strong>$55</strong></label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <input type="checkbox" class="css-checkbox" id="visit3" name="visit3">
-                                            <label for="visit3" class="css-label">Diabetes consultation
-                                                <strong>$55</strong></label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <input type="checkbox" class="css-checkbox" id="visit4" name="visit4">
-                                            <label for="visit4" class="css-label">Icontinence visit
-                                                <strong>$55</strong></label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <input type="checkbox" class="css-checkbox" id="visit5" name="visit5">
-                                            <label for="visit5" class="css-label">Foot Pain visit
-                                                <strong>$55</strong></label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <input type="checkbox" class="css-checkbox" id="visit6" name="visit6">
-                                            <label for="visit6" class="css-label">Food intollerance visit
-                                                <strong>$55</strong></label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <input type="checkbox" class="css-checkbox" id="visit7" name="visit7">
-                                            <label for="visit7" class="css-label">Neck Pain visit
-                                                <strong>$55</strong></label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <input type="checkbox" class="css-checkbox" id="visit8" name="visit8">
-                                            <label for="visit8" class="css-label">Back Pain visit
-                                                <strong>$55</strong></label>
-                                        </div>
-                                    </li>
-                                </ul>
                             </form>
                             <hr>
                             <p class="text-center"><a href="booking-page.html" class="btn_1 medium">Book Now</a></p>
@@ -439,7 +376,68 @@
         <!-- /row -->
     </div>
     <!-- /container -->
+
 </main>
 <!-- /main -->
 
+<div layout:fragment="additional-scripts">
+    <script th:src="@{/visitor-patient/js/bootstrap-datepicker.js}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#calendar').datepicker({
+                todayHighlight: true,
+                daysOfWeekDisabled: [0],
+                weekStart: 1,
+                format: "yyyy-mm-dd",
+                startDate: new Date()
+            }).on('changeDate', function(selected) {
+                var selectedDate = selected.format('yyyy-mm-dd');
+                // console.log('Selected date:', selectedDate);
+
+                fetch('/api/v1/available-time-slots?date=' + selectedDate + '&doctorUsername=dr.smith')
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+
+                        const timeSelect = document.querySelector('.time_select');
+
+                        // Clear existing <li> elements
+                        timeSelect.innerHTML = '';
+
+                        // Iterate over the map entries
+                        for (const [timeSlot, availability] of Object.entries(data)) {
+                            // Create a new li element
+                            const li = document.createElement('li');
+
+                            // Create the input element
+                            const input = document.createElement('input');
+                            input.type = 'radio';
+                            input.id = `radio-${timeSlot}`;
+                            input.name = 'radio_time';
+                            input.value = timeSlot;
+
+                            // Set the disabled property based on the availability
+                            input.disabled = !availability;
+
+                            // Create the label element
+                            const label = document.createElement('label');
+                            label.htmlFor = `radio-${timeSlot}`;
+                            label.textContent = timeSlot;
+
+                            // Append the input and label elements to the li element
+                            li.appendChild(input);
+                            li.appendChild(label);
+
+                            // Append the li element to the ul element
+                            timeSelect.appendChild(li); }
+
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    </script>
+</div>
+</body>
 </html>
