@@ -8,17 +8,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
+@Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
-    }
-
-    @Override
-    public void saveUser(User user) {
-        user.setPassword(SecurityConfig.passwordEncoder().encode(user.getPassword()));
-        userRepository.save(user);
     }
 }
