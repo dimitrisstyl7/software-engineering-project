@@ -6,6 +6,9 @@ import com.unipi.findoctor.models.Doctor;
 import com.unipi.findoctor.repositories.DoctorRepository;
 import com.unipi.findoctor.services.DoctorService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -32,17 +35,6 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public String getDoctorFullNameByUsername(String username) {
-//        Doctor doctor = doctorRepository.findByUser_username(username);
-//
-//        if (doctor.isVerified() == false) {
-//            return null;
-//        }
-
-        return "null";
-    }
-
-    @Override
     public Boolean doctorExists(String username) {
         Optional<Doctor> doctor = Optional.ofNullable(doctorRepository.findByUser_username(username));
 
@@ -51,5 +43,14 @@ public class DoctorServiceImpl implements DoctorService {
         }
 
         return true;
+    }
+
+    @Override
+    public Page<DoctorDetailsDto> getDoctorsByPage(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<Doctor> doctorPage = doctorRepository.findAll(pageable);
+        Page<DoctorDetailsDto> doctorDetailsDtoPage = doctorPage.map(doctor -> doctorMapper.mapToDoctorDetailsDto(doctor));
+
+        return doctorDetailsDtoPage;
     }
 }

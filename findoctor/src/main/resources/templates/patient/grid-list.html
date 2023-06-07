@@ -6,12 +6,13 @@
     <title>List</title>
 </head>
 
+<body>
 <main layout:fragment="main">
     <div id="results">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h4><strong>Showing 10</strong> of 140 results</h4>
+                    <h4 th:text="${'Showing 9 of ' + totalDoctors + ' results'}"></h4>
                 </div>
                 <div class="col-md-6">
                     <div class="search_bar_list">
@@ -46,151 +47,46 @@
 
     <div class="container margin_60_35">
         <div class="row">
-            <div>
-                <div class="row">
-                    <div class="col-md-4">
+
+            <div th:each="doctor : ${doctorDetails}" class="col-md-4">
                         <div class="box_list wow fadeIn">
                             <a href="#0" class="wish_bt"></a>
                             <figure>
-                                <a href="detail-page.html"><img src="http://via.placeholder.com/565x565.jpg"
-                                                                class="img-fluid" alt="">
-                                    <div class="preview"><span>Read more</span></div>
-                                </a>
+                            <img th:src="${doctor.getImageURL()}" class="img-fluid" alt="Doctor portrait">
                             </figure>
-                            <div class="wrapper">
-                                <small>Psicologist</small>
-                                <h3>Dr. Sickman</h3>
+                                <div class="wrapper">
+                                <small th:text="${doctor.getSpecialization()}"></small>
+                                <h3 th:text="${doctor.getFullName()}"></h3>
 
                                 <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti
                                     cuodo....</p>
-                                <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                        class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
-								<small>(145)</small></span>
+                                <span class="rating">
+                                    <i th:each="star : ${#numbers.sequence(1, 5)}" th:class="${doctor.getAverageRating() >= star} ? 'icon_star voted' : 'icon_star'"></i>
+                                    <small th:text="${'(' + doctor.getRatings().size() + ')'}"></small></span>
                             </div>
                             <ul>
-                                <li><a href="#">Book now</a></li>
+                                <li><a th:href="@{/details/{username}(username=${doctor.getUser().getUsername()})}">Book now</a></li>
                             </ul>
-                        </div>
                     </div>
-                    <!-- /box_list -->
-
-                    <div class="col-md-4">
-                        <div class="box_list wow fadeIn">
-                            <a href="#0" class="wish_bt"></a>
-                            <figure>
-                                <a href="detail-page.html"><img src="http://via.placeholder.com/565x565.jpg"
-                                                                class="img-fluid" alt="">
-                                    <div class="preview"><span>Read more</span></div>
-                                </a>
-                            </figure>
-                            <div class="wrapper">
-                                <small>Psicologist</small>
-                                <h3>Dr. Sickman</h3>
-
-                                <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti
-                                    cuodo....</p>
-                                <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                        class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
-								<small>(145)</small></span>
-                            </div>
-                            <ul>
-                                <li><a href="#">Book now</a></li>
-                            </ul>
-                        </div>
                     </div>
-                    <!-- /box_list -->
+            <!-- /box_list -->
 
-                    <div class="col-md-4">
-                        <div class="box_list wow fadeIn">
-                            <a href="#0" class="wish_bt"></a>
-                            <figure>
-                                <a href="detail-page.html"><img src="http://via.placeholder.com/565x565.jpg"
-                                                                class="img-fluid" alt="">
-                                    <div class="preview"><span>Read more</span></div>
-                                </a>
-                            </figure>
-                            <div class="wrapper">
-                                <small>Psicologist</small>
-                                <h3>Dr. Sickman</h3>
+            <div th:if="${doctorDetails.isEmpty()}">
+                <p>No doctors found.</p>
+            </div>
 
-                                <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti
-                                    cuodo....</p>
-                                <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                        class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
-								<small>(145)</small></span>
-                            </div>
-                            <ul>
-                                <li><a href="#">Book now</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /box_list -->
-
-                    <div class="col-md-4">
-                        <div class="box_list wow fadeIn">
-                            <a href="#0" class="wish_bt"></a>
-                            <figure>
-                                <a href="detail-page.html"><img src="http://via.placeholder.com/565x565.jpg"
-                                                                class="img-fluid" alt="">
-                                    <div class="preview"><span>Read more</span></div>
-                                </a>
-                            </figure>
-                            <div class="wrapper">
-                                <small>Psicologist</small>
-                                <h3>Dr. Sickman</h3>
-
-                                <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti
-                                    cuodo....</p>
-                                <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                        class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
-								<small>(145)</small></span>
-                            </div>
-                            <ul>
-                                <li><a href="#">Book now</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /box_list -->
-
-                    <div class="col-md-4">
-                        <div class="box_list wow fadeIn">
-                            <a href="#0" class="wish_bt"></a>
-                            <figure>
-                                <a href="detail-page.html"><img src="http://via.placeholder.com/565x565.jpg"
-                                                                class="img-fluid" alt="">
-                                    <div class="preview"><span>Read more</span></div>
-                                </a>
-                            </figure>
-                            <div class="wrapper">
-                                <small>Psicologist</small>
-                                <h3>Dr. Sickman</h3>
-
-                                <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti
-                                    cuodo....</p>
-                                <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i
-                                        class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i>
-								<small>(145)</small></span>
-                            </div>
-                            <ul>
-                                <li><a href="#">Book now</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /box_list -->
-
-                </div>
-                <!-- /row -->
 
                 <nav aria-label="" class="add_top_20">
                     <ul class="pagination pagination-sm">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        <li th:class="${currentPage - 1 < 1} ? 'page-item disabled' : 'page-item'">
+                            <a class="page-link" th:href="@{/list(page=${currentPage - 1})}" tabindex="-1">Previous</a>
                         </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
+                        <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+                            th:classappend="${pageNumber} == ${currentPage} ? 'page-item active' : 'page-item'">
+                            <a class="page-link" th:href="@{/list(page=${pageNumber})}" th:text="${pageNumber}"></a>
+                        </li>
+                        <li th:class="${currentPage + 1 > totalPages} ? 'page-item disabled' : 'page-item'">
+                            <a class="page-link" th:href="@{/list(page=${currentPage + 1})}">Next</a>
                         </li>
                     </ul>
                 </nav>
@@ -203,5 +99,5 @@
     <!-- /container -->
 </main>
 <!-- /main -->
-
+</body>
 </html>

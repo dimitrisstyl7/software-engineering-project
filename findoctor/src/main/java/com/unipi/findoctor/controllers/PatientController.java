@@ -4,12 +4,14 @@ import com.unipi.findoctor.dto.DoctorDetailsDto;
 import com.unipi.findoctor.models.Doctor;
 import com.unipi.findoctor.services.DoctorService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import static com.unipi.findoctor.constants.ControllerConstants.*;
@@ -56,7 +58,27 @@ public class PatientController {
     }
 
     @GetMapping(PATIENT_GRID_LIST_URL)
-    public String patientGridListPage() {
+    public String patientGridListPage(@RequestParam(defaultValue = "1") String page, Model model) {
+
+        int adjustedPageNumber;
+
+        try {
+            adjustedPageNumber = Integer.parseInt(page) - 1;
+        }
+        catch (NumberFormatException e) {
+            return "error/404";
+        }
+
+        if (adjustedPageNumber < 0) {
+            return "error/404";
+        }
+
+        Page<DoctorDetailsDto> doctorDetailsDtoPage = doctorService.getDoctorsByPage(adjustedPageNumber, 9);
+
+        model.addAttribute("doctorDetails", doctorDetailsDtoPage.getContent());
+        model.addAttribute("currentPage", adjustedPageNumber + 1);
+        model.addAttribute("totalPages", doctorDetailsDtoPage.getTotalPages());
+        model.addAttribute("totalDoctors", doctorDetailsDtoPage.getTotalElements());
         return PATIENT_GRID_LIST_FILE;
     }
 

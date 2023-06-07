@@ -14,8 +14,8 @@ public class DoctorMapper {
                 .specialization(doctor.getSpecialization())
                 .businessPhone(doctor.getBusinessPhone())
                 .city(doctor.getCity())
+                .imageURL(doctor.getImageURL())
                 .address(doctor.getAddress())
-                .appointments(doctor.getAppointments())
                 .ratings(doctor.getRatings())
                 .build();
 

@@ -19,8 +19,7 @@ public class DoctorDetailsDto {
     private String businessPhone;
     private String city;
     private String address;
-
-    private List<Appointment> appointments;
+    private String imageURL;
 
     private List<Rating> ratings;
     
