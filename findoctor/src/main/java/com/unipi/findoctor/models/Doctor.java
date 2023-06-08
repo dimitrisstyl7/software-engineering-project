@@ -15,8 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Data
 @Entity
+@Data
 @Table(name = "doctor_tbl")
 public class Doctor {
     @Id
@@ -32,13 +32,15 @@ public class Doctor {
     private String city;
     private String address;
     private boolean isVerified;
+    private String imageURL;
+
 
     @CreationTimestamp
     private LocalDateTime registeredOn;
 
-    @OneToMany(mappedBy = "doctor")
-    private List<Appointment> appointments;
+//    @OneToMany(mappedBy = "doctor", cascade = CascadeType.REFRESH)
+//    private List<Appointment> appointments;
 
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.REFRESH)
     private List<Rating> ratings;
 }
