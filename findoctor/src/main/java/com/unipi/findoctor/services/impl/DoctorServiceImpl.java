@@ -16,9 +16,11 @@ import java.util.Optional;
 
 
 @AllArgsConstructor
+@Service
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;
+
     @Override
     public DoctorDetailsDto getDoctorDetailsByUsername(String username) {
         Doctor doctor = doctorRepository.findByUser_username(username);
@@ -58,5 +60,10 @@ public class DoctorServiceImpl implements DoctorService {
     public void saveDoctor(Doctor doctor) {
         doctor.getUser().setPassword(SecurityConfig.passwordEncoder().encode(doctor.getUser().getPassword()));
         doctorRepository.save(doctor);
+    }
+
+    @Override
+    public Doctor findByAfm(String afm) {
+        return doctorRepository.findByAfm(afm);
     }
 }

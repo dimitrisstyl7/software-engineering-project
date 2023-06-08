@@ -1,12 +1,10 @@
 package com.unipi.findoctor.controllers;
 
 import com.unipi.findoctor.dto.DoctorDetailsDto;
-import com.unipi.findoctor.models.Doctor;
 import com.unipi.findoctor.services.DoctorService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +18,7 @@ import static com.unipi.findoctor.constants.ControllerConstants.*;
 @Controller
 public class PatientController {
     private DoctorService doctorService;
+
     @GetMapping({PATIENT_ROOT_URL, PATIENT_INDEX_URL_1})
     public String patientIndexPage() {
         return PATIENT_INDEX_FILE;
@@ -64,8 +63,7 @@ public class PatientController {
 
         try {
             adjustedPageNumber = Integer.parseInt(page) - 1;
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return "error/404";
         }
 

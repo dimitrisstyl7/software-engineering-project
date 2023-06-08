@@ -32,10 +32,17 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .requestMatchers(
-                        "/", "/index", "/login", "/register", "/admin-doctor/css/**",
-                        "/visitor-patient/css/**", "/visitor-patient/scss/**",
-                        "/admin-doctor/js/**", "/admin-doctor/css/**", "/admin-doctor/scss/**")
+                .requestMatchers("/confirmation")
+                .denyAll()
+                .and()
+                .authorizeRequests()
+                .requestMatchers("/admin", "/admin/**")
+                .hasAuthority("admin")
+                .and()
+                .authorizeRequests()
+                .requestMatchers("/doctor", "/doctor/**")
+                .hasAuthority("doctor")
+                .anyRequest()
                 .permitAll()
                 .and()
                 .formLogin(form -> form
@@ -52,7 +59,11 @@ public class SecurityConfig {
                                 .invalidateHttpSession(true) // Invalidate user session
                                 .clearAuthentication(true) // Clear user authentication
                                 .permitAll()
-                );
+                )
+                .sessionManagement()
+                .maximumSessions(1)
+                .expiredUrl("/login?expired=true")
+        ;
         return http.build();
     }
 

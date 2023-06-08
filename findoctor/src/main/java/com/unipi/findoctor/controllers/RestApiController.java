@@ -3,7 +3,6 @@ package com.unipi.findoctor.controllers;
 import com.unipi.findoctor.services.AppointmentService;
 import com.unipi.findoctor.services.DoctorService;
 import lombok.AllArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +23,7 @@ public class RestApiController {
 
     @GetMapping("/available-time-slots")
     public ResponseEntity<Map<String, Boolean>> scheduleAppointment(@RequestParam(value = "date", required = true) String date_string,
-                                                           @RequestParam(value = "doctorUsername", required = true) String doctorUsername) {
+                                                                    @RequestParam(value = "doctorUsername", required = true) String doctorUsername) {
 
         LocalDate date;
 
