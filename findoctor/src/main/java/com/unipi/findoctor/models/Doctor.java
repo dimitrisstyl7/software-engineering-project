@@ -1,8 +1,11 @@
 package com.unipi.findoctor.models;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,11 +30,11 @@ public class Doctor {
     private String businessPhone;
     private String city;
     private String address;
+    private boolean isVerified;
     private String imageURL;
 
-    private boolean isVerified; // by default false
 
-    @UpdateTimestamp
+    @CreationTimestamp
     private LocalDateTime registeredOn;
 
 //    @OneToMany(mappedBy = "doctor", cascade = CascadeType.REFRESH)

@@ -17,6 +17,10 @@
                  style="text-align: center; width: 30%; display: block; margin: 0 auto;">
                 You have successfully logged out.
             </div>
+            <div th:if="${param.expired}" class="alert alert-warning"
+                 style="text-align: center; width: 30%; display: block; margin: 0 auto;">
+                Your session has expired.
+            </div>
             <div id="login">
                 <h1>Please login to Findoctor!</h1>
                 <div class="box_form">

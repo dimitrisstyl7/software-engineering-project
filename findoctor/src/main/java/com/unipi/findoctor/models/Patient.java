@@ -1,8 +1,11 @@
 package com.unipi.findoctor.models;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,7 +27,7 @@ public class Patient {
 
     private LocalDate dateOfBirth;
 
-    @UpdateTimestamp
+    @CreationTimestamp
     private LocalDateTime registeredOn;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.REFRESH)
