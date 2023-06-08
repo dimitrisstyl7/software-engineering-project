@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en, gr"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{doctor_layout}">
 
 <head>
     <title>Bookings</title>
+    <link rel="stylesheet" th:href="@{/admin-doctor/css/style_reservation.css}">
 </head>
+<body>
 
 <div layout:fragment="main">
+
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -15,93 +19,61 @@
         </li>
         <li class="breadcrumb-item active">Bookings</li>
     </ol>
-    <div class="box_general">
-        <div class="header_box">
-            <h2 class="d-inline-block">Bookings List</h2>
-            <div class="filter">
-                <select name="orderby" class="selectbox">
-                    <option value="Any status">Any status</option>
-                    <option value="Approved">Approved</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Cancelled">Cancelled</option>
-                </select>
-            </div>
-        </div>
-        <div class="list_general">
-            <ul>
-                <li>
-                    <figure><img src="img/avatar1.jpg" alt=""></figure>
-                    <h4>Enzo Ferrari <i class="pending">Pending</i></h4>
-                    <ul class="booking_details">
-                        <li><strong>Booking date</strong> 11 November 2017</li>
-                        <li><strong>Booking time</strong> 10.20AM</li>
-                        <li><strong>Visits</strong> Cardiology test, Diabetic diagnose</li>
-                        <li><strong>Telephone</strong> 0043 432324</li>
-                        <li><strong>Email</strong> user@email.com</li>
-                    </ul>
-                    <ul class="buttons">
-                        <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i>
-                            Approve</a>
-                        </li>
-                        <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> Cancel</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <figure><img src="img/avatar2.jpg" alt=""></figure>
-                    <h4>Andrea Lomarco <i class="cancel">Cancel</i></h4>
-                    <ul class="booking_details">
-                        <li><strong>Booking date</strong> 11 November 2017</li>
-                        <li><strong>Booking time</strong> 10.20AM</li>
-                        <li><strong>Visits</strong> Cardiology test, Diabetic diagnose</li>
-                        <li><strong>Telephone</strong> 0043 432324</li>
-                        <li><strong>Email</strong> user@email.com</li>
-                    </ul>
-                    <ul class="buttons">
-                        <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i>
-                            Approve</a>
-                        </li>
-                        <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> Cancel</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <figure><img src="img/avatar3.jpg" alt=""></figure>
-                    <h4>Marc Twain <i class="approved">Approved</i></h4>
-                    <ul class="booking_details">
-                        <li><strong>Booking date</strong> 11 November 2017</li>
-                        <li><strong>Booking time</strong> 10.20AM</li>
-                        <li><strong>Visits</strong> Cardiology test, Diabetic diagnose</li>
-                        <li><strong>Telephone</strong> 0043 432324</li>
-                        <li><strong>Email</strong> user@email.com</li>
-                    </ul>
-                    <ul class="buttons">
-                        <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i>
-                            Approve</a>
-                        </li>
-                        <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> Cancel</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+<div id="container">
+    <div id="header">
+        <div id="monthDisplay"></div>
+        <div>
+            <button id="backButton">Back</button>
+            <button id="nextButton">Next</button>
         </div>
     </div>
-    <!-- /box_general-->
-    <nav aria-label="...">
-        <ul class="pagination pagination-sm add_bottom_30">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
-    <!-- /pagination-->
-</div>
-<!-- /div -->
 
+    <div id="weekdays">
+        <div>Sunday</div>
+        <div>Monday</div>
+        <div>Tuesday</div>
+        <div>Wednesday</div>
+        <div>Thursday</div>
+        <div>Friday</div>
+        <div>Saturday</div>
+    </div>
+
+    <div id="calendar"></div>
+</div>
+
+<div id="newEventModal">
+    <h2>New Event for the client</h2>
+
+    <input id="eventTitleInput" placeholder="Event Title" />
+    <input id="clientAFM" placeholder="Client Id" />
+    <input id="clientName" placeholder="Client Name" />
+    <input id="clientSurname" placeholder="Client Surname" />
+    <input id="clientEmail" placeholder="Client Email" />
+
+    <button id="saveButton">Save</button>
+    <button id="cancelButton">Cancel</button>
+</div>
+
+<div id="deleteEventModal">
+    <h2>Event</h2>
+
+    <p id="eventText"></p>
+
+    <button id="deleteButton">Delete</button>
+    <button id="closeButton">Close</button>
+</div>
+
+<div id="modalBackDrop"></div>
+
+    <div>
+        <h6>See All Events with the Patient Id</h6>
+        <button class="button2" id="SeeAll">See All</button>
+    </div>
+
+    <script th:src="@{/admin-doctor/js/script_reservation.js}"></script>
+    </div>
+
+
+
+</body>
 </html>
