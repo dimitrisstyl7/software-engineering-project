@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .successHandler(this::redirectBasedOnUserRole)
+                        .successHandler(this::redirectBasedOnUserRole) // Redirect to different pages based on user role
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
@@ -62,15 +62,17 @@ public class SecurityConfig {
                 if (authority.getAuthority().equals("admin")) {
                     response.sendRedirect(ADMIN_ROOT_URL);
                     return;
-                } else if (authority.getAuthority().equals("doctor")) {
+                }
+                if (authority.getAuthority().equals("doctor")) {
                     response.sendRedirect(DOCTOR_ROOT_URL);
                     return;
-                } else if (authority.getAuthority().equals("patient")) {
+                }
+                if (authority.getAuthority().equals("patient")) {
                     response.sendRedirect(PATIENT_ROOT_URL);
                     return;
                 }
+                throw new IllegalStateException(); // if something goes wrong, throw server side error.
             }
         }
-        throw new IllegalStateException();
     }
 }
