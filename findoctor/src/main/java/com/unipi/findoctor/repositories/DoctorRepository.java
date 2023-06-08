@@ -9,5 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DoctorRepository extends JpaRepository<Doctor, String> {
     Doctor findByUser_username(String username);
+
+    Doctor findByAfm(String afm);
+
     Page<Doctor> findAll(Pageable pageable);
 }

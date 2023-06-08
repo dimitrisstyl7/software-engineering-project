@@ -1,6 +1,5 @@
 package com.unipi.findoctor.dto;
 
-import com.unipi.findoctor.models.Appointment;
 import com.unipi.findoctor.models.Rating;
 import com.unipi.findoctor.models.User;
 import lombok.Builder;
@@ -22,8 +21,8 @@ public class DoctorDetailsDto {
     private String imageURL;
 
     private List<Rating> ratings;
-    
-    public double getAverageRating(){
+
+    public double getAverageRating() {
 
         double average = ratings.stream()
                 .mapToInt(rating -> rating.getRatingValue())
@@ -33,7 +32,7 @@ public class DoctorDetailsDto {
         return average;
     }
 
-    public int ratingValuePercentage(int ratingValue){
+    public int ratingValuePercentage(int ratingValue) {
 
         double countWithRating = (int) ratings.stream()
                 .filter(rating -> rating.getRatingValue() == ratingValue)
@@ -46,7 +45,7 @@ public class DoctorDetailsDto {
         return (int) percentage;
     }
 
-    public String getFullName(){
+    public String getFullName() {
         return "Dr. " + user.getName() + " " + user.getSurname();
     }
 }

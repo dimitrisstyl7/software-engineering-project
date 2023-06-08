@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DoctorMapper {
 
-    public DoctorDetailsDto mapToDoctorDetailsDto(Doctor doctor){
+    public DoctorDetailsDto mapToDoctorDetailsDto(Doctor doctor) {
         DoctorDetailsDto doctorDetailsDto = DoctorDetailsDto.builder()
                 .afm(doctor.getAfm())
                 .user(doctor.getUser())

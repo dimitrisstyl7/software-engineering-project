@@ -4,14 +4,13 @@ import com.unipi.findoctor.models.Appointment;
 import com.unipi.findoctor.repositories.AppointmentRepository;
 import com.unipi.findoctor.services.AppointmentService;
 import lombok.AllArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @Service
@@ -26,8 +25,8 @@ public class AppointmentServiceImpl implements AppointmentService {
         List<Appointment> appointments = appointmentRepository.findAppointmentsByDoctor_User_UsernameAndDate(doctorUsername, date);
 
         List<LocalTime> appointment_times = appointments.stream()
-                        .map(Appointment::getTime_slot)
-                                        .toList();
+                .map(Appointment::getTime_slot)
+                .toList();
 
         // Define the start and end time for available slots
         LocalTime startTime = LocalTime.of(8, 0); // 8:00
@@ -39,15 +38,13 @@ public class AppointmentServiceImpl implements AppointmentService {
             // Check if the slot is not in the appointments list
             if (appointment_times.contains(currentSlot)) {
                 time_slots.put(currentSlot.toString(), false);
-            }
-            else {
+            } else {
                 time_slots.put(currentSlot.toString(), true);
             }
 
             // Move to the next slot
             currentSlot = currentSlot.plusHours(1);
         }
-
 
 
         return time_slots;
