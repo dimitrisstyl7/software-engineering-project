@@ -3,6 +3,7 @@ package com.unipi.findoctor.services.impl;
 import com.unipi.findoctor.models.Patient;
 import com.unipi.findoctor.models.User;
 import com.unipi.findoctor.repositories.PatientRepository;
+import com.unipi.findoctor.security.SecurityConfig;
 import com.unipi.findoctor.services.PatientService;
 import com.unipi.findoctor.services.UserService;
 import lombok.AllArgsConstructor;
@@ -44,5 +45,11 @@ public class PatientServiceImpl implements PatientService {
         //System.out.println(patient2);
         System.out.println();
         return null;
+    }
+
+    @Override
+    public void savePatient(Patient patient) {
+        patient.getUser().setPassword(SecurityConfig.passwordEncoder().encode(patient.getUser().getPassword()));
+        patientRepository.save(patient);
     }
 }

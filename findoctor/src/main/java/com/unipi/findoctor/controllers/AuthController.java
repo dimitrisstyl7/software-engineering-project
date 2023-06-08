@@ -1,7 +1,7 @@
 package com.unipi.findoctor.controllers;
 
 import com.unipi.findoctor.dto.RegistrationDto;
-import com.unipi.findoctor.mappers.UserMapper;
+import com.unipi.findoctor.mappers.Mapper;
 import com.unipi.findoctor.models.Doctor;
 import com.unipi.findoctor.models.Patient;
 import com.unipi.findoctor.models.User;
@@ -74,8 +74,15 @@ public class AuthController {
             model.addAttribute("user", registrationDto);
             return REGISTER_FILE;
         }
-        User user = UserMapper.mapToUser(registrationDto);
-        userService.saveUser(user);
+
+        if (registrationDto.getIsDoctor()) {
+            Doctor doctor = Mapper.mapToDoctor(registrationDto);
+            doctorService.saveDoctor(doctor);
+        } else {
+            Patient patient = Mapper.mapToPatient(registrationDto);
+            patientService.savePatient(patient);
+        }
+
         return "redirect:" + CONFIRMATION_URL + "/" + registrationDto.getIsDoctor();
     }
 

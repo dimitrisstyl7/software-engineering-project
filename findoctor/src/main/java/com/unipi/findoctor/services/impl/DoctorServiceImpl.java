@@ -4,6 +4,7 @@ import com.unipi.findoctor.dto.DoctorDetailsDto;
 import com.unipi.findoctor.mappers.DoctorMapper;
 import com.unipi.findoctor.models.Doctor;
 import com.unipi.findoctor.repositories.DoctorRepository;
+import com.unipi.findoctor.security.SecurityConfig;
 import com.unipi.findoctor.services.DoctorService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -51,5 +52,11 @@ public class DoctorServiceImpl implements DoctorService {
         Page<DoctorDetailsDto> doctorDetailsDtoPage = doctorPage.map(doctor -> doctorMapper.mapToDoctorDetailsDto(doctor));
 
         return doctorDetailsDtoPage;
+    }
+
+    @Override
+    public void saveDoctor(Doctor doctor) {
+        doctor.getUser().setPassword(SecurityConfig.passwordEncoder().encode(doctor.getUser().getPassword()));
+        doctorRepository.save(doctor);
     }
 }
