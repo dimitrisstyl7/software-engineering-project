@@ -6,10 +6,8 @@ import com.unipi.findoctor.repositories.PatientRepository;
 import com.unipi.findoctor.services.PatientService;
 import com.unipi.findoctor.services.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
-@Service
 public class PatientServiceImpl implements PatientService {
     private final PatientRepository patientRepository;
     private final UserService userService;
@@ -40,9 +38,9 @@ public class PatientServiceImpl implements PatientService {
     public Patient getPatient(String amka) {
         User user = userService.findByUsername("username2");
         System.out.println(user);
-        Patient patient1 = patientRepository.findByUser_Username(user.getUsername());
+//        Patient patient1 = patientRepository.findByUser_Username(user.getUsername());
         //Patient patient2 = patientRepository.findByAmka(amka);
-        System.out.println(patient1);
+//        System.out.println(patient1);
         //System.out.println(patient2);
         System.out.println();
         return null;

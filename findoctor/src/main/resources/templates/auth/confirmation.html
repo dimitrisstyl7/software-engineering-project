@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en, gr"
+        xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{visitor-patient_layout}">
+      layout:decorate="~{visitor_layout}">
 
 <head>
     <title>Confirmation</title>
@@ -11,9 +12,10 @@
     <div id="breadcrumb">
         <div class="container">
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Category</a></li>
-                <li>Page active</li>
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/register}">Register</a></li>
+                <li th:if="${isDoctor}">Doctor</li>
+                <li th:if="${!isDoctor}">Patient</li>
             </ul>
         </div>
     </div>
@@ -29,12 +31,13 @@
                                 <circle cx="36" cy="36" r="35"
                                         style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;"></circle>
                                 <path d="M17.417,37.778l9.93,9.909l25.444-25.393"
-                                      style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;"></path>
+                                      style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0;"></path>
                             </g>
                         </svg>
                     </div>
-                    <h2>Thanks for your booking!</h2>
-                    <p>You'll receive a confirmation email at mail@example.com</p>
+                    <h2>Registration completed successfully!</h2>
+                    <p th:if="${isDoctor}">Your account will be activated by an administrator soon, and you will be notified by email.</p>
+                    <p th:if="${!isDoctor}">You can now log in to your account.</p>
                 </div>
             </div>
         </div>
