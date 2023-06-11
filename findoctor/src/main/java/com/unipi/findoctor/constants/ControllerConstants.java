@@ -3,31 +3,32 @@ package com.unipi.findoctor.constants;
 public class ControllerConstants {
 
     /* VISITOR URL */
-//    public static final String ROOT_URL = "/";
-//    public static final String INDEX_URL = "/index";
-//    public static final String ABOUT_URL = "/about";
-//    public static final String BOOKING_URL = "/booking";
-//    public static final String CONTACT_US_URL = "/contact-us";
-//    public static final String DETAIL_PAGE_URL = "/detail-page";
-//    public static final String FAQ_URL = "/faq";
-//    public static final String GRID_LIST_URL = "/grid-list";
-//    public static final String ICON_PACK_1_URL = "/icon-pack-1";
-//    public static final String ICON_PACK_2_URL = "/icon-pack-2";
-//    public static final String ICON_PACK_3_URL = "/icon-pack-3";
-//    public static final String SUBMIT_REVIEW_URL = "/submit-review";
+    public static final String ROOT_URL = "/";
+    public static final String INDEX_URL = "/index";
+    public static final String ABOUT_URL = "/about";
+    public static final String BOOKING_URL = "/booking";
+    public static final String CONTACT_US_URL = "/contact-us";
+    public static final String DETAIL_PAGE_URL = "/detail-page";
+    public static final String FAQ_URL = "/faq";
+    public static final String GRID_LIST_URL = "/grid-list";
+    public static final String ICON_PACK_1_URL = "/icon-pack-1";
+    public static final String ICON_PACK_2_URL = "/icon-pack-2";
+    public static final String ICON_PACK_3_URL = "/icon-pack-3";
+    public static final String SUBMIT_REVIEW_URL = "/submit-review";
     /* END OF VISITOR URL */
 
 
     /* PATIENT URL */
-    public static final String PATIENT_ROOT_URL = "/";
-    public static final String PATIENT_INDEX_URL_1 = "/index";
-    public static final String PATIENT_ABOUT_URL = "/about";
-    public static final String PATIENT_BOOKING_URL = "/booking";
-    public static final String PATIENT_CONTACT_US_URL = "/contact-us";
-    public static final String PATIENT_DETAIL_PAGE_URL = "/details/{doctorUsername}";
-    public static final String PATIENT_FAQ_URL = "/faq";
-    public static final String PATIENT_GRID_LIST_URL = "/list";
-    public static final String PATIENT_SUBMIT_REVIEW_URL = "/review/new/{doctorUsername}";
+    public static final String PATIENT_ROOT_URL = "patient/";
+    public static final String PATIENT_INDEX_URL_1 = "patient";
+    public static final String PATIENT_INDEX_URL_2 = "patient/index";
+    public static final String PATIENT_ABOUT_URL = "patient/about";
+    public static final String PATIENT_BOOKING_URL = "patient/booking";
+    public static final String PATIENT_CONTACT_US_URL = "patient/contact-us";
+    public static final String PATIENT_DETAIL_PAGE_URL = "patient/details/{doctorUsername}";
+    public static final String PATIENT_FAQ_URL = "patient/faq";
+    public static final String PATIENT_GRID_LIST_URL = "patient/list";
+    public static final String PATIENT_SUBMIT_REVIEW_URL = "patient/review/new/{doctorUsername}";
     /* END OF PATIENT URL */
 
 
@@ -49,6 +50,7 @@ public class ControllerConstants {
     /* AUTH URL */
     public static final String LOGIN_URL = "/login";
     public static final String REGISTER_URL = "/register";
+    public static final String LOGOUT_URL = "/logout";
     public static final String CONFIRMATION_URL = "/confirmation";
     /* END OF AUTH URL */
 
