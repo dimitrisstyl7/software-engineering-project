@@ -76,7 +76,6 @@ public class SecurityConfig {
         try {
             response.sendRedirect(url); // Redirect user to login page
         } catch (IOException e) {
-            e.printStackTrace();
             throw new IllegalStateException(); // if something goes wrong, throw server side error.
         }
     }
