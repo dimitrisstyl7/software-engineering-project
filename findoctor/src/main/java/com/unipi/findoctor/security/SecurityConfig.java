@@ -9,7 +9,6 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -32,58 +31,53 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .requestMatchers("/confirmation")
-                .denyAll()
-                .and()
-                .authorizeRequests()
-                .requestMatchers("/admin", "/admin/**")
-                .hasAuthority("admin")
-                .and()
-                .authorizeRequests()
-                .requestMatchers("/doctor", "/doctor/**")
-                .hasAuthority("doctor")
-                .anyRequest()
-                .permitAll()
+                .requestMatchers(ADMIN_INDEX_URL_1, ADMIN_ROOT_URL + "**").hasAuthority("admin")
+                .requestMatchers(PATIENT_INDEX_URL_1, PATIENT_ROOT_URL + "**").hasAuthority("patient")
+                .requestMatchers(DOCTOR_INDEX_URL_1, DOCTOR_ROOT_URL + "**").hasAuthority("doctor")
+                .requestMatchers(CONFIRMATION_URL).denyAll()
+                .anyRequest().permitAll()
                 .and()
                 .formLogin(form -> form
-                        .loginPage("/login")
-                        .loginProcessingUrl("/login")
-                        .successHandler(this::redirectBasedOnUserRole) // Redirect to different pages based on user role
-                        .failureUrl("/login?error=true")
+                        .loginPage(LOGIN_URL)
+                        .loginProcessingUrl(LOGIN_URL)
+                        .successHandler(this::redirectBasedOnUserRole) // Custom success handler
+                        .failureUrl(LOGIN_URL + "?error=true")
                         .permitAll()
                 )
                 .logout(
                         logout -> logout
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                .logoutSuccessUrl("/login?logout") // Redirect to login page after successful logout
-                                .invalidateHttpSession(true) // Invalidate user session
-                                .clearAuthentication(true) // Clear user authentication
+                                .logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT_URL))
+                                .addLogoutHandler(this::logout) // Custom logout handler
                                 .permitAll()
-                )
-                .sessionManagement()
-                .maximumSessions(1)
-                .expiredUrl("/login?expired=true")
-        ;
+                );
         return http.build();
     }
 
     private void redirectBasedOnUserRole(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+        // Redirect user based on his role
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            for (GrantedAuthority authority : authentication.getAuthorities()) {
-                if (authority.getAuthority().equals("admin")) {
-                    response.sendRedirect(ADMIN_ROOT_URL);
-                    return;
-                }
-                if (authority.getAuthority().equals("doctor")) {
-                    response.sendRedirect(DOCTOR_ROOT_URL);
-                    return;
-                }
-                if (authority.getAuthority().equals("patient")) {
-                    response.sendRedirect(PATIENT_ROOT_URL);
-                    return;
-                }
-                throw new IllegalStateException(); // if something goes wrong, throw server side error.
+            String role = authentication.getAuthorities().iterator().next().getAuthority();
+            switch (role) {
+                case "admin" -> response.sendRedirect(ADMIN_ROOT_URL);
+                case "patient" -> response.sendRedirect(PATIENT_ROOT_URL);
+                case "doctor" -> response.sendRedirect(DOCTOR_ROOT_URL);
+                default -> throw new IllegalStateException(); // if something goes wrong, throw server side error.
             }
+        }
+    }
+
+    private void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+        String url = LOGIN_URL; // Login page url, if not authenticated.
+        if (!(authentication instanceof AnonymousAuthenticationToken || authentication == null)) {
+            authentication.setAuthenticated(false); // Set user authentication to false
+            request.getSession().invalidate(); // Invalidate user session
+            url += "?logout=true"; // Append logout parameter to url
+        }
+        try {
+            response.sendRedirect(url); // Redirect user to login page
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new IllegalStateException(); // if something goes wrong, throw server side error.
         }
     }
 }
