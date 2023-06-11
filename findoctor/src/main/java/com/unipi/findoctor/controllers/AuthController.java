@@ -8,8 +8,11 @@ import com.unipi.findoctor.models.User;
 import com.unipi.findoctor.services.DoctorService;
 import com.unipi.findoctor.services.PatientService;
 import com.unipi.findoctor.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,7 +32,22 @@ public class AuthController {
 
     @GetMapping(LOGIN_URL)
     public String loginPage() {
-        return LOGIN_FILE;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) { // if logged in
+            String role = auth.getAuthorities().iterator().next().getAuthority(); // get logged in user's role
+            switch (role) { // redirect to the correct page based on the role
+                case "admin" -> {
+                    return "redirect:" + ADMIN_ROOT_URL;
+                }
+                case "patient" -> {
+                    return "redirect:" + PATIENT_ROOT_URL;
+                }
+                case "doctor" -> {
+                    return "redirect:" + DOCTOR_ROOT_URL;
+                }
+            }
+        }
+        return LOGIN_FILE; // if not logged in, return login page
     }
 
     @GetMapping(REGISTER_URL)
