@@ -17,6 +17,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "doctor_tbl")
+@Data
 public class Doctor {
     @Id
     private String afm;
