@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en, gr" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{patient_layout}">
+
+<head>
+    <title>List</title>
+</head>
+
+<body>
+<main layout:fragment="main">
+    <div id="results">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 th:text="${'Showing 9 of ' + totalDoctors + ' results'}"></h4>
+                </div>
+                <div class="col-md-6">
+                    <div class="search_bar_list">
+                        <input type="text" class="form-control" placeholder="Ex. Specialist, Name, Doctor...">
+                        <input type="submit" value="Search">
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /results -->
+
+    <div class="filters_listing">
+        <div class="container">
+            <ul class="clearfix">
+                <li>
+                    <h6>Sort by</h6>
+                    <select name="orderby" class="selectbox">
+                        <option value="Best rated">Best rated</option>
+                        <option value="Closest">Closest</option>
+                        <option value="Men">Men</option>
+                        <option value="Women">Women</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /filters -->
+
+    <div class="container margin_60_35">
+        <div class="row">
+
+            <div th:each="doctor : ${doctorDetails}" class="col-md-4">
+                        <div class="box_list wow fadeIn">
+                            <a href="#0" class="wish_bt"></a>
+                            <figure>
+                            <img th:src="${doctor.getImageURL()}" class="img-fluid" alt="Doctor portrait">
+                            </figure>
+                                <div class="wrapper">
+                                <small th:text="${doctor.getSpecialization()}"></small>
+                                <h3 th:text="${doctor.getFullName()}"></h3>
+
+                                <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti
+                                    cuodo....</p>
+                                <span class="rating">
+                                    <i th:each="star : ${#numbers.sequence(1, 5)}" th:class="${doctor.getAverageRating() >= star} ? 'icon_star voted' : 'icon_star'"></i>
+                                    <small th:text="${'(' + doctor.getRatings().size() + ')'}"></small></span>
+                            </div>
+                            <ul>
+                                <li><a th:href="@{/details/{username}(username=${doctor.getUser().getUsername()})}">Book now</a></li>
+                            </ul>
+                    </div>
+                    </div>
+            <!-- /box_list -->
+
+            <div th:if="${doctorDetails.isEmpty()}">
+                <p>No doctors found.</p>
+            </div>
+
+
+                <nav aria-label="" class="add_top_20">
+                    <ul class="pagination pagination-sm">
+                        <li th:class="${currentPage - 1 < 1} ? 'page-item disabled' : 'page-item'">
+                            <a class="page-link" th:href="@{/list(page=${currentPage - 1})}" tabindex="-1">Previous</a>
+                        </li>
+                        <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+                            th:classappend="${pageNumber} == ${currentPage} ? 'page-item active' : 'page-item'">
+                            <a class="page-link" th:href="@{/list(page=${pageNumber})}" th:text="${pageNumber}"></a>
+                        </li>
+                        <li th:class="${currentPage + 1 > totalPages} ? 'page-item disabled' : 'page-item'">
+                            <a class="page-link" th:href="@{/list(page=${currentPage + 1})}">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /pagination -->
+            </div>
+            <!-- /col -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</main>
+<!-- /main -->
+</body>
+</html>

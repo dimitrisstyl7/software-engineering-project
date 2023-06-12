@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en, gr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{visitor_layout}">
+<head>
+    <title>Log in page</title>
+</head>
+<main layout:fragment="main">
+    <div class="bg_color_2">
+        <div class="container margin_60_35">
+            <div th:if="${param.error}" class="alert alert-warning"
+                 style="text-align: center; width: 30%; display: block; margin: 0 auto;">
+                Invalid username and password.
+            </div>
+            <div th:if="${param.logout}" class="alert alert-success"
+                 style="text-align: center; width: 30%; display: block; margin: 0 auto;">
+                You have successfully logged out.
+            </div>
+            <div th:if="${param.expired}" class="alert alert-warning"
+                 style="text-align: center; width: 30%; display: block; margin: 0 auto;">
+                Your session has expired.
+            </div>
+            <div id="login">
+                <h1>Please login to Findoctor!</h1>
+                <div class="box_form">
+                    <form method="post" th:action="@{/login}">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Username" id="username"
+                                   name="username">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Password" id="password"
+                                   name="password">
+                        </div>
+                        <div class="form-group text-center add_top_20">
+                            <input class="btn_1 medium" type="submit" value="Login">
+                        </div>
+                    </form>
+                </div>
+                <p class="text-center link_bright">Do not have an account yet? <a th:href="@{/register}"><strong>Register
+                    now!</strong></a></p>
+            </div>
+            <!-- /login -->
+        </div>
+    </div>
+</main>
+<!-- /main -->
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en, gr"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{doctor_layout}">
+
+<head>
+    <title>Bookings</title>
+    <link rel="stylesheet" th:href="@{/admin-doctor/css/style_reservation.css}">
+</head>
+<body>
+
+<div layout:fragment="main">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Bookings</li>
+    </ol>
+<div id="container">
+    <div id="header">
+        <div id="monthDisplay"></div>
+        <div>
+            <button id="backButton">Back</button>
+            <button id="nextButton">Next</button>
+        </div>
+    </div>
+
+    <div id="weekdays">
+        <div>Sunday</div>
+        <div>Monday</div>
+        <div>Tuesday</div>
+        <div>Wednesday</div>
+        <div>Thursday</div>
+        <div>Friday</div>
+        <div>Saturday</div>
+    </div>
+
+    <div id="calendar"></div>
+</div>
+
+<div id="newEventModal">
+    <h2>New Event for the client</h2>
+
+    <input id="eventTitleInput" placeholder="Event Title" />
+    <input id="clientAFM" placeholder="Client Id" />
+    <input id="clientName" placeholder="Client Name" />
+    <input id="clientSurname" placeholder="Client Surname" />
+    <input id="clientEmail" placeholder="Client Email" />
+
+    <button id="saveButton">Save</button>
+    <button id="cancelButton">Cancel</button>
+</div>
+
+<div id="deleteEventModal">
+    <h2>Event</h2>
+
+    <p id="eventText"></p>
+
+    <button id="deleteButton">Delete</button>
+    <button id="closeButton">Close</button>
+</div>
+
+<div id="modalBackDrop"></div>
+
+    <div>
+        <h6>See All Events with the Patient Id</h6>
+        <button class="button2" id="SeeAll">See All</button>
+    </div>
+
+    <script th:src="@{/admin-doctor/js/script_reservation.js}"></script>
+    </div>
+
+
+
+</body>
+</html>
