@@ -3,6 +3,7 @@ package com.unipi.findoctor.models;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "admin_tbl")
+
 public class Admin {
     @Id
     @OneToOne
