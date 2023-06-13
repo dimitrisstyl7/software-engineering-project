@@ -30,7 +30,7 @@ public class Doctor {
     private String businessPhone;
     private String city;
     private String address;
-    private boolean isVerified;
+    private String status; // "pending" or "approved" or "rejected"
     private String imageURL;
 
 
