@@ -1,6 +1,6 @@
 package com.unipi.findoctor.controllers;
 
-import com.unipi.findoctor.dto.DoctorDetailsDto;
+import com.unipi.findoctor.dto.DoctorDto;
 import com.unipi.findoctor.services.DoctorService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -42,12 +42,12 @@ public class PatientController {
     @GetMapping(PATIENT_DETAIL_PAGE_URL)
     public String patientDetailPage(@PathVariable("doctorUsername") String doctorUsername, Model model) {
 
-        DoctorDetailsDto doctorDetailsDto = doctorService.getDoctorDetailsByUsername(doctorUsername);
-        if (doctorDetailsDto == null) {
+        DoctorDto doctorDto = doctorService.getDoctorDetailsByUsername(doctorUsername);
+        if (doctorDto == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found");
         }
 
-        model.addAttribute("doctorDetails", doctorDetailsDto);
+        model.addAttribute("doctorDetails", doctorDto);
         return PATIENT_DETAIL_PAGE_FILE;
     }
 
@@ -71,7 +71,7 @@ public class PatientController {
             return "error/404";
         }
 
-        Page<DoctorDetailsDto> doctorDetailsDtoPage = doctorService.getDoctorsByPage(adjustedPageNumber, 9);
+        Page<DoctorDto> doctorDetailsDtoPage = doctorService.getDoctorsByPage(adjustedPageNumber, 9);
 
         model.addAttribute("doctorDetails", doctorDetailsDtoPage.getContent());
         model.addAttribute("currentPage", adjustedPageNumber + 1);
@@ -83,12 +83,12 @@ public class PatientController {
     @GetMapping(PATIENT_SUBMIT_REVIEW_URL)
     public String patientSubmitReviewPage(@PathVariable("doctorUsername") String doctorUsername, Model model) {
 
-        DoctorDetailsDto doctorDetailsDto = doctorService.getDoctorDetailsByUsername(doctorUsername);
-        if (doctorDetailsDto == null) {
+        DoctorDto doctorDto = doctorService.getDoctorDetailsByUsername(doctorUsername);
+        if (doctorDto == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found");
         }
 
-        model.addAttribute("doctorFullName", doctorDetailsDto.getFullName());
+        model.addAttribute("doctorFullName", doctorDto.getFullName());
         return PATIENT_SUBMIT_REVIEW_FILE;
     }
 }
