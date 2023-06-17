@@ -21,6 +21,10 @@
                  style="text-align: center; width: 30%; display: block; margin: 0 auto;">
                 Your session has expired.
             </div>
+            <div th:if="${param.notApproved}" class="alert alert-warning"
+                 style="text-align: center; width: 30%; display: block; margin: 0 auto;">
+                You are not approved yet. Please wait for the approval.
+            </div>
             <div id="login">
                 <h1>Please login to Findoctor!</h1>
                 <div class="box_form">
