@@ -8,7 +8,7 @@
     <title>Details</title>
 
     <!-- SPECIFIC CSS -->
-    <link th:href="@{patient}" rel="stylesheet">
+    <link th:href="@{/patient/css/date_picker.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -35,7 +35,8 @@
                     <small th:text="${doctorDetails.getSpecialization()}"></small>
                     <h1 th:text="${doctorDetails.getFullName()}"></h1>
                     <span class="rating">
-					<i th:each="star : ${#numbers.sequence(1, 5)}" th:class="${doctorDetails.getAverageRating() >= star} ? 'icon_star voted' : 'icon_star'"></i>
+					<i th:each="star : ${#numbers.sequence(1, 5)}"
+                       th:class="${doctorDetails.getAverageRating() >= star} ? 'icon_star voted' : 'icon_star'"></i>
 					<small th:text="${'(' + doctorDetails.getRatings().size() + ')'}"></small>
 				</span>
                     <ul class="statistic">
@@ -44,7 +45,8 @@
                     </ul>
                     <ul class="contacts">
                         <li>
-                            <h6>Address</h6><span th:text="${doctorDetails.getAddress() + ', ' + doctorDetails.getCity()}"></span>
+                            <h6>Address</h6><span
+                                th:text="${doctorDetails.getAddress() + ', ' + doctorDetails.getCity()}"></span>
                         </li>
                         <li>
                             <h6>Phone</h6><span th:text="${doctorDetails.getBusinessPhone()}"></span>
@@ -76,7 +78,8 @@
                     <div class="tab-content">
 
                         <div class="tab-pane fade show active" id="book" role="tabpanel" aria-labelledby="book-tab">
-                            <p th:unless="${isLoggedIn}">Note: In order to make an appointment, it is required to be logged in.</p>
+                            <p th:unless="${isLoggedIn}">Note: In order to make an appointment, it is required to be
+                                logged in.</p>
                             <form role="form" method="post" th:action="@{/appointment/new}">
                                 <div class="main_title_3">
                                     <h3><strong>1</strong>Select date and time</h3>
@@ -84,7 +87,8 @@
                                 <div class="form-group add_bottom_45">
                                     <div id="calendar"></div>
                                     <input type="hidden" id="selectedDate" name="selectedDate">
-                                    <input type="hidden" name="doctorUsername" th:value="${doctorDetails.getUser().getUsername()}">
+                                    <input type="hidden" name="doctorUsername"
+                                           th:value="${doctorDetails.getUser().getUsername()}">
                                     <ul class="legend">
                                         <li><strong></strong>Available</li>
                                         <li><strong></strong>Not available</li>
@@ -97,9 +101,10 @@
                                 </div>
                                 <!-- /row -->
 
-                            <hr>
+                                <hr>
                                 <div class="col-12 text-center">
-                                    <input th:if="${isLoggedIn}" type="submit" value="Book Now" class="btn_1 medium text-center">
+                                    <input th:if="${isLoggedIn}" type="submit" value="Book Now"
+                                           class="btn_1 medium text-center">
                                 </div>
                             </form>
                         </div>
@@ -236,7 +241,8 @@
                                         <div class="row">
                                             <div class="col-lg-10 col-9">
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" th:style="${'width: '+ doctorDetails.ratingValuePercentage(5) +'%'}"
+                                                    <div class="progress-bar" role="progressbar"
+                                                         th:style="${'width: '+ doctorDetails.ratingValuePercentage(5) +'%'}"
                                                          aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
@@ -246,7 +252,8 @@
                                         <div class="row">
                                             <div class="col-lg-10 col-9">
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" th:style="${'width: '+ doctorDetails.ratingValuePercentage(4) +'%'}"
+                                                    <div class="progress-bar" role="progressbar"
+                                                         th:style="${'width: '+ doctorDetails.ratingValuePercentage(4) +'%'}"
                                                          aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
@@ -256,7 +263,8 @@
                                         <div class="row">
                                             <div class="col-lg-10 col-9">
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" th:style="${'width: '+ doctorDetails.ratingValuePercentage(3) +'%'}"
+                                                    <div class="progress-bar" role="progressbar"
+                                                         th:style="${'width: '+ doctorDetails.ratingValuePercentage(3) +'%'}"
                                                          aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
@@ -266,7 +274,8 @@
                                         <div class="row">
                                             <div class="col-lg-10 col-9">
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" th:style="${'width: '+ doctorDetails.ratingValuePercentage(2) +'%'}"
+                                                    <div class="progress-bar" role="progressbar"
+                                                         th:style="${'width: '+ doctorDetails.ratingValuePercentage(2) +'%'}"
                                                          aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
@@ -276,7 +285,8 @@
                                         <div class="row">
                                             <div class="col-lg-10 col-9">
                                                 <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" th:style="${'width: '+ doctorDetails.ratingValuePercentage(1) +'%'}"
+                                                    <div class="progress-bar" role="progressbar"
+                                                         th:style="${'width: '+ doctorDetails.ratingValuePercentage(1) +'%'}"
                                                          aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
@@ -292,9 +302,11 @@
                                 <div th:each="rating : ${doctorDetails.getRatings()}" class="review-box clearfix">
                                     <div class="rev-content">
                                         <div class="rating">
-                                            <i th:each="star : ${#numbers.sequence(1, 5)}" th:class="${rating.getRatingValue() >= star} ? 'icon_star voted' : 'icon_star'"></i>
+                                            <i th:each="star : ${#numbers.sequence(1, 5)}"
+                                               th:class="${rating.getRatingValue() >= star} ? 'icon_star voted' : 'icon_star'"></i>
                                         </div>
-                                        <div class="rev-info" th:text="${rating.getPatient().getUser().getUsername() + ' – '  + rating.getDate()}">
+                                        <div class="rev-info"
+                                             th:text="${rating.getPatient().getUser().getUsername() + ' – '  + rating.getDate()}">
                                         </div>
                                         <div class="rev-text">
                                             <p th:text="${rating.getReview()}">
@@ -308,7 +320,9 @@
                             </div>
                             <!-- End review-container -->
                             <hr>
-                            <div th:if="${loggedInUserType.equals('patient')}" class="text-end"><a th:href="${'/review/new/'+ doctorDetails.getUser().getUsername()}" class="btn_1 add_bottom_15">Submit
+                            <div th:if="${loggedInUserType.equals('patient')}" class="text-end"><a
+                                    th:href="${'/review/new/'+ doctorDetails.getUser().getUsername()}"
+                                    class="btn_1 add_bottom_15">Submit
                                 review</a>
                             </div>
                         </div>
@@ -328,16 +342,16 @@
 <!-- /main -->
 
 <div layout:fragment="additional-scripts">
-    <script th:src="@{patient}"></script>
+    <script th:src="@{/patient/js/bootstrap-datepicker.js}"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#calendar').datepicker({
                 todayHighlight: true,
                 daysOfWeekDisabled: [0],
                 weekStart: 1,
                 format: "yyyy-mm-dd",
                 startDate: new Date()
-            }).on('changeDate', function(selected) {
+            }).on('changeDate', function (selected) {
                 var selectedDate = selected.format('yyyy-mm-dd');
                 document.getElementById('selectedDate').value = selectedDate;
                 // console.log('Selected date:', selectedDate);
@@ -377,7 +391,8 @@
                             li.appendChild(label);
 
                             // Append the li element to the ul element
-                            timeSelect.appendChild(li); }
+                            timeSelect.appendChild(li);
+                        }
 
                     })
                     .catch(error => {
