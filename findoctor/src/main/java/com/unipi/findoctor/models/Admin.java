@@ -12,6 +12,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "admin_tbl")
 public class Admin {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true)
+    private Long id;
+
     @OneToOne
     @JoinColumn(referencedColumnName = "username")
     private User user;

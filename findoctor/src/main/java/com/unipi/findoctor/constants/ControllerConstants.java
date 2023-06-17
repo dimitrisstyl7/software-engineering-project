@@ -19,31 +19,32 @@ public class ControllerConstants {
 
 
     /* PATIENT URL */
-    public static final String PATIENT_ROOT_URL = "patient/";
-    public static final String PATIENT_INDEX_URL_1 = "patient";
-    public static final String PATIENT_INDEX_URL_2 = "patient/index";
-    public static final String PATIENT_ABOUT_URL = "patient/about";
-    public static final String PATIENT_BOOKING_URL = "patient/booking";
-    public static final String PATIENT_CONTACT_US_URL = "patient/contact-us";
-    public static final String PATIENT_DETAIL_PAGE_URL = "patient/details/{doctorUsername}";
-    public static final String PATIENT_FAQ_URL = "patient/faq";
-    public static final String PATIENT_GRID_LIST_URL = "patient/list";
-    public static final String PATIENT_SUBMIT_REVIEW_URL = "patient/review/new/{doctorUsername}";
+
+    public static final String PATIENT_ROOT_URL = "/patient/";
+    public static final String PATIENT_INDEX_URL_1 = "/patient";
+    public static final String PATIENT_INDEX_URL_2 = "/patient/index";
+    public static final String PATIENT_ABOUT_URL = "/patient/about";
+    public static final String PATIENT_BOOKING_URL = "/patient/booking";
+    public static final String PATIENT_CONTACT_US_URL = "/patient/contact-us";
+    public static final String PATIENT_DETAIL_PAGE_URL = "/patient/details/{doctorUsername}";
+    public static final String PATIENT_FAQ_URL = "/patient/faq";
+    public static final String PATIENT_GRID_LIST_URL = "/patient/list";
+    public static final String PATIENT_SUBMIT_REVIEW_URL = "/patient/review/new/{doctorUsername}";
     /* END OF PATIENT URL */
 
 
     /* DOCTOR URL */
-    public static final String DOCTOR_ROOT_URL = "doctor/";
-    public static final String DOCTOR_INDEX_URL_1 = "doctor";
-    public static final String DOCTOR_INDEX_URL_2 = "doctor/index";
-    public static final String DOCTOR_ADD_LISTING_URL = "doctor/add-listing";
-    public static final String DOCTOR_BOOKINGS_URL = "doctor/bookings";
-    public static final String DOCTOR_CHARTS_URL = "doctor/charts";
-    public static final String DOCTOR_DOCTOR_PROFILE_URL = "doctor/doctor-profile";
-    public static final String DOCTOR_MESSAGES_URL = "doctor/messages";
-    public static final String DOCTOR_PATIENT_PROFILE_URL = "doctor/patient-profile";
-    public static final String DOCTOR_REVIEWS_URL = "doctor/reviews";
-    public static final String DOCTOR_TABLES_URL = "doctor/tables";
+    public static final String DOCTOR_ROOT_URL = "/doctor/";
+    public static final String DOCTOR_INDEX_URL_1 = "/doctor";
+    public static final String DOCTOR_INDEX_URL_2 = "/doctor/index";
+    public static final String DOCTOR_ADD_LISTING_URL = "/doctor/add-listing";
+    public static final String DOCTOR_BOOKINGS_URL = "/doctor/bookings";
+    public static final String DOCTOR_CHARTS_URL = "/doctor/charts";
+    public static final String DOCTOR_DOCTOR_PROFILE_URL = "/doctor/doctor-profile";
+    public static final String DOCTOR_MESSAGES_URL = "/doctor/messages";
+    public static final String DOCTOR_PATIENT_PROFILE_URL = "/doctor/patient-profile";
+    public static final String DOCTOR_REVIEWS_URL = "/doctor/reviews";
+    public static final String DOCTOR_TABLES_URL = "/doctor/tables";
     /* END OF DOCTOR URL */
 
 

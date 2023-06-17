@@ -1,8 +1,9 @@
 package com.unipi.findoctor.security;
 
+import com.unipi.findoctor.services.DoctorService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -20,8 +21,10 @@ import static com.unipi.findoctor.constants.ControllerConstants.*;
 
 @Configuration
 @EnableWebSecurity
-@NoArgsConstructor
+@AllArgsConstructor
 public class SecurityConfig {
+    private DoctorService doctorService;
+
     @Bean
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -60,8 +63,20 @@ public class SecurityConfig {
             switch (role) {
                 case "admin" -> response.sendRedirect(ADMIN_ROOT_URL);
                 case "patient" -> response.sendRedirect(PATIENT_ROOT_URL);
-                case "doctor" -> response.sendRedirect(DOCTOR_ROOT_URL);
-                default -> throw new IllegalStateException(); // if something goes wrong, throw server side error.
+                case "doctor" -> {
+                    String username = authentication.getName();
+                    var doctor = doctorService.getDoctorDetailsByUsername(username);
+                    if (doctor != null && doctor.getStatus().equals("approved")) {
+                        response.sendRedirect(DOCTOR_ROOT_URL);
+                    } else {
+                        response.sendRedirect(LOGIN_URL + "?notApproved");
+                        destroySession(request, authentication);
+                    }
+                }
+                default -> {
+                    destroySession(request, authentication);
+                    throw new IllegalStateException(); // if something goes wrong, throw server side error.
+                }
             }
         }
     }
@@ -69,8 +84,7 @@ public class SecurityConfig {
     private void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         String url = LOGIN_URL; // Login page url, if not authenticated.
         if (!(authentication instanceof AnonymousAuthenticationToken || authentication == null)) {
-            authentication.setAuthenticated(false); // Set user authentication to false
-            request.getSession().invalidate(); // Invalidate user session
+            destroySession(request, authentication);
             url += "?logout=true"; // Append logout parameter to url
         }
         try {
@@ -78,5 +92,10 @@ public class SecurityConfig {
         } catch (IOException e) {
             throw new IllegalStateException(); // if something goes wrong, throw server side error.
         }
+    }
+
+    private void destroySession(HttpServletRequest request, Authentication authentication) {
+        authentication.setAuthenticated(false); // Set user authentication to false
+        request.getSession().invalidate(); // Invalidate user session
     }
 }

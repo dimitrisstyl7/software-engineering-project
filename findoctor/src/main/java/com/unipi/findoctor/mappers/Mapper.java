@@ -25,7 +25,7 @@ public class Mapper {
                 .businessPhone(registrationDto.getBusinessPhone())
                 .city(registrationDto.getCity())
                 .address(registrationDto.getAddress())
-                .isVerified(false)
+                .status("pending")
                 .build();
     }
 
