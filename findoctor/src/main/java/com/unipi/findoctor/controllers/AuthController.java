@@ -38,46 +38,46 @@ public class AuthController {
         return REGISTER_FILE;
     }
 
-    @PostMapping(REGISTER_URL)
-    public String registerSave(@Valid @ModelAttribute("user") RegistrationDto registrationDto, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            registrationDto.setIsDoctor(false); // reset isDoctor to false (reset radio button)
-            model.addAttribute("user", registrationDto);
-            return REGISTER_FILE;
-        }
-
-        if (registrationDto.getIsDoctor()) { // is doctor
-            Doctor existingDoctor = doctorService.findByAfm(registrationDto.getAfm());
-            if (existingDoctor != null && existingDoctor.getAfm() != null && !existingDoctor.getAfm().isEmpty()) {
-                result.rejectValue("afm", "afm.alreadyexists",
-                        "There is already an account registered with this AFM.");
-                registrationDto.setIsDoctor(false);
-                model.addAttribute("user", registrationDto);
-                return REGISTER_FILE;
-            }
-        } else { // is patient
-            Patient existingPatient = patientService.findByAmka(registrationDto.getAmka());
-            if (existingPatient != null && existingPatient.getAmka() != null && !existingPatient.getAmka().isEmpty()) {
-                result.rejectValue("amka", "amka.alreadyexists",
-                        "There is already an account registered with this AMKA.");
-                registrationDto.setIsDoctor(false);
-                model.addAttribute("user", registrationDto);
-                return REGISTER_FILE;
-            }
-        }
-
-        User existingUser = userService.findByUsername(registrationDto.getUsername());
-        if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()) {
-            result.rejectValue("username", "username.alreadyexists",
-                    "There is already an account registered with this username.");
-            registrationDto.setIsDoctor(false);
-            model.addAttribute("user", registrationDto);
-            return REGISTER_FILE;
-        }
-        User user = UserMapper.mapToUser(registrationDto);
-        userService.saveUser(user);
-        return "redirect:" + CONFIRMATION_URL + "/" + registrationDto.getIsDoctor();
-    }
+//    @PostMapping(REGISTER_URL)
+//    public String registerSave(@Valid @ModelAttribute("user") RegistrationDto registrationDto, BindingResult result, Model model) {
+//        if (result.hasErrors()) {
+//            registrationDto.setIsDoctor(false); // reset isDoctor to false (reset radio button)
+//            model.addAttribute("user", registrationDto);
+//            return REGISTER_FILE;
+//        }
+//
+//        if (registrationDto.getIsDoctor()) { // is doctor
+//            Doctor existingDoctor = doctorService.findByAfm(registrationDto.getAfm());
+//            if (existingDoctor != null && existingDoctor.getAfm() != null && !existingDoctor.getAfm().isEmpty()) {
+//                result.rejectValue("afm", "afm.alreadyexists",
+//                        "There is already an account registered with this AFM.");
+//                registrationDto.setIsDoctor(false);
+//                model.addAttribute("user", registrationDto);
+//                return REGISTER_FILE;
+//            }
+//        } else { // is patient
+//            Patient existingPatient = patientService.findByAmka(registrationDto.getAmka());
+//            if (existingPatient != null && existingPatient.getAmka() != null && !existingPatient.getAmka().isEmpty()) {
+//                result.rejectValue("amka", "amka.alreadyexists",
+//                        "There is already an account registered with this AMKA.");
+//                registrationDto.setIsDoctor(false);
+//                model.addAttribute("user", registrationDto);
+//                return REGISTER_FILE;
+//            }
+//        }
+//
+//        User existingUser = userService.findByUsername(registrationDto.getUsername());
+//        if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()) {
+//            result.rejectValue("username", "username.alreadyexists",
+//                    "There is already an account registered with this username.");
+//            registrationDto.setIsDoctor(false);
+//            model.addAttribute("user", registrationDto);
+//            return REGISTER_FILE;
+//        }
+//        User user = UserMapper.mapToUser(registrationDto);
+//        userService.saveUser(user);
+//        return "redirect:" + CONFIRMATION_URL + "/" + registrationDto.getIsDoctor();
+//    }
 
     @GetMapping(CONFIRMATION_URL + "/{isDoctor}")
     public String confirmationPage(@PathVariable("isDoctor") boolean isDoctor, Model model) {
