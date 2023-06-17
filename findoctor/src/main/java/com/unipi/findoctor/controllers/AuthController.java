@@ -8,7 +8,6 @@ import com.unipi.findoctor.models.User;
 import com.unipi.findoctor.services.DoctorService;
 import com.unipi.findoctor.services.PatientService;
 import com.unipi.findoctor.services.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
