@@ -15,7 +15,7 @@ public interface DoctorService {
 
     Doctor findDoctor(String username);
 
-    Boolean doctorExists(String username);
+    boolean doctorExists(String username);
 
     Page<DoctorDto> getDoctorsByPage(String query, int pageNumber, int pageSize);
 
