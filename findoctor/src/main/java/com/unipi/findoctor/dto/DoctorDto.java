@@ -10,7 +10,7 @@ import java.util.List;
 
 @Builder
 @Data
-public class DoctorDetailsDto {
+public class DoctorDto {
     private String afm;
     private User user;
     private LocalDate dateOfBirth;
@@ -19,7 +19,7 @@ public class DoctorDetailsDto {
     private String city;
     private String address;
     private String imageURL;
-
+    private String status;
     private List<Rating> ratings;
 
     public double getAverageRating() {
