@@ -25,7 +25,6 @@ public class PatientServiceImpl implements PatientService {
     public void savePatient(Patient patient) {
         patient.getUser().setPassword(SecurityConfig.passwordEncoder().encode(patient.getUser().getPassword()));
         patientRepository.save(patient);
-        return null;
     }
 
     @Override
@@ -33,7 +32,7 @@ public class PatientServiceImpl implements PatientService {
         Optional<Patient> optionalPatient = patientRepository.findByUser_username(username);
 
         if (optionalPatient.isEmpty()) {
-            return  null;
+            return null;
         }
 
         Patient patient = optionalPatient.orElseThrow(() -> new RuntimeException("Patient not found"));
@@ -46,7 +45,7 @@ public class PatientServiceImpl implements PatientService {
         Optional<Patient> optionalPatient = patientRepository.findByUser_username(username);
 
         if (optionalPatient.isEmpty()) {
-            return  null;
+            return null;
         }
 
         return optionalPatient.orElseThrow(() -> new RuntimeException("Patient not found"));

@@ -31,5 +31,5 @@ public class Appointment {
     private Doctor doctor;
 
     private LocalDate date;
-    private LocalTime time_slot;
+    private LocalTime timeSlot;
 }

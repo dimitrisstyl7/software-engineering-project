@@ -35,7 +35,6 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeRequests()
                 .requestMatchers(ADMIN_INDEX_URL_1, ADMIN_ROOT_URL + "**").hasAuthority("admin")
-                .requestMatchers(PATIENT_INDEX_URL_1, PATIENT_ROOT_URL + "**").hasAuthority("patient")
                 .requestMatchers(DOCTOR_INDEX_URL_1, DOCTOR_ROOT_URL + "**").hasAuthority("doctor")
                 .requestMatchers(CONFIRMATION_URL).denyAll()
                 .anyRequest().permitAll()

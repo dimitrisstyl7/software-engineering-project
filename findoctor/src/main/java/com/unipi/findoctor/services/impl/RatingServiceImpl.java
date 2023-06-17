@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RatingServiceImpl implements RatingService {
     private RatingRepository ratingRepository;
+
     @Override
     public RatingDto saveRating(RatingDto ratingDto) {
         // Map

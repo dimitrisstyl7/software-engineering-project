@@ -1,14 +1,13 @@
 package com.unipi.findoctor.controllers;
 
 import com.unipi.findoctor.dto.RegistrationDto;
-import com.unipi.findoctor.mappers.Mapper;
+import com.unipi.findoctor.mappers.AuthMapper;
 import com.unipi.findoctor.models.Doctor;
 import com.unipi.findoctor.models.Patient;
 import com.unipi.findoctor.models.User;
 import com.unipi.findoctor.services.DoctorService;
 import com.unipi.findoctor.services.PatientService;
 import com.unipi.findoctor.services.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -94,10 +93,10 @@ public class AuthController {
         }
 
         if (registrationDto.getIsDoctor()) {
-            Doctor doctor = Mapper.mapToDoctor(registrationDto);
+            Doctor doctor = AuthMapper.mapToDoctor(registrationDto);
             doctorService.saveDoctor(doctor);
         } else {
-            Patient patient = Mapper.mapToPatient(registrationDto);
+            Patient patient = AuthMapper.mapToPatient(registrationDto);
             patientService.savePatient(patient);
         }
 

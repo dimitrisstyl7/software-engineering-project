@@ -2,7 +2,7 @@
 <html lang="en, gr"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      >
+>
 
 <head>
     <meta charset="utf-8">
@@ -10,19 +10,18 @@
     <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Findoctor</title>
 
     <!-- Favicons-->
-    <link rel="shortcut icon" th:href="@{/visitor-patient/img/favicon.ico}" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/patient/img/favicon.ico}" type="image/x-icon">
 
     <!-- GOOGLE WEB FONT -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet">
 
     <!-- BASE CSS -->
-    <link th:href="@{/visitor-patient/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/visitor-patient/css/style.css}" rel="stylesheet">
-    <link th:href="@{/visitor-patient/css/menu.css}" rel="stylesheet">
-    <link th:href="@{/visitor-patient/css/vendors.css}" rel="stylesheet">
-    <link th:href="@{/visitor-patient/css/icon_fonts/css/all_icons_min.css}" rel="stylesheet">
-
+    <link th:href="@{/patient/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/patient/css/style.css}" rel="stylesheet">
+    <link th:href="@{/patient/css/menu.css}" rel="stylesheet">
+    <link th:href="@{/patient/css/vendors.css}" rel="stylesheet">
+    <link th:href="@{/patient/css/icon_fonts/css/all_icons_min.css}" rel="stylesheet">
 
 
 </head>
@@ -48,9 +47,9 @@
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <div id="logo">
-                        <a th:href="@{/}" title="Findoctor"><img th:src="@{/visitor-patient/img/logo.png}"
-                                                                  alt="" width="163"
-                                                                  height="36"></a>
+                        <a th:href="@{/}" title="Findoctor"><img th:src="@{/patient/img/logo.png}"
+                                                                 alt="" width="163"
+                                                                 height="36"></a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-6">
@@ -137,7 +136,7 @@
                 <div class="col-lg-3 col-md-12">
                     <p>
                         <a href="visitor/index.html" title="Findoctor">
-                            <img th:src="@{/visitor-patient/img/logo.png}" alt="" width="163" height="36"
+                            <img th:src="@{/patient/img/logo.png}" alt="" width="163" height="36"
                                  class="img-fluid">
                         </a>
                     </p>
@@ -202,9 +201,9 @@
 <!-- Back to top button -->
 
 <!-- COMMON SCRIPTS -->
-<script th:src="@{/visitor-patient/js/jquery-3.6.3.min.js}"></script>
-<script th:src="@{/visitor-patient/js/common_scripts.min.js}"></script>
-<script th:src="@{/visitor-patient/js/functions.js}"></script>
+<script th:src="@{/patient/js/jquery-3.6.3.min.js}"></script>
+<script th:src="@{/patient/js/common_scripts.min.js}"></script>
+<script th:src="@{/patient/js/functions.js}"></script>
 
 <div layout:fragment="additional-scripts"></div>
 

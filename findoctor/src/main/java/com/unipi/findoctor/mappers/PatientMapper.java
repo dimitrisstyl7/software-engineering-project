@@ -6,13 +6,11 @@ import com.unipi.findoctor.models.Patient;
 public class PatientMapper {
 
     public static PatientDto mapToPatientDto(Patient patient) {
-        PatientDto patientDto = PatientDto.builder()
+        return PatientDto.builder()
                 .amka(patient.getAmka())
                 .user(patient.getUser())
                 .dateOfBirth(patient.getDateOfBirth())
                 .registeredOn(patient.getRegisteredOn())
                 .build();
-
-        return patientDto;
     }
 }

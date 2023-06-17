@@ -8,7 +8,7 @@
     <title>Details</title>
 
     <!-- SPECIFIC CSS -->
-    <link th:href="@{/visitor-patient/css/date_picker.css}" rel="stylesheet">
+    <link th:href="@{patient}" rel="stylesheet">
 </head>
 
 <body>
@@ -328,7 +328,7 @@
 <!-- /main -->
 
 <div layout:fragment="additional-scripts">
-    <script th:src="@{/visitor-patient/js/bootstrap-datepicker.js}"></script>
+    <script th:src="@{patient}"></script>
     <script>
         $(document).ready(function() {
             $('#calendar').datepicker({

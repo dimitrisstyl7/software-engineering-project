@@ -2,9 +2,7 @@ package com.unipi.findoctor.security;
 
 import com.unipi.findoctor.dto.PatientDto;
 import com.unipi.findoctor.dto.UserDto;
-import com.unipi.findoctor.services.DoctorService;
 import com.unipi.findoctor.services.PatientService;
-import com.unipi.findoctor.services.impl.PatientServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -40,12 +38,10 @@ public class SecurityUtil {
             return null;
         }
 
-        PatientDto patientDto = patientService.findPatient(authentication.getName());
-
-        return patientDto;
+        return patientService.findPatient(authentication.getName());
     }
 
-    public Boolean isPatientLoggedIn() {
+    public boolean isPatientLoggedIn() {
         PatientDto patientDto = getSessionPatient();
 
         if (patientDto == null) {

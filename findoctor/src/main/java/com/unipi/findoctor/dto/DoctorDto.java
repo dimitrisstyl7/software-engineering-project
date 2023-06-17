@@ -23,8 +23,8 @@ public class DoctorDto {
     private String status;
     private List<Rating> ratings;
     private List<View> views;
-    
-    public double getAverageRating(){
+
+    public double getAverageRating() {
 
         double average = ratings.stream()
                 .mapToInt(rating -> rating.getRatingValue())

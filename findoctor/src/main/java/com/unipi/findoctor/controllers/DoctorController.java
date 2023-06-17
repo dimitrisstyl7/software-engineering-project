@@ -1,6 +1,5 @@
 package com.unipi.findoctor.controllers;
 
-import com.unipi.findoctor.security.SecurityUtil;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +11,6 @@ import static com.unipi.findoctor.constants.ControllerConstants.*;
 public class DoctorController {
     @GetMapping({DOCTOR_ROOT_URL, DOCTOR_INDEX_URL_1, DOCTOR_INDEX_URL_2})
     public String doctorIndexPage() {
-        System.out.println(SecurityUtil.getSessionUser().getUsername());
         return DOCTOR_INDEX_FILE;
     }
 

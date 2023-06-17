@@ -28,7 +28,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         List<Appointment> appointments = appointmentRepository.findAppointmentsByDoctor_User_UsernameAndDate(doctorUsername, date);
 
         List<LocalTime> appointment_times = appointments.stream()
-                .map(Appointment::getTime_slot)
+                .map(Appointment::getTimeSlot)
                 .toList();
 
         // Define the start and end time for available slots

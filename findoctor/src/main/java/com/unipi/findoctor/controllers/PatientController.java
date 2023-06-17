@@ -1,16 +1,13 @@
 package com.unipi.findoctor.controllers;
 
-import com.unipi.findoctor.constants.ControllerConstants;
-import com.unipi.findoctor.dto.*;
-import com.unipi.findoctor.models.Doctor;
-import com.unipi.findoctor.models.Patient;
+import com.unipi.findoctor.dto.AppointmentDto;
+import com.unipi.findoctor.dto.DoctorDto;
+import com.unipi.findoctor.dto.PatientDto;
+import com.unipi.findoctor.dto.RatingDto;
 import com.unipi.findoctor.security.SecurityUtil;
 import com.unipi.findoctor.services.AppointmentService;
 import com.unipi.findoctor.services.DoctorService;
-import com.unipi.findoctor.security.SecurityUtil;
 import com.unipi.findoctor.services.PatientService;
-import com.unipi.findoctor.services.RatingService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -23,7 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 
 import static com.unipi.findoctor.constants.ControllerConstants.*;
 
@@ -32,9 +28,8 @@ import static com.unipi.findoctor.constants.ControllerConstants.*;
 public class PatientController {
     private final PatientService patientService;
     private final DoctorService doctorService;
-    private final SecurityUtil securityUtil;
-//    private final RatingService ratingService;
     private final AppointmentService appointmentService;
+    private final SecurityUtil securityUtil;
 
     @GetMapping({PATIENT_ROOT_URL, PATIENT_INDEX_URL_1})
     public String patientIndexPage(Model model) {
@@ -66,7 +61,7 @@ public class PatientController {
         PatientDto patientDto = securityUtil.getSessionPatient();
         String loggedInUserType = patientDto != null ? USER_TYPE_PATIENT : USER_TYPE_VISITOR;
 
-        DoctorDetailsDto doctorDetailsDto = doctorService.getDoctorDetailsByUsername(doctorUsername);
+        DoctorDto doctorDetailsDto = doctorService.getDoctorDetailsByUsername(doctorUsername);
         if (doctorDetailsDto == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found");
         }
@@ -86,7 +81,7 @@ public class PatientController {
     }
 
     @GetMapping(PATIENT_GRID_LIST_URL)
-    public String patientGridListPage(@RequestParam(required = false, defaultValue = "1") String page, @RequestParam(required = false) String q , Model model) {
+    public String patientGridListPage(@RequestParam(required = false, defaultValue = "1") String page, @RequestParam(required = false) String q, Model model) {
 
         int adjustedPageNumber;
 
@@ -100,7 +95,7 @@ public class PatientController {
             return "error/404";
         }
 
-        Page<DoctorDetailsDto> doctorDetailsDtoPage = doctorService.getDoctorsByPage(q, adjustedPageNumber, 9);
+        Page<DoctorDto> doctorDetailsDtoPage = doctorService.getDoctorsByPage(q, adjustedPageNumber, 9);
 
         model.addAttribute("doctorDetails", doctorDetailsDtoPage.getContent());
         model.addAttribute("doctorCount", doctorDetailsDtoPage.getNumberOfElements());
@@ -126,13 +121,13 @@ public class PatientController {
 
         RatingDto ratingDto = RatingDto.builder().build();
 
-        model.addAttribute("doctorFullName", doctorDetailsDto.getFullName());
+        model.addAttribute("doctorFullName", doctorDto.getFullName());
         model.addAttribute("ratingDto", ratingDto);
         return PATIENT_SUBMIT_REVIEW_FILE;
     }
 
     @PostMapping(PATIENT_SUBMIT_REVIEW_POST_URL)
-    public String patientSubmitReviewEndpoint(@ModelAttribute RatingDto ratingDto){
+    public String patientSubmitReviewEndpoint(@ModelAttribute RatingDto ratingDto) {
 
         // TODO: Check if value inputs are not changed
 
@@ -145,7 +140,7 @@ public class PatientController {
     public String newAppointment(@RequestParam("selectedDate") String selectedDate,
                                  @RequestParam("doctorUsername") String doctorUsername,
                                  @RequestParam("timeslot") String timeslot,
-                                 RedirectAttributes redirectAttributes){
+                                 RedirectAttributes redirectAttributes) {
 
         PatientDto loggedInPatient = securityUtil.getSessionPatient();
 
@@ -170,7 +165,7 @@ public class PatientController {
                 .doctor(doctorService.findDoctor(doctorUsername))
                 .date(parsedDate)
                 .time_slot(parsedTime)
-                        .build();
+                .build();
 
         AppointmentDto appointmentDto = appointmentService.saveAppointment(appointmentToSave);
         redirectAttributes.addFlashAttribute("status", "new-booking");

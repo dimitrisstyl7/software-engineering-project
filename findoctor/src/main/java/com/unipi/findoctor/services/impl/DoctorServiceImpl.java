@@ -5,6 +5,7 @@ import com.unipi.findoctor.mappers.DoctorMapper;
 import com.unipi.findoctor.models.Doctor;
 import com.unipi.findoctor.repositories.DoctorRepository;
 import com.unipi.findoctor.repositories.ViewRepository;
+import com.unipi.findoctor.security.SecurityConfig;
 import com.unipi.findoctor.services.DoctorService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -12,9 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @AllArgsConstructor
@@ -23,6 +22,7 @@ public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;
     private final ViewRepository viewRepository;
+
     @Override
     public DoctorDto getDoctorDetailsByUsername(String username) {
         Doctor doctor = doctorRepository.findByUser_username(username);
@@ -55,19 +55,17 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Page<DoctorDetailsDto> getDoctorsByPage(String query, int pageNumber, int pageSize) {
+    public Page<DoctorDto> getDoctorsByPage(String query, int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         Page<Doctor> doctorsPage;
 
-        if (query == null){
+        if (query == null) {
             doctorsPage = doctorRepository.findAll(pageable);
         } else {
             doctorsPage = doctorRepository.searchDoctors(query, pageable);
         }
 
-        Page<DoctorDetailsDto> doctorDetailsDtoPage = doctorsPage.map(doctor -> doctorMapper.mapToDoctorDetailsDto(doctor));
-
-        return doctorDetailsDtoPage;
+        return doctorsPage.map(doctorMapper::mapToDoctorDto);
     }
 
     @Override
@@ -80,6 +78,7 @@ public class DoctorServiceImpl implements DoctorService {
     public Doctor findByAfm(String afm) {
         return doctorRepository.findByAfm(afm);
     }
+
     public int getDoctorViews(String username) {
         return viewRepository.countByDoctor_User_username(username);
     }
