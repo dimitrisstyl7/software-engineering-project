@@ -44,14 +44,9 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Boolean doctorExists(String username) {
+    public boolean doctorExists(String username) {
         Optional<Doctor> doctor = Optional.ofNullable(doctorRepository.findByUser_username(username));
-
-        if (doctor.isEmpty()) {
-            return false;
-        }
-
-        return true;
+        return doctor.isPresent();
     }
 
     @Override
