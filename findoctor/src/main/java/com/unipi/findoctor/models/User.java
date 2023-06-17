@@ -21,4 +21,11 @@ public class  User {
     private String surname;
     private String phone;
 
+    @Override
+    public String toString() {
+        return "User(" +
+                "username='" + getUsername() + '\''
+                + ')';
+    }
+
 }
