@@ -1,5 +1,7 @@
 package com.unipi.findoctor.services.impl;
 
+import com.unipi.findoctor.dto.AppointmentDto;
+import com.unipi.findoctor.mappers.AppointmentMapper;
 import com.unipi.findoctor.models.Appointment;
 import com.unipi.findoctor.repositories.AppointmentRepository;
 import com.unipi.findoctor.services.AppointmentService;
@@ -14,8 +16,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
+@Service
 public class AppointmentServiceImpl implements AppointmentService {
     private final AppointmentRepository appointmentRepository;
+    private final AppointmentMapper appointmentMapper;
 
     @Override
     public Map<String, Boolean> getDoctorAvailableTimeSlots(String doctorUsername, LocalDate date) {
@@ -50,5 +54,11 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 
         return time_slots;
+    }
+
+    @Override
+    public AppointmentDto saveAppointment(AppointmentDto appointmentDto) {
+        Appointment savedAppointment = appointmentRepository.save(appointmentMapper.mapToAppointment(appointmentDto));
+        return appointmentMapper.mapToAppointmentDto(savedAppointment);
     }
 }
