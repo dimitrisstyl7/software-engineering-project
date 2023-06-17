@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en, gr" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{patient_layout}">
+      layout:decorate="~{patient_layout}"
+      th:with="loggedIn=true"
+>
 
 <head>
     <title>List</title>
@@ -12,12 +14,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h4 th:text="${'Showing 9 of ' + totalDoctors + ' results'}"></h4>
+                    <h4 th:text="${'Showing ' + doctorCount + ' of ' + totalDoctors + ' results'}"></h4>
                 </div>
                 <div class="col-md-6">
                     <div class="search_bar_list">
-                        <input type="text" class="form-control" placeholder="Ex. Specialist, Name, Doctor...">
+                        <form role="form" method="get" th:action="@{/list}">
+                        <input name="q" type="text" class="form-control" placeholder="Ex. Specialist, Name, Doctor...">
                         <input type="submit" value="Search">
+                        </form>
                     </div>
                 </div>
             </div>
