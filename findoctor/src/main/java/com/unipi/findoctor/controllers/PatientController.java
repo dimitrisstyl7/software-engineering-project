@@ -62,7 +62,7 @@ public class PatientController {
         String loggedInUserType = patientDto != null ? USER_TYPE_PATIENT : USER_TYPE_VISITOR;
 
         DoctorDto doctorDto = doctorService.getDoctorDetailsByUsername(doctorUsername);
-        if (doctorDetailsDto == null) {
+        if (doctorDto == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found");
         }
 
