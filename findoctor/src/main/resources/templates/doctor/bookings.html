@@ -19,6 +19,9 @@
         </li>
         <li class="breadcrumb-item active">Bookings</li>
     </ol>
+
+    <a style="font-style: italic; font-weight: bold;"> Double click to add a new Event</a>
+
 <div id="container">
     <div id="header">
         <div id="monthDisplay"></div>
@@ -45,6 +48,7 @@
     <h2>New Event for the client</h2>
 
     <input id="eventTitleInput" placeholder="Event Title" />
+    <input id="eventTimeOfDate" type="time" placeholder="Event Time of the Day" />
     <input id="clientAFM" placeholder="Client Id" />
     <input id="clientName" placeholder="Client Name" />
     <input id="clientSurname" placeholder="Client Surname" />
@@ -66,8 +70,9 @@
 <div id="modalBackDrop"></div>
 
     <div>
-        <h6>See All Events with the Patient Id</h6>
-        <button class="button2" id="SeeAll">See All</button>
+        <table id="myTable">
+
+        </table>
     </div>
 
     <script th:src="@{/admin-doctor/js/script_reservation.js}"></script>
