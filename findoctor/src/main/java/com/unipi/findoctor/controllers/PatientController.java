@@ -142,11 +142,6 @@ public class PatientController {
         return "redirect:/";
     }
 
-    @GetMapping("/icons")
-    public String icons(){
-        return ICON_PACK_2_FILE;
-    }
-
     @PostMapping("/appointment/new")
     public String newAppointment(@RequestParam("selectedDate") String selectedDate,
                                  @RequestParam("doctorUsername") String doctorUsername,
