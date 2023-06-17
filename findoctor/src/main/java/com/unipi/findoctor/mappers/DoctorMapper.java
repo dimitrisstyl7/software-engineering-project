@@ -18,6 +18,7 @@ public class DoctorMapper {
                 .status(doctor.getStatus())
                 .address(doctor.getAddress())
                 .ratings(doctor.getRatings())
+                .views(doctor.getViews())
                 .build();
 
         return doctorDto;

@@ -2,6 +2,7 @@ package com.unipi.findoctor.dto;
 
 import com.unipi.findoctor.models.Rating;
 import com.unipi.findoctor.models.User;
+import com.unipi.findoctor.models.View;
 import lombok.Builder;
 import lombok.Data;
 
@@ -21,8 +22,9 @@ public class DoctorDto {
     private String imageURL;
     private String status;
     private List<Rating> ratings;
-
-    public double getAverageRating() {
+    private List<View> views;
+    
+    public double getAverageRating(){
 
         double average = ratings.stream()
                 .mapToInt(rating -> rating.getRatingValue())
@@ -47,5 +49,12 @@ public class DoctorDto {
 
     public String getFullName() {
         return "Dr. " + user.getName() + " " + user.getSurname();
+    }
+
+    @Override
+    public String toString() {
+        return "DoctorDetails(" +
+                "for=" + getUser().getUsername() +
+                ')';
     }
 }

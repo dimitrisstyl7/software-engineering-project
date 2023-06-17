@@ -1,12 +1,22 @@
 package com.unipi.findoctor.security;
 
+import com.unipi.findoctor.dto.PatientDto;
 import com.unipi.findoctor.dto.UserDto;
+import com.unipi.findoctor.services.DoctorService;
+import com.unipi.findoctor.services.PatientService;
+import com.unipi.findoctor.services.impl.PatientServiceImpl;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
 
+@Service
+@AllArgsConstructor
 public class SecurityUtil {
-    public static UserDto getSessionUser() {
+    private PatientService patientService;
+
+    public UserDto getSessionUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             return new UserDto(
@@ -16,4 +26,33 @@ public class SecurityUtil {
         }
         return null;
     }
+
+    public PatientDto getSessionPatient() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication instanceof AnonymousAuthenticationToken) {
+            return null;
+        }
+
+        String userType = authentication.getAuthorities().toArray()[0].toString();
+        if (!userType.equals("patient")) {
+            return null;
+        }
+
+        PatientDto patientDto = patientService.findPatient(authentication.getName());
+
+        return patientDto;
+    }
+
+    public Boolean isPatientLoggedIn() {
+        PatientDto patientDto = getSessionPatient();
+
+        if (patientDto == null) {
+            return false;
+        }
+        return true;
+
+    }
+
 }
