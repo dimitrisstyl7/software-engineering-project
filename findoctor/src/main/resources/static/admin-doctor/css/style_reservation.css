@@ -47,7 +47,7 @@ button {
     color: #247BA0;
 }
 #weekdays div {
-    width: 100px;
+    width: 112px;
     padding: 10px;
 }
 #calendar {
@@ -90,6 +90,7 @@ button {
     background-color: #FFFCFF !important;
     box-shadow: none !important;
 }
+
 #newEventModal, #deleteEventModal {
     display: none;
     z-index: 20;
@@ -99,10 +100,11 @@ button {
     border-radius: 5px;
     width: 350px;
     top: 100px;
-    left: calc(50% - 175px);
+    left: calc(53% - 175px);
     position: absolute;
     font-family: sans-serif;
 }
+
 #eventTitleInput {
     padding: 10px;
     width: 100%;
@@ -158,25 +160,83 @@ button {
     box-shadow: 0px 0px 3px gray;
 }
 
+#eventTimeOfDate {
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 0px 3px gray;
+}
+
+#eventTimeOfDate.error {
+    border: 2px solid red;
+}
+
 #eventTitleInput.error {
+    border: 2px solid red;
+}
+
+#clientAFM.error{
+    border: 2px solid red;
+}
+
+#clientName.error{
+    border: 2px solid red;
+}
+
+#clientSurname.error{
+    border: 2px solid red;
+}
+
+#clientEmail.error{
     border: 2px solid red;
 }
 #cancelButton, #deleteButton {
     background-color: #d36c6c;
 }
+
 #saveButton, #closeButton {
     background-color: #92a1d1;
 }
+
+#cancelButton2 {
+    background-color: #d36c6c;
+}
+
+#saveButton2 {
+    background-color: #92a1d1;
+}
+
 #eventText {
     font-size: 14px;
 }
+
 #modalBackDrop {
     display: none;
     top: 0px;
     left: 0px;
     z-index: 10;
     width: 100vw;
-    height: 100vh;
+    height: 150vh;
     position: absolute;
     background-color: rgba(0,0,0,0.8);
 }
+
+
+#myTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#myTable td, #myTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#myTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#myTable tr:hover {background-color: #ddd;}

@@ -61,14 +61,14 @@ public class PatientController {
         PatientDto patientDto = securityUtil.getSessionPatient();
         String loggedInUserType = patientDto != null ? USER_TYPE_PATIENT : USER_TYPE_VISITOR;
 
-        DoctorDto doctorDetailsDto = doctorService.getDoctorDetailsByUsername(doctorUsername);
+        DoctorDto doctorDto = doctorService.getDoctorDetailsByUsername(doctorUsername);
         if (doctorDetailsDto == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found");
         }
 
         int views = doctorService.getDoctorViews(doctorUsername);
 
-        model.addAttribute("doctorDetails", doctorDetailsDto);
+        model.addAttribute("doctorDetails", doctorDto);
         model.addAttribute("loggedInUserType", loggedInUserType);
         model.addAttribute("views", views);
         model.addAttribute("isLoggedIn", securityUtil.isPatientLoggedIn());
