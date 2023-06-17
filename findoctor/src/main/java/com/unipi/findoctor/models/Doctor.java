@@ -37,6 +37,18 @@ public class Doctor {
 //    @OneToMany(mappedBy = "doctor", cascade = CascadeType.REFRESH)
 //    private List<Appointment> appointments;
 
+    @OneToMany(mappedBy = "doctor")
+    private List<View> views;
+
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.REFRESH)
     private List<Rating> ratings;
+
+    @Override
+    public String toString() {
+        return "Doctor(" +
+                "afm=" + getAfm() +
+                ", username='" + getUser().getUsername() + '\'' +
+                ')';
+    }
+
 }

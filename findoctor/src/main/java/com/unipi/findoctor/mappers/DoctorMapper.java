@@ -17,6 +17,7 @@ public class DoctorMapper {
                 .imageURL(doctor.getImageURL())
                 .address(doctor.getAddress())
                 .ratings(doctor.getRatings())
+                .views(doctor.getViews())
                 .build();
 
         return doctorDetailsDto;

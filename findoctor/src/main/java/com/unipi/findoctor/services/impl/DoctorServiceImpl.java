@@ -4,6 +4,7 @@ import com.unipi.findoctor.dto.DoctorDetailsDto;
 import com.unipi.findoctor.mappers.DoctorMapper;
 import com.unipi.findoctor.models.Doctor;
 import com.unipi.findoctor.repositories.DoctorRepository;
+import com.unipi.findoctor.repositories.ViewRepository;
 import com.unipi.findoctor.services.DoctorService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,13 +12,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @AllArgsConstructor
+@Service
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;
+    private final ViewRepository viewRepository;
     @Override
     public DoctorDetailsDto getDoctorDetailsByUsername(String username) {
         Doctor doctor = doctorRepository.findByUser_username(username);
@@ -34,6 +39,11 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public Doctor findDoctor(String username) {
+        return doctorRepository.findByUser_username(username);
+    }
+
+    @Override
     public Boolean doctorExists(String username) {
         Optional<Doctor> doctor = Optional.ofNullable(doctorRepository.findByUser_username(username));
 
@@ -45,11 +55,24 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Page<DoctorDetailsDto> getDoctorsByPage(int pageNumber, int pageSize) {
+    public Page<DoctorDetailsDto> getDoctorsByPage(String query, int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        Page<Doctor> doctorPage = doctorRepository.findAll(pageable);
-        Page<DoctorDetailsDto> doctorDetailsDtoPage = doctorPage.map(doctor -> doctorMapper.mapToDoctorDetailsDto(doctor));
+        Page<Doctor> doctorsPage;
+
+        if (query == null){
+            doctorsPage = doctorRepository.findAll(pageable);
+        } else {
+            doctorsPage = doctorRepository.searchDoctors(query, pageable);
+        }
+
+        Page<DoctorDetailsDto> doctorDetailsDtoPage = doctorsPage.map(doctor -> doctorMapper.mapToDoctorDetailsDto(doctor));
 
         return doctorDetailsDtoPage;
     }
+
+    @Override
+    public int getDoctorViews(String username) {
+        return viewRepository.countByDoctor_User_username(username);
+    }
+
 }
