@@ -1,48 +1,49 @@
 package com.unipi.findoctor.services.impl;
 
+import com.unipi.findoctor.dto.PatientDto;
+import com.unipi.findoctor.mappers.PatientMapper;
 import com.unipi.findoctor.models.Patient;
-import com.unipi.findoctor.models.User;
 import com.unipi.findoctor.repositories.PatientRepository;
 import com.unipi.findoctor.services.PatientService;
 import com.unipi.findoctor.services.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @AllArgsConstructor
+@Service
 public class PatientServiceImpl implements PatientService {
     private final PatientRepository patientRepository;
     private final UserService userService;
 
     @Override
-    public void addPatient() {
-        var x = Patient.builder()
-                .user(User
-                        .builder()
-                        .email("email@dsd.com")
-                        .name("name")
-                        .password("password")
-                        .phone("1234567890")
-                        .surname("surname")
-                        .userType("patient")
-                        .username("username2")
-                        .build())
-                .amka("2")
-                .appointments(null)
-                .dateOfBirth(null)
-                .ratings(null)
-                .registeredOn(null)
-                .build();
-        patientRepository.save(x);
+    public Patient findByAmka(String amka) {
+        return null;
     }
 
     @Override
-    public Patient getPatient(String amka) {
-        User user = userService.findByUsername("username2");
-        System.out.println(user);
-//        Patient patient1 = patientRepository.findByUser_Username(user.getUsername());
-        //Patient patient2 = patientRepository.findByAmka(amka);
-//        System.out.println(patient1);
-        //System.out.println(patient2);
-        System.out.println();
-        return null;
+    public PatientDto findPatient(String username) {
+        Optional<Patient> optionalPatient = patientRepository.findByUser_username(username);
+
+        if (optionalPatient.isEmpty()) {
+            return  null;
+        }
+
+        Patient patient = optionalPatient.orElseThrow(() -> new RuntimeException("Patient not found"));
+
+        return PatientMapper.mapToPatientDto(patient);
+    }
+
+    @Override
+    public Patient findPatientByUsername(String username) {
+        Optional<Patient> optionalPatient = patientRepository.findByUser_username(username);
+
+        if (optionalPatient.isEmpty()) {
+            return  null;
+        }
+
+        return optionalPatient.orElseThrow(() -> new RuntimeException("Patient not found"));
+
     }
 }
