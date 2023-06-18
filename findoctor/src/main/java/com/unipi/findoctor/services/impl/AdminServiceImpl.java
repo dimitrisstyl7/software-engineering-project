@@ -28,7 +28,7 @@ public class AdminServiceImpl implements AdminService {
         DoctorDto doctorDto = DoctorDto.builder()
                 //.ratings(doctor.getRatings())
                 .dateOfBirth(doctor.getDateOfBirth())
-                .isVerified(doctor.isVerified())
+                .status(doctor.getStatus())
                 .specialization(doctor.getSpecialization())
                 .city(doctor.getCity())
                 //.appointments(doctor.getAppointments())

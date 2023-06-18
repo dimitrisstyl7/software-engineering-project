@@ -27,13 +27,15 @@
                 </select>
             </div>
         </div>
-        <div class="list_general">
+        <div th:each="doctor :${doctors}" class="list_general">
             <ul>
                 <li>
-                    <figure><img src="img/avatar1.jpg" alt=""></figure>
-                    <h4>Enzo Ferrari <i class="pending">Pending</i></h4>
+                    <figure><img th:src="${doctor.imageURL}" alt=""></figure>
+                    <h4 th:text="${doctor.getName_Surname()}  " th:if="${doctor.status=='pending'}"><i  class="pending"> Pending</i></h4>
+                    <h4 th:text="${doctor.getName_Surname()}  " th:if="${doctor.status=='approved'}"><i class="approved"> Approved</i></h4>
+                    <h4 th:text="${doctor.getName_Surname()}  " th:if="${doctor.status=='rejected'}"><i class="cancel"> Rejected</i></h4>
                     <ul class="booking_details">
-                        <li><strong>Booking date</strong> 11 November 2017</li>
+                        <li><strong >Booking date</strong> 11 November 2017</li>
                         <li><strong>Booking time</strong> 10.20AM</li>
                         <li><strong>Visits</strong> Cardiology test, Diabetic diagnose</li>
                         <li><strong>Telephone</strong> 0043 432324</li>

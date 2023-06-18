@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -29,7 +30,7 @@ public class DoctorServiceImpl implements DoctorService {
             return null;
         }
 
-        if (doctor.isVerified() == false) {
+        if (Objects.equals(doctor.getStatus(), "0")) {
             return null;
         }
 

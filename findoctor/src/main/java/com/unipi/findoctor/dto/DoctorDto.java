@@ -11,11 +11,17 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class DoctorDto {
     private String afm;
+    private String name;
+    private String surname;
+    private String status;
     private LocalDate dateOfBirth;
     private String specialization;
     private String businessPhone;
     private String city;
     private String address;
-    private boolean isVerified;
     private String imageURL;
+
+    public String getName_Surname(){
+        return this.name + " " +this.surname;
+    }
 }

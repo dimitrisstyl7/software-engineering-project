@@ -30,8 +30,10 @@ public class Doctor {
     private String businessPhone;
     private String city;
     private String address;
-    private boolean isVerified;
+    private String status;
     private String imageURL;
+    private String name;
+    private String surname;
 
 
     @CreationTimestamp
