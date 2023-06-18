@@ -1,14 +1,25 @@
 package com.unipi.findoctor.controllers;
 
+import com.unipi.findoctor.dto.DoctorDto;
+import com.unipi.findoctor.services.AdminService;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 import static com.unipi.findoctor.constants.ControllerConstants.*;
 
 @NoArgsConstructor
 @Controller
 public class AdminController {
+    private AdminService adminService;
+
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
+    }
+
     @GetMapping({ADMIN_ROOT_URL, ADMIN_INDEX_URL_1, ADMIN_INDEX_URL_2})
     public String adminIndexPage() {
         return ADMIN_INDEX_FILE;
@@ -20,7 +31,9 @@ public class AdminController {
     }
 
     @GetMapping(ADMIN_BOOKINGS_URL)
-    public String adminBookingsPage() {
+    public String adminBookingsPage(Model model) {
+        List<DoctorDto> doctors = adminService.findAllDoctors();
+        model.addAttribute("doctors", doctors);
         return ADMIN_BOOKINGS_FILE;
     }
 
@@ -53,4 +66,7 @@ public class AdminController {
     public String adminTablesPage() {
         return ADMIN_TABLES_FILE;
     }
+
+
+
 }

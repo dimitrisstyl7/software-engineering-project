@@ -3,6 +3,7 @@ package com.unipi.findoctor.dto;
 import com.unipi.findoctor.models.Rating;
 import com.unipi.findoctor.models.User;
 import com.unipi.findoctor.models.View;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Builder
 @Data
+@AllArgsConstructor
 public class DoctorDto {
     private String afm;
     private User user;
@@ -47,8 +49,12 @@ public class DoctorDto {
         return (int) percentage;
     }
 
+    public String getDoctorFullName() {
+        return "Dr. " + getFullName();
+    }
+
     public String getFullName() {
-        return "Dr. " + user.getName() + " " + user.getSurname();
+        return user.getName() + " " + user.getSurname();
     }
 
     @Override

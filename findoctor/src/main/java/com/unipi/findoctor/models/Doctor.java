@@ -32,6 +32,8 @@ public class Doctor {
     private String address;
     private String status; // "pending" or "approved" or "rejected"
     private String imageURL;
+    private String name;
+    private String surname;
 
 
     @CreationTimestamp
