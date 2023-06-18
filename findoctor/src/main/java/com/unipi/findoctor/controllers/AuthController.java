@@ -35,13 +35,13 @@ public class AuthController {
         if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) { // if logged in
             String role = auth.getAuthorities().iterator().next().getAuthority(); // get logged in user's role
             switch (role) { // redirect to the correct page based on the role
-                case "admin" -> {
+                case USER_TYPE_ADMIN -> {
                     return "redirect:" + ADMIN_ROOT_URL;
                 }
-                case "patient" -> {
+                case USER_TYPE_PATIENT -> {
                     return "redirect:" + PATIENT_ROOT_URL;
                 }
-                case "doctor" -> {
+                case USER_TYPE_DOCTOR -> {
                     return "redirect:" + DOCTOR_ROOT_URL;
                 }
             }
