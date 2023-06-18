@@ -3,14 +3,18 @@ package com.unipi.findoctor.dto;
 import com.unipi.findoctor.models.Rating;
 import com.unipi.findoctor.models.User;
 import com.unipi.findoctor.models.View;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DoctorDto {
     private String afm;
     private User user;
