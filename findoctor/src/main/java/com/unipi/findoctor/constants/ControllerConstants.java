@@ -1,14 +1,52 @@
 package com.unipi.findoctor.constants;
 
+import java.util.ArrayList;
+
 public class ControllerConstants {
 
+    /* ---------------------------- DOCTOR SPECIALIZATION LIST ------------------------------------ */
+    public static final ArrayList<String> DOCTOR_SPECIALIZATION_LIST = new ArrayList<>() {{
+        add("Allergist");
+        add("Anesthesiologist");
+        add("Cardiologist");
+        add("Dentist");
+        add("Dermatologist");
+        add("Endocrinologist");
+        add("ENT Specialist");
+        add("Epidemiologist");
+        add("Gynecologist");
+        add("Immunologist");
+        add("Infectious Disease Specialist");
+        add("Internal Medicine Specialist");
+        add("Medical Geneticist");
+        add("Microbiologist");
+        add("Neonatologist");
+        add("Neurologist");
+        add("Neurosurgeon");
+        add("Obstetrician");
+        add("Oncologist");
+        add("Orthopedic Surgeon");
+        add("Pediatrician");
+        add("Physiologist");
+        add("Plastic Surgeon");
+        add("Podiatrist");
+        add("Psychiatrist");
+        add("Radiologist");
+        add("Rheumatologist");
+        add("Surgeon");
+        add("Urologist");
+    }};
 
+
+    /* ---------------------------- USER TYPES ------------------------------------ */
     public static final String USER_TYPE_VISITOR = "visitor";
     public static final String USER_TYPE_PATIENT = "patient";
     public static final String USER_TYPE_DOCTOR = "doctor";
     public static final String USER_TYPE_ADMIN = "admin";
 
-    /* PATIENT URL */
+
+    /* ---------------------------- URLs ------------------------------------ */
+    /* PATIENT URLs */
     public static final String PATIENT_ROOT_URL = "/";
     public static final String PATIENT_INDEX_URL_1 = "/index";
     public static final String PATIENT_ABOUT_URL = "/about";
@@ -19,11 +57,10 @@ public class ControllerConstants {
     public static final String PATIENT_GRID_LIST_URL = "/list";
     public static final String PATIENT_SUBMIT_REVIEW_URL = "/review/new/{doctorUsername}";
     public static final String PATIENT_SUBMIT_REVIEW_POST_URL = "/review/new";
+    /* END OF PATIENT URLs */
 
-    /* END OF PATIENT URL */
 
-
-    /* DOCTOR URL */
+    /* DOCTOR URLs */
     public static final String DOCTOR_ROOT_URL = "/doctor/";
     public static final String DOCTOR_INDEX_URL_1 = "/doctor";
     public static final String DOCTOR_INDEX_URL_2 = "/doctor/index";
@@ -35,18 +72,18 @@ public class ControllerConstants {
     public static final String DOCTOR_PATIENT_PROFILE_URL = "/doctor/patient-profile";
     public static final String DOCTOR_REVIEWS_URL = "/doctor/reviews";
     public static final String DOCTOR_TABLES_URL = "/doctor/tables";
-    /* END OF DOCTOR URL */
+    /* END OF DOCTOR URLs */
 
 
-    /* AUTH URL */
+    /* AUTH URLs */
     public static final String LOGIN_URL = "/login";
     public static final String REGISTER_URL = "/register";
     public static final String LOGOUT_URL = "/logout";
     public static final String CONFIRMATION_URL = "/confirmation";
-    /* END OF AUTH URL */
+    /* END OF AUTH URLs */
 
 
-    /* ADMIN URL */
+    /* ADMIN URLs */
     public static final String ADMIN_ROOT_URL = "/admin/";
     public static final String ADMIN_INDEX_URL_1 = "/admin";
     public static final String ADMIN_INDEX_URL_2 = "/admin/index";
@@ -58,11 +95,10 @@ public class ControllerConstants {
     public static final String ADMIN_PATIENT_PROFILE_URL = "/admin/patient-profile";
     public static final String ADMIN_REVIEWS_URL = "/admin/reviews";
     public static final String ADMIN_TABLES_URL = "/admin/tables";
-    /* END OF ADMIN URL */
-
-    /* -------------------------------------------------------------------------- */
+    /* END OF ADMIN URLs */
 
 
+    /* ---------------------------- HTML FILE NAMES ------------------------------------ */
     /* PATIENT HTML FILE NAMES */
     public static final String PATIENT_INDEX_FILE = "patient/index";
     public static final String PATIENT_ABOUT_FILE = "patient/about";
