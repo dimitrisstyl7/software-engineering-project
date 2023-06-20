@@ -31,7 +31,7 @@ public class Doctor {
     private String city;
     private String address;
     private String status; // "pending" or "approved" or "rejected"
-    private String imageURL;
+    private String imageName;
 
 
     @CreationTimestamp
@@ -44,6 +44,7 @@ public class Doctor {
     private List<View> views;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.REFRESH)
+    @OrderBy("date DESC")
     private List<Rating> ratings;
 
     @Override

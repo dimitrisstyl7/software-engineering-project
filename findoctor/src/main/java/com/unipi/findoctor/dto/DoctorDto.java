@@ -6,6 +6,7 @@ import com.unipi.findoctor.models.View;
 import lombok.Builder;
 import lombok.Data;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class DoctorDto {
     private String businessPhone;
     private String city;
     private String address;
-    private String imageURL;
+    private String imageName;
     private String status;
     private List<Rating> ratings;
     private List<View> views;
@@ -31,7 +32,12 @@ public class DoctorDto {
                 .average()
                 .orElse(0.0);
 
-        return average;
+        return Math.round(average * 10.0) / 10.0;
+    }
+
+    public long getRoundAverageRating() {
+        double average = getAverageRating();
+        return Math.round(average);
     }
 
     public int ratingValuePercentage(int ratingValue) {

@@ -3,17 +3,22 @@
       layout:decorate="~{patient_layout}">
 
 <head>
-    <title>Submit review</title>
+    <title>Edit your review</title>
+
 </head>
 
 <body>
+
 <main layout:fragment="main">
+
+
+
     <div id="breadcrumb">
         <div class="container">
             <ul>
                 <li><a th:href="@{/}">Home</a></li>
                 <li><a th:href="@{${'/details/' + doctorUsername}}">Details</a></li>
-                <li>Submit a review</li>
+                <li>Edit your review</li>
             </ul>
         </div>
     </div>
@@ -23,12 +28,13 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="box_general_3 write_review">
-                    <h1 th:text="${'Write a review for ' + doctorFullName}"></h1>
+                    <h1 th:text="${'Edit your review for ' + doctorFullName}"></h1>
 
-                    <form role="form" method="POST" th:action="@{/review/new}" th:object="${ratingDto}">
+                    <form role="form" method="PUT" th:action="@{/review/edit}" th:object="${ratingDto}">
                     <div class="rating_submit">
                         <div class="form-group">
                             <label class="d-block">Overall rating</label>
+                            <input type="hidden" th:field="*{id}" />
                             <input type="hidden" th:field="*{doctor}" />
                             <span class="rating">
 								<input type="radio" class="rating-input" id="5_star" name="rating-input"
@@ -54,8 +60,10 @@
                                 placeholder="Write your review here ..."></textarea>
                     </div>
                     <hr>
-                        <div style="text-align: right">
-                    <input type="submit" class="btn_1">
+                        <div style="display: flex; justify-content: space-between; align-items: center">
+                        <a th:href="@{${'/review/delete/' + doctorUsername}}">
+                            Delete review</a>
+                        <input type="submit" class="btn_1" value="Edit">
                         </div>
                     </form>
                 </div>
@@ -67,5 +75,6 @@
     <!-- /container -->
 </main>
 <!-- /main -->
+
 </body>
 </html>

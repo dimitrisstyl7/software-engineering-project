@@ -5,7 +5,7 @@
       th:with="isLoggedIn=${isLoggedIn}">
 
 <head>
-    <title>Main</title>
+    <title>Home</title>
 </head>
 
 <body>
@@ -134,9 +134,9 @@
         </div>
         <div class="row">
             <div class="col-lg-3 col-md-6">
-                <a href="#0" class="box_cat_home">
+                <a th:href="@{/list?q=primary%20care}" class="box_cat_home">
                     <i class="icon-info-4"></i>
-                    <img src="common/img/icon_cat_1.svg" width="60" height="60" alt="">
+                    <img th:src="@{patient/img/icon_cat_1.svg}" width="60" height="60" alt="">
                     <h3>Primary Care</h3>
                     <ul class="clearfix">
                         <li><strong>124</strong>Doctors</li>
@@ -145,9 +145,9 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-6">
-                <a href="#0" class="box_cat_home">
+                <a th:href="@{/list?q=cardiology}" class="box_cat_home">
                     <i class="icon-info-4"></i>
-                    <img src="common/img/icon_cat_2.svg" width="60" height="60" alt="">
+                    <img th:src="@{patient/img/icon_cat_2.svg}" width="60" height="60" alt="">
                     <h3>Cardiology</h3>
                     <ul class="clearfix">
                         <li><strong>124</strong>Doctors</li>
@@ -156,9 +156,9 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-6">
-                <a href="#0" class="box_cat_home">
+                <a th:href="@{/list?q=mri%20resonance}" class="box_cat_home">
                     <i class="icon-info-4"></i>
-                    <img src="common/img/icon_cat_3.svg" width="60" height="60" alt="">
+                    <img th:src="@{patient/img/icon_cat_3.svg}" width="60" height="60" alt="">
                     <h3>MRI Resonance</h3>
                     <ul class="clearfix">
                         <li><strong>124</strong>Doctors</li>
@@ -167,9 +167,9 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-6">
-                <a href="#0" class="box_cat_home">
+                <a th:href="@{/list?q=blood%20test}" class="box_cat_home">
                     <i class="icon-info-4"></i>
-                    <img src="common/img/icon_cat_4.svg" width="60" height="60" alt="">
+                    <img th:src="@{patient/img/icon_cat_4.svg}" width="60" height="60" alt="">
                     <h3>Blood test</h3>
                     <ul class="clearfix">
                         <li><strong>124</strong>Doctors</li>
@@ -178,9 +178,9 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-6">
-                <a href="#0" class="box_cat_home">
+                <a th:href="@{/list?q=laboratory}" class="box_cat_home">
                     <i class="icon-info-4"></i>
-                    <img src="common/img/icon_cat_7.svg" width="60" height="60" alt="">
+                    <img th:src="@{patient/img/icon_cat_7.svg}" width="60" height="60" alt="">
                     <h3>Laboratory</h3>
                     <ul class="clearfix">
                         <li><strong>124</strong>Doctors</li>
@@ -189,9 +189,9 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-6">
-                <a href="#0" class="box_cat_home">
+                <a th:href="@{/list?q=dentistry}" class="box_cat_home">
                     <i class="icon-info-4"></i>
-                    <img src="common/img/icon_cat_5.svg" width="60" height="60" alt="">
+                    <img th:src="@{patient/img/icon_cat_5.svg}" width="60" height="60" alt="">
                     <h3>Dentistry</h3>
                     <ul class="clearfix">
                         <li><strong>124</strong>Doctors</li>
@@ -200,9 +200,9 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-6">
-                <a href="#0" class="box_cat_home">
+                <a th:href="@{/list?q=x%20-%20ray}" class="box_cat_home">
                     <i class="icon-info-4"></i>
-                    <img src="common/img/icon_cat_6.svg" width="60" height="60" alt="">
+                    <img th:src="@{patient/img/icon_cat_6.svg}" width="60" height="60" alt="">
                     <h3>X - Ray</h3>
                     <ul class="clearfix">
                         <li><strong>124</strong>Doctors</li>
@@ -211,10 +211,10 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-6">
-                <a href="#0" class="box_cat_home">
+                <a th:href="@{/list?q=psychologist}" class="box_cat_home">
                     <i class="icon-info-4"></i>
-                    <img src="common/img/icon_cat_8.svg" width="60" height="60" alt="">
-                    <h3>Piscologist</h3>
+                    <img th:src="@{patient/img/icon_cat_8.svg}" width="60" height="60" alt="">
+                    <h3>Psychologist</h3>
                     <ul class="clearfix">
                         <li><strong>124</strong>Doctors</li>
                         <li><strong>60</strong>Clinics</li>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en, gr"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{patient_layout}"
+      >
+<head>
+    <title>Profile</title>
+</head>
+<body>
+
+<main layout:fragment="main">
+
+        <hr class="mt-0 mb-4">
+
+        <div class="container-xl px-4 mt-4">
+            <h4>Welcome, <strong>John</strong>!</h4>
+            <div class="row mt-3">
+                <div class="col-lg-2 mb-4">
+                    <!-- Reviews card 1 -->
+                    <div class="card h-100 border-start-lg border-start-primary text-center">
+                        <div class="card-body">
+                            <div class="small text-muted">Total reviews</div>
+                            <div class="h3">15</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 mb-4">
+                    <!-- Appointments card 2 -->
+                    <div class="card h-100 border-start-lg border-start-primary text-center">
+                        <div class="card-body">
+                            <div class="small text-muted">Total appointments</div>
+                            <div class="h3">38</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <!-- Next appointment card 3 -->
+                    <div class="card h-100 border-start-lg border-start-secondary">
+                        <div class="card-body">
+                            <div class="small text-muted">Next appointment</div>
+                            <div class="h3">July 15, 4pm</div>
+                            <a class="text-arrow-icon small" href="#!">
+                                View details
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <!-- Billing card 3-->
+                    <div class="card h-100 border-start-lg border-start-success">
+                        <div class="card-body">
+                            <div class="small text-muted">Current plan</div>
+                            <div class="h3 d-flex align-items-center">Free</div>
+                            <a class="text-arrow-icon small" href="#!">
+                                Upgrade plan
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <dic class="col-lg-12">
+                    <div class="card mb-4">
+                        <div class="card-header">Account Details</div>
+                        <div class="card-body">
+                            <form>
+                                <!-- Form Group (username)-->
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
+                                    <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username">
+                                </div>
+                                <!-- Form Row-->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (first name)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputFirstName">First name</label>
+                                        <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie">
+                                    </div>
+                                    <!-- Form Group (last name)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputLastName">Last name</label>
+                                        <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna">
+                                    </div>
+                                </div>
+                                <!-- Form Row        -->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (organization name)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputOrgName">Organization name</label>
+                                        <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap">
+                                    </div>
+                                    <!-- Form Group (location)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputLocation">Location</label>
+                                        <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="San Francisco, CA">
+                                    </div>
+                                </div>
+                                <!-- Form Group (email address)-->
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                                    <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com">
+                                </div>
+                                <!-- Form Row-->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (phone number)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputPhone">Phone number</label>
+                                        <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567">
+                                    </div>
+                                    <!-- Form Group (birthday)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputBirthday">Birthday</label>
+                                        <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988">
+                                    </div>
+                                </div>
+                                <!-- Save changes button-->
+                                <button class="d-block btn_1 mb-3" style="margin-left: auto!important;" type="button">Save changes</button>
+                            </form>
+                        </div>
+                </div>
+                </dic>
+            </div>
+
+
+            <!-- Appointment history card-->
+            <div class="card mb-4">
+                <div class="card-header">Appointment History</div>
+                <div class="card-body p-0">
+                    <!-- Billing history table-->
+                    <div class="table-responsive table-billing-history">
+                        <table class="table mb-0">
+                            <thead>
+                            <tr>
+                                <th class="border-gray-200" scope="col">Transaction ID</th>
+                                <th class="border-gray-200" scope="col">Date</th>
+                                <th class="border-gray-200" scope="col">Amount</th>
+                                <th class="border-gray-200" scope="col">Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>#39201</td>
+                                <td>06/15/2021</td>
+                                <td>$29.99</td>
+                                <td><span class="badge bg-light text-dark">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>#38594</td>
+                                <td>05/15/2021</td>
+                                <td>$29.99</td>
+                                <td><span class="badge bg-success">Paid</span></td>
+                            </tr>
+                            <tr>
+                                <td>#38223</td>
+                                <td>04/15/2021</td>
+                                <td>$29.99</td>
+                                <td><span class="badge bg-success">Paid</span></td>
+                            </tr>
+                            <tr>
+                                <td>#38125</td>
+                                <td>03/15/2021</td>
+                                <td>$29.99</td>
+                                <td><span class="badge bg-success">Paid</span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+</main>
+
+</body>
+</html>

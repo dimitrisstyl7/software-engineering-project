@@ -56,7 +56,8 @@
                         <div class="box_list wow fadeIn">
                             <a href="#0" class="wish_bt"></a>
                             <figure>
-                            <img th:src="${doctor.getImageURL()}" class="img-fluid" alt="Doctor portrait">
+                                <img th:if="${doctor.getImageName() == null}" th:src="@{/img/default.png}" alt="" class="img-fluid">
+                                <img th:unless="${doctor.getImageName() == null}" th:src="@{${'/img/' + doctor.getImageName()}}" alt="" class="img-fluid">
                             </figure>
                                 <div class="wrapper">
                                 <small th:text="${doctor.getSpecialization()}"></small>
@@ -65,7 +66,7 @@
                                 <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti
                                     cuodo....</p>
                                 <span class="rating">
-                                    <i th:each="star : ${#numbers.sequence(1, 5)}" th:class="${doctor.getAverageRating() >= star} ? 'icon_star voted' : 'icon_star'"></i>
+                                    <i th:each="star : ${#numbers.sequence(1, 5)}" th:class="${doctor.getRoundAverageRating() >= star} ? 'icon_star voted' : 'icon_star'"></i>
                                     <small th:text="${'(' + doctor.getRatings().size() + ')'}"></small></span>
                             </div>
                             <ul>

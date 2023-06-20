@@ -15,6 +15,7 @@ import java.util.Optional;
 @Service
 public class PatientServiceImpl implements PatientService {
     private final PatientRepository patientRepository;
+    private final PatientMapper patientMapper;
 
     @Override
     public Patient findByAmka(String amka) {
@@ -37,7 +38,7 @@ public class PatientServiceImpl implements PatientService {
 
         Patient patient = optionalPatient.orElseThrow(() -> new RuntimeException("Patient not found"));
 
-        return PatientMapper.mapToPatientDto(patient);
+        return patientMapper.mapToPatientDto(patient);
     }
 
     @Override

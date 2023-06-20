@@ -4,10 +4,13 @@ import com.unipi.findoctor.dto.AppointmentDto;
 import com.unipi.findoctor.dto.DoctorDto;
 import com.unipi.findoctor.dto.PatientDto;
 import com.unipi.findoctor.dto.RatingDto;
+import com.unipi.findoctor.mappers.DoctorMapper;
+import com.unipi.findoctor.mappers.PatientMapper;
 import com.unipi.findoctor.security.SecurityUtil;
 import com.unipi.findoctor.services.AppointmentService;
 import com.unipi.findoctor.services.DoctorService;
 import com.unipi.findoctor.services.PatientService;
+import com.unipi.findoctor.services.RatingService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -29,7 +32,11 @@ public class PatientController {
     private final PatientService patientService;
     private final DoctorService doctorService;
     private final AppointmentService appointmentService;
+    private final RatingService ratingService;
+
     private final SecurityUtil securityUtil;
+    private final DoctorMapper doctorMapper;
+    private final PatientMapper patientMapper;
 
     @GetMapping({PATIENT_ROOT_URL, PATIENT_INDEX_URL_1})
     public String patientIndexPage(Model model) {
@@ -38,6 +45,11 @@ public class PatientController {
 
         model.addAttribute("isLoggedIn", securityUtil.isPatientLoggedIn());
         return PATIENT_INDEX_FILE;
+    }
+
+    @GetMapping(PATIENT_PROFILE_PAGE_URL)
+    public String patientProfilePage(Model model) {
+        return PATIENT_PROFILE_FILE;
     }
 
     @GetMapping(PATIENT_ABOUT_URL)
@@ -66,12 +78,22 @@ public class PatientController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found");
         }
 
+        boolean hasReviewed;
+        if (loggedInUserType.equals(USER_TYPE_PATIENT)) {
+            hasReviewed = ratingService.patientHasReviewed(patientMapper.mapToPatient(patientDto), doctorMapper.mapToDoctor(doctorDto));
+        } else if (loggedInUserType.equals(USER_TYPE_VISITOR)) {
+            hasReviewed = false;
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
+        }
+
         int views = doctorService.getDoctorViews(doctorUsername);
 
         model.addAttribute("doctorDetails", doctorDto);
         model.addAttribute("loggedInUserType", loggedInUserType);
         model.addAttribute("views", views);
         model.addAttribute("isLoggedIn", securityUtil.isPatientLoggedIn());
+        model.addAttribute("hasReviewed", hasReviewed);
         return PATIENT_DETAIL_PAGE_FILE;
     }
 
@@ -106,37 +128,147 @@ public class PatientController {
         return PATIENT_GRID_LIST_FILE;
     }
 
-    @GetMapping(PATIENT_SUBMIT_REVIEW_URL)
+    @GetMapping(PATIENT_GET_SUBMIT_REVIEW_URL)
     public String patientSubmitReviewPage(@PathVariable("doctorUsername") String doctorUsername, Model model) {
+
+        PatientDto patientDto = securityUtil.getSessionPatient();
+        if (patientDto == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "You are not authorized to leave a review");
+        }
 
         DoctorDto doctorDto = doctorService.getDoctorDetailsByUsername(doctorUsername);
         if (doctorDto == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found");
         }
 
-        PatientDto patientDto = securityUtil.getSessionPatient();
-        if (patientDto == null) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to leave a review");
+        if (ratingService.patientHasReviewed(patientMapper.mapToPatient(patientDto), doctorMapper.mapToDoctor(doctorDto))) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        RatingDto ratingDto = RatingDto.builder().build();
+        RatingDto ratingDto = RatingDto.builder()
+                .doctor(doctorMapper.mapToDoctor(doctorDto))
+                .build();
 
         model.addAttribute("doctorFullName", doctorDto.getFullName());
         model.addAttribute("ratingDto", ratingDto);
+        model.addAttribute("doctorUsername", doctorDto.getUser().getUsername());
         return PATIENT_SUBMIT_REVIEW_FILE;
     }
 
-    @PostMapping(PATIENT_SUBMIT_REVIEW_POST_URL)
-    public String patientSubmitReviewEndpoint(@ModelAttribute RatingDto ratingDto) {
+    @GetMapping(PATIENT_GET_EDIT_REVIEW_URL)
+    public String patientEditReviewPage(@PathVariable("doctorUsername") String doctorUsername, Model model) {
+        // TODO: Fix duplicate code
 
-        // TODO: Check if value inputs are not changed
+        PatientDto patientDto = securityUtil.getSessionPatient();
+        if (patientDto == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "You are not authorized to edit your review");
+        }
 
-        //ratingService.saveRating(ratingDto);
+        DoctorDto doctorDto = doctorService.getDoctorDetailsByUsername(doctorUsername);
+        if (doctorDto == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found");
+        }
 
-        return "redirect:/";
+        if (!ratingService.patientHasReviewed(patientMapper.mapToPatient(patientDto), doctorMapper.mapToDoctor(doctorDto))) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        RatingDto ratingDto = ratingService.findRating(patientMapper.mapToPatient(patientDto), doctorMapper.mapToDoctor(doctorDto));
+
+        model.addAttribute("doctorFullName", doctorDto.getFullName());
+        model.addAttribute("doctorUsername", doctorDto.getUser().getUsername());
+        model.addAttribute("ratingDto", ratingDto);
+        return PATIENT_EDIT_REVIEW_FILE;
     }
 
-    @PostMapping("/appointment/new")
+    @PostMapping(PATIENT_POST_SUBMIT_REVIEW_URL)
+    public String patientSubmitReviewEndpoint(@ModelAttribute RatingDto ratingDto, RedirectAttributes redirectAttributes) {
+
+        PatientDto patientDto = securityUtil.getSessionPatient();
+
+        if (patientDto == null){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to leave a review");
+        }
+
+        if (ratingService.patientHasReviewed(patientMapper.mapToPatient(patientDto), ratingDto.getDoctor())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        if (ratingDto.getRatingValue() < 1 || ratingDto.getRatingValue() > 5) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        if (ratingDto.getReview() == null || ratingDto.getReview().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        ratingDto.setPatient(patientMapper.mapToPatient(patientDto));
+        RatingDto returned_rating = ratingService.saveRating(ratingDto);
+
+        redirectAttributes.addFlashAttribute("title", "Success!");
+        redirectAttributes.addFlashAttribute("message", "Your review has been created.");
+        return "redirect:/details/" + ratingDto.getDoctor().getUser().getUsername();
+    }
+
+    @GetMapping(PATIENT_PUT_REVIEW_URL)
+    public String patientPutReviewEndpoint(@ModelAttribute RatingDto ratingDto, RedirectAttributes redirectAttributes) {
+
+        PatientDto patientDto = securityUtil.getSessionPatient();
+
+        if (patientDto == null){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to leave a review");
+        }
+
+        if (!ratingService.patientHasReviewed(patientMapper.mapToPatient(patientDto), ratingDto.getDoctor())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        if (ratingDto.getRatingValue() < 1 || ratingDto.getRatingValue() > 5) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        if (ratingDto.getReview() == null || ratingDto.getReview().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        ratingDto.setPatient(patientMapper.mapToPatient(patientDto));
+        RatingDto returned_rating = ratingService.updateRating(ratingDto);
+
+        redirectAttributes.addFlashAttribute("title", "Success!");
+        redirectAttributes.addFlashAttribute("message", "Your review has been updated.");
+        return "redirect:/details/" + ratingDto.getDoctor().getUser().getUsername();
+    }
+
+    @GetMapping(PATIENT_DELETE_REVIEW_URL)
+    public String patientDeleteReviewEndpoint(@PathVariable("doctorUsername") String doctorUsername, RedirectAttributes redirectAttributes) {
+        PatientDto patientDto = securityUtil.getSessionPatient();
+
+        if (patientDto == null){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to leave a review");
+        }
+
+        if (doctorUsername == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        DoctorDto doctorDto = doctorService.getDoctorDetailsByUsername(doctorUsername);
+        if (doctorDto == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        RatingDto ratingDto = ratingService.findRating(patientMapper.mapToPatient(patientDto), doctorMapper.mapToDoctor(doctorDto));
+        if (ratingDto == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        ratingService.deleteRating(ratingDto);
+
+        redirectAttributes.addFlashAttribute("title", "Success!");
+        redirectAttributes.addFlashAttribute("message", "Your review has been deleted.");
+        return "redirect:/details/" + doctorUsername;
+    }
+
+    @PostMapping(PATIENT_NEW_APPOINTMENT_POST_URL)
     public String newAppointment(@RequestParam("selectedDate") String selectedDate,
                                  @RequestParam("doctorUsername") String doctorUsername,
                                  @RequestParam("timeslot") String timeslot,
