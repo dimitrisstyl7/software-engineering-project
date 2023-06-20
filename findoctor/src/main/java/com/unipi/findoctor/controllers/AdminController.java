@@ -2,6 +2,7 @@ package com.unipi.findoctor.controllers;
 
 import com.unipi.findoctor.dto.DoctorDto;
 import com.unipi.findoctor.services.AdminService;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,15 +12,11 @@ import java.util.List;
 
 import static com.unipi.findoctor.constants.ControllerConstants.*;
 
-@NoArgsConstructor
+
+@AllArgsConstructor
 @Controller
 public class AdminController {
     private AdminService adminService;
-
-    public AdminController(AdminService adminService) {
-        this.adminService = adminService;
-    }
-
     @GetMapping({ADMIN_ROOT_URL, ADMIN_INDEX_URL_1, ADMIN_INDEX_URL_2})
     public String adminIndexPage() {
         return ADMIN_INDEX_FILE;

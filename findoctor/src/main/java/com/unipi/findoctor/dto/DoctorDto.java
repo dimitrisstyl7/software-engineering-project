@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Builder
@@ -19,6 +21,7 @@ public class DoctorDto {
     private LocalDate dateOfBirth;
     private String specialization;
     private String businessPhone;
+    private LocalDateTime registeredOn;
     private String city;
     private String address;
     private String imageURL;
@@ -57,10 +60,22 @@ public class DoctorDto {
         return user.getName() + " " + user.getSurname();
     }
 
-    @Override
-    public String toString() {
-        return "DoctorDetails(" +
-                "for=" + getUser().getUsername() +
-                ')';
+    public String getRegisteredDate() {
+        // Split the date and time parts
+        String[] parts = getRegisteredOn().toString().split("T");
+        String datePart = parts[0];
+        String timePart = parts[1].substring(0, 5); // Extract only the first 5 characters of the time
+
+        // Join the date and time parts with a space in between
+        String formattedDateTime = datePart + " " + timePart;
+
+        return formattedDateTime;
     }
+
+//    @Override
+//    public String toString() {
+//        return "DoctorDetails(" +
+//                "for=" + getUser().getUsername() +
+//                ')';
+//    }
 }

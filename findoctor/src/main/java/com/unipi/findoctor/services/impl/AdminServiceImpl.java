@@ -32,10 +32,11 @@ public class AdminServiceImpl implements AdminService {
                 .specialization(doctor.getSpecialization())
                 .city(doctor.getCity())
                 //.appointments(doctor.getAppointments())
+                .registeredOn(doctor.getRegisteredOn())
                 .businessPhone(doctor.getBusinessPhone())
                 .afm(doctor.getAfm())
                 .address(doctor.getAddress())
-                //.user(doctor.getUser())
+                .user(doctor.getUser())
                 .build();
         return doctorDto;
     }
