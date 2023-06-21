@@ -58,6 +58,10 @@ public class ControllerConstants {
     public static final String ADMIN_PATIENT_PROFILE_URL = "/admin/patient-profile";
     public static final String ADMIN_REVIEWS_URL = "/admin/reviews";
     public static final String ADMIN_TABLES_URL = "/admin/tables";
+
+    public static final String ADMIN_VIEW_URL = "/admin/view_doctors";
+
+    public static final String ADMIN_PATIENTS_URL = "/admin/patients";
     /* END OF ADMIN URL */
 
     /* -------------------------------------------------------------------------- */
@@ -106,5 +110,9 @@ public class ControllerConstants {
     public static final String ADMIN_PATIENT_PROFILE_FILE = "admin/patient-profile";
     public static final String ADMIN_REVIEWS_FILE = "admin/reviews";
     public static final String ADMIN_TABLES_FILE = "admin/tables";
+
+    public static final String ADMIN_VIEW_FILE = "admin/view_doctors";
+
+    public static final String ADMIN_PATIENTS_FILE = "admin/patients";
     /* END OF ADMIN HTML FILE NAMES */
 }

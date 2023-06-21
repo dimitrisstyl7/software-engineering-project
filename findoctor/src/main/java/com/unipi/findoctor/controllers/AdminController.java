@@ -1,12 +1,14 @@
 package com.unipi.findoctor.controllers;
 
 import com.unipi.findoctor.dto.DoctorDto;
+import com.unipi.findoctor.dto.PatientDto;
 import com.unipi.findoctor.services.AdminService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -32,6 +34,24 @@ public class AdminController {
         List<DoctorDto> doctors = adminService.findAllDoctors();
         model.addAttribute("doctors", doctors);
         return ADMIN_BOOKINGS_FILE;
+    }
+    @GetMapping(ADMIN_PATIENTS_URL)
+    public String viewPatients(Model model) {
+        List<PatientDto> patients = adminService.findAllPatients();
+        model.addAttribute("patients", patients);
+        return ADMIN_PATIENTS_FILE;
+    }
+    @GetMapping("/admin/{Afm}/approval")
+    public String approveDoctor(@PathVariable("Afm") String Afm,Model model){
+        DoctorDto doctor = adminService.findDoctorByAfm(Afm);
+        model.addAttribute("doctor", doctor);
+        return "doctor-approval";
+    }
+    @GetMapping(ADMIN_VIEW_URL)
+    public String adminViewPage(Model model) {
+        List<DoctorDto> doctors = adminService.findAllDoctors();
+        model.addAttribute("doctors", doctors);
+        return ADMIN_VIEW_FILE;
     }
 
     @GetMapping(ADMIN_CHARTS_URL)
