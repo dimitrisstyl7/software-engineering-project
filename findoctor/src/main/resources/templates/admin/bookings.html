@@ -4,7 +4,7 @@
       layout:decorate="~{admin_layout}">
 
 <head>
-    <title>Bookings</title>
+    <title>Validations</title>
 </head>
 
 <div layout:fragment="main">
@@ -13,11 +13,11 @@
         <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">Bookings</li>
+        <li class="breadcrumb-item active">Validations</li>
     </ol>
     <div class="box_general">
         <div class="header_box">
-            <h2 class="d-inline-block">Validation List</h2>
+            <h2 class="d-inline-block">Validations List</h2>
             <div class="filter">
                 <select name="orderby" class="selectbox">
                     <option value="Any status">Any status</option>
@@ -38,16 +38,17 @@
 
                     <ul class="booking_details">
                         <li><strong>Afm </strong><i th:text="${doctor.getAfm()}"></i></li>
+                        <li><strong>Username</strong><i th:text="${doctor.getUser().getUsername()}"></i></li>
                         <li><strong>Registered on </strong><i th:text="${doctor.getRegisteredDate()}"></i></li>
                         <li><strong>Specialization </strong><i th:text="${doctor.getSpecialization()}"></i></li>
                         <li><strong>Business phone </strong><i th:text="${doctor.getBusinessPhone()}"></i></li>
                         <li><strong>Email </strong><i th:text="${doctor.getUser().getEmail()}"></i></li>
                     </ul>
                     <ul class="buttons">
-                        <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i>
+                        <li><a th:href="${'/admin/' +doctor.getAfm()+ '/approval'}" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i>
                             Approve</a>
                         </li>
-                        <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> Cancel</a>
+                        <li><a th:href="${'/admin/' +doctor.getAfm()+ '/cancelled'}" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> Cancel</a>
                         </li>
                     </ul>
                 </li>

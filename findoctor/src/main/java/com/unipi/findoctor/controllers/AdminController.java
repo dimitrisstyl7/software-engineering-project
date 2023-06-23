@@ -2,13 +2,17 @@ package com.unipi.findoctor.controllers;
 
 import com.unipi.findoctor.dto.DoctorDto;
 import com.unipi.findoctor.dto.PatientDto;
+import com.unipi.findoctor.mappers.DoctorMapper;
 import com.unipi.findoctor.services.AdminService;
+import com.unipi.findoctor.services.DoctorService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,6 +23,8 @@ import static com.unipi.findoctor.constants.ControllerConstants.*;
 @Controller
 public class AdminController {
     private AdminService adminService;
+    private DoctorService doctorService;
+    private DoctorMapper drmapper;
     @GetMapping({ADMIN_ROOT_URL, ADMIN_INDEX_URL_1, ADMIN_INDEX_URL_2})
     public String adminIndexPage() {
         return ADMIN_INDEX_FILE;
@@ -42,11 +48,28 @@ public class AdminController {
         return ADMIN_PATIENTS_FILE;
     }
     @GetMapping("/admin/{Afm}/approval")
-    public String approveDoctor(@PathVariable("Afm") String Afm,Model model){
+    public String approveDoctor(@PathVariable("Afm") String Afm){
+
         DoctorDto doctor = adminService.findDoctorByAfm(Afm);
-        model.addAttribute("doctor", doctor);
-        return "doctor-approval";
+        if (doctor == null) throw  new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if (doctor.getStatus().equals("pending")) {
+            doctor.setStatus("approved");
+            doctorService.updateDoctor(drmapper.mapToDoctor(doctor));
+        }
+        return "redirect:/admin/bookings";
     }
+    @GetMapping("/admin/{Afm}/cancelled")
+    public String cancelDoctor(@PathVariable("Afm") String Afm){
+
+        DoctorDto doctor = adminService.findDoctorByAfm(Afm);
+        if (doctor == null) throw  new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if (doctor.getStatus().equals("pending")) {
+            doctor.setStatus("cancelled");
+            doctorService.updateDoctor(drmapper.mapToDoctor(doctor));
+        }
+        return "redirect:/admin/bookings";
+    }
+
     @GetMapping(ADMIN_VIEW_URL)
     public String adminViewPage(Model model) {
         List<DoctorDto> doctors = adminService.findAllDoctors();

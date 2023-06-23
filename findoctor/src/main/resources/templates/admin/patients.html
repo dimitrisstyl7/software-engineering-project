@@ -4,7 +4,7 @@
       layout:decorate="~{admin_layout}">
 
 <head>
-  <title>Bookings</title>
+  <title>Patients</title>
 </head>
 
 <div layout:fragment="main">
@@ -13,11 +13,11 @@
     <li class="breadcrumb-item">
       <a href="#">Dashboard</a>
     </li>
-    <li class="breadcrumb-item active">Bookings</li>
+    <li class="breadcrumb-item active">Patients</li>
   </ol>
   <div class="box_general">
     <div class="header_box">
-      <h2 class="d-inline-block">Patient List</h2>
+      <h2 class="d-inline-block">Patients List</h2>
       <div class="filter">
         <select name="orderby" class="selectbox">
           <option value="Any status">Any status</option>
@@ -40,7 +40,6 @@
             <li><strong>Date of Birth </strong><i th:text="${patient.getDateOfBirth()}"></i></li>
             <li><strong>Contact phone </strong><i th:text="${patient.getUser().getPhone()}"></i></li>
             <li><strong>Username </strong><i th:text="${patient.getUser().getUsername()}"></i></li>
-            <li><strong>User type </strong><i th:text="${patient.getUser().getUserType()}"></i></li>
             <li><strong>Email </strong><i th:text="${patient.getUser().getEmail()}"></i></li>
           </ul>
         </li>

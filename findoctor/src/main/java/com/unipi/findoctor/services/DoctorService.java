@@ -10,6 +10,7 @@ public interface DoctorService {
     DoctorDto getDoctorDetailsByUsername(String username);
 
     void saveDoctor(Doctor doctor);
+    void updateDoctor(Doctor doctor);
 
     Doctor findByAfm(String afm);
 
