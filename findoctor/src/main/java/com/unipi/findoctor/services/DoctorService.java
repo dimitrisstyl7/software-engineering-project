@@ -19,6 +19,5 @@ public interface DoctorService {
 
     Page<DoctorDto> getDoctorsByPage(String query, int pageNumber, int pageSize);
 
-    int getDoctorViews(String username);
 
 }

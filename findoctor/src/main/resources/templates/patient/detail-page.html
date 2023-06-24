@@ -59,10 +59,6 @@
                        th:class="${doctorDetails.getRoundAverageRating() >= star} ? 'icon_star voted' : 'icon_star'"></i>
 					<small th:text="${'(' + doctorDetails.getRatings().size() + ')'}"></small>
 				</span>
-                    <ul class="statistic">
-                        <li th:text="${views + ' Views'}"></li>
-                        <li>0 Patients</li>
-                    </ul>
                     <ul class="contacts">
                         <li>
                             <h6>Address</h6><span

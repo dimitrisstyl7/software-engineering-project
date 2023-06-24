@@ -2,6 +2,7 @@
 <html lang="en, gr"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{patient_layout}"
+      th:with="isLoggedIn=${isLoggedIn}"
       >
 <head>
     <title>Profile</title>
@@ -13,14 +14,14 @@
         <hr class="mt-0 mb-4">
 
         <div class="container-xl px-4 mt-4">
-            <h4>Welcome, <strong>John</strong>!</h4>
+            <h4>Welcome, <strong th:text="${patient.getUser().getName()}"></strong>!</h4>
             <div class="row mt-3">
                 <div class="col-lg-2 mb-4">
                     <!-- Reviews card 1 -->
                     <div class="card h-100 border-start-lg border-start-primary text-center">
                         <div class="card-body">
                             <div class="small text-muted">Total reviews</div>
-                            <div class="h3">15</div>
+                            <div class="h3" th:text="${patient.getCountReviews()}"></div>
                         </div>
                     </div>
                 </div>
@@ -29,7 +30,7 @@
                     <div class="card h-100 border-start-lg border-start-primary text-center">
                         <div class="card-body">
                             <div class="small text-muted">Total appointments</div>
-                            <div class="h3">38</div>
+                            <div class="h3" th:text="${patient.getCountAppointments()}"></div>
                         </div>
                     </div>
                 </div>
@@ -38,9 +39,14 @@
                     <div class="card h-100 border-start-lg border-start-secondary">
                         <div class="card-body">
                             <div class="small text-muted">Next appointment</div>
-                            <div class="h3">July 15, 4pm</div>
-                            <a class="text-arrow-icon small" href="#!">
+                            <div class="h3" th:unless="${patient.getNextAppointment() == null}" th:text="${patient.getNextAppointment()}"></div>
+                            <div class="h3" th:if="${patient.getNextAppointment() == null}">None</div>
+                            <a class="text-arrow-icon small" href="#" th:unless="${patient.getNextAppointment() == null}">
                                 View details
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </a>
+                            <a class="text-arrow-icon small" th:href="@{/list}" th:if="${patient.getNextAppointment() == null}">
+                                Find a doctor
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                             </a>
                         </div>
@@ -69,51 +75,46 @@
                             <form>
                                 <!-- Form Group (username)-->
                                 <div class="mb-3">
-                                    <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
-                                    <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username">
+                                    <label class="small mb-1" for="inputUsername">Username (you cannot change your username)</label>
+                                    <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" th:value="${patient.getUser().getUsername()}" disabled>
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (first name)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputFirstName">First name</label>
-                                        <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie">
+                                        <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" th:value="${patient.getUser().getName()}">
                                     </div>
                                     <!-- Form Group (last name)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputLastName">Last name</label>
-                                        <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna">
+                                        <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" th:value="${patient.getUser().getSurname()}">
                                     </div>
                                 </div>
                                 <!-- Form Row        -->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (organization name)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="inputOrgName">Organization name</label>
-                                        <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap">
+                                        <label class="small mb-1" for="inputOrgName">Email</label>
+                                        <input class="form-control" id="inputOrgName" type="email" placeholder="Enter your organization name" th:value="${patient.getUser().getEmail()}">
                                     </div>
                                     <!-- Form Group (location)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="inputLocation">Location</label>
-                                        <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="San Francisco, CA">
+                                        <label class="small mb-1" for="inputLocation">Phone</label>
+                                        <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" th:value="${patient.getUser().getPhone()}">
                                     </div>
                                 </div>
-                                <!-- Form Group (email address)-->
-                                <div class="mb-3">
-                                    <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                                    <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com">
-                                </div>
-                                <!-- Form Row-->
+
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (phone number)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="inputPhone">Phone number</label>
-                                        <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567">
+                                        <label class="small mb-1" for="inputPhone">Amka (you cannot change your amka)</label>
+                                        <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" th:value="${patient.getAmka()}" disabled>
                                     </div>
                                     <!-- Form Group (birthday)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputBirthday">Birthday</label>
-                                        <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988">
+                                        <input class="form-control" id="inputBirthday" type="date" name="birthday" placeholder="Enter your birthday" th:value="${patient.getDateOfBirth()}">
                                     </div>
                                 </div>
                                 <!-- Save changes button-->
@@ -128,48 +129,33 @@
             <!-- Appointment history card-->
             <div class="card mb-4">
                 <div class="card-header">Appointment History</div>
-                <div class="card-body p-0">
+                <div class="card-body">
                     <!-- Billing history table-->
-                    <div class="table-responsive table-billing-history">
+                    <div class="table table-responsive">
                         <table class="table mb-0">
                             <thead>
                             <tr>
-                                <th class="border-gray-200" scope="col">Transaction ID</th>
+                                <th class="border-gray-200" scope="col">Appointment ID</th>
+                                <th class="border-gray-200" scope="col">Doctor</th>
                                 <th class="border-gray-200" scope="col">Date</th>
-                                <th class="border-gray-200" scope="col">Amount</th>
-                                <th class="border-gray-200" scope="col">Status</th>
+                                <th class="border-gray-200" scope="col">Time</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>#39201</td>
-                                <td>06/15/2021</td>
-                                <td>$29.99</td>
-                                <td><span class="badge bg-light text-dark">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>#38594</td>
-                                <td>05/15/2021</td>
-                                <td>$29.99</td>
-                                <td><span class="badge bg-success">Paid</span></td>
-                            </tr>
-                            <tr>
-                                <td>#38223</td>
-                                <td>04/15/2021</td>
-                                <td>$29.99</td>
-                                <td><span class="badge bg-success">Paid</span></td>
-                            </tr>
-                            <tr>
-                                <td>#38125</td>
-                                <td>03/15/2021</td>
-                                <td>$29.99</td>
-                                <td><span class="badge bg-success">Paid</span></td>
+                            <tr th:each="appointment : ${patient.getAppointments()}">
+                                <td th:text="${appointment.getId()}"></td>
+                                <td th:text="${appointment.getDoctor().getFullName()}"></td>
+                                <td th:text="${appointment.date}"></td>
+                                <td th:text="${appointment.timeSlot}"></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+
+            <hr class="mt-4">
+
         </div>
 
 

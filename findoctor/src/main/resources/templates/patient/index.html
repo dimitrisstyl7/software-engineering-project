@@ -14,13 +14,11 @@
     <div class="hero_home version_1">
         <div class="content">
             <h3>Find a Doctor!</h3>
-            <p>
-                Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.
-            </p>
+            <p>Search for a doctor using the search bar below:</p>
             <form role="form" method="get" th:action="@{/list}">
                 <div id="custom-search-input">
                     <div class="input-group">
-                            <input name="q" type="text" class="search-query" placeholder="Ex. Specialist, Name, Doctor...">
+                            <input name="q" type="text" class="search-query" placeholder="Ex. Name, address, specialization, ...">
                             <input type="submit" value="Search">
                     </div>
                 </div>
@@ -32,31 +30,27 @@
     <div class="container margin_120_95">
         <div class="main_title">
             <h2>Discover the <strong>online</strong> appointment!</h2>
-            <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri. In eum omnes
-                molestie. Sed ad debet scaevola, ne mel.</p>
+            <p>Experience the convenience of our online appointment system. Follow these simple steps:</p>
         </div>
         <div class="row add_bottom_30">
             <div class="col-lg-4">
                 <div class="box_feat" id="icon_1">
                     <span></span>
                     <h3>Find a Doctor</h3>
-                    <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri. In eum omnes
-                        molestie.</p>
+                    <p>Browse through our extensive list of experienced doctors specialized in various fields.</p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="box_feat" id="icon_2">
                     <span></span>
                     <h3>View profile</h3>
-                    <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri. In eum omnes
-                        molestie.</p>
+                    <p>Explore detailed profiles of doctors to learn more about their expertise and patient reviews.</p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="box_feat" id="icon_3">
                     <h3>Book a visit</h3>
-                    <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri. In eum omnes
-                        molestie.</p>
+                    <p>Select a convenient time slot and book your appointment hassle-free.</p>
                 </div>
             </div>
         </div>
@@ -66,165 +60,6 @@
     </div>
     <!-- /container -->
 
-    <div class="bg_color_1">
-        <div class="container margin_120_95">
-            <div class="main_title">
-                <h2>Most Viewed doctors</h2>
-                <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri.</p>
-            </div>
-            <div id="reccomended" class="owl-carousel owl-theme">
-                <div class="item">
-                    <a href="detail-page.html">
-                        <div class="views"><i class="icon-eye-7"></i>140</div>
-                        <div class="title">
-                            <h4>Dr. Julia Holmes<em>Pediatrician - Cardiologist</em></h4>
-                        </div>
-                        <img src="http://via.placeholder.com/350x500.jpg" alt="">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="detail-page.html">
-                        <div class="views"><i class="icon-eye-7"></i>120</div>
-                        <div class="title">
-                            <h4>Dr. Julia Holmes<em>Pediatrician</em></h4>
-                        </div>
-                        <img src="http://via.placeholder.com/350x500.jpg" alt="">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="detail-page.html">
-                        <div class="views"><i class="icon-eye-7"></i>115</div>
-                        <div class="title">
-                            <h4>Dr. Julia Holmes<em>Pediatrician</em></h4>
-                        </div>
-                        <img src="http://via.placeholder.com/350x500.jpg" alt="">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="detail-page.html">
-                        <div class="views"><i class="icon-eye-7"></i>98</div>
-                        <div class="title">
-                            <h4>Dr. Julia Holmes<em>Pediatrician</em></h4>
-                        </div>
-                        <img src="http://via.placeholder.com/350x500.jpg" alt="">
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="detail-page.html">
-                        <div class="views"><i class="icon-eye-7"></i>98</div>
-                        <div class="title">
-                            <h4>Dr. Julia Holmes<em>Pediatrician</em></h4>
-                        </div>
-                        <img src="http://via.placeholder.com/350x500.jpg" alt="">
-                    </a>
-                </div>
-            </div>
-            <!-- /carousel -->
-        </div>
-        <!-- /container -->
-    </div>
-    <!-- /white_bg -->
-
-    <div class="container margin_120_95">
-        <div class="main_title">
-            <h2>Find by specialization</h2>
-            <p>Nec graeci sadipscing disputationi ne, mea ea nonumes percipitur. Nonumy ponderum oporteat cu mel, pro
-                movet
-                cetero at.</p>
-        </div>
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <a th:href="@{/list?q=primary%20care}" class="box_cat_home">
-                    <i class="icon-info-4"></i>
-                    <img th:src="@{patient/img/icon_cat_1.svg}" width="60" height="60" alt="">
-                    <h3>Primary Care</h3>
-                    <ul class="clearfix">
-                        <li><strong>124</strong>Doctors</li>
-                        <li><strong>60</strong>Clinics</li>
-                    </ul>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <a th:href="@{/list?q=cardiology}" class="box_cat_home">
-                    <i class="icon-info-4"></i>
-                    <img th:src="@{patient/img/icon_cat_2.svg}" width="60" height="60" alt="">
-                    <h3>Cardiology</h3>
-                    <ul class="clearfix">
-                        <li><strong>124</strong>Doctors</li>
-                        <li><strong>60</strong>Clinics</li>
-                    </ul>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <a th:href="@{/list?q=mri%20resonance}" class="box_cat_home">
-                    <i class="icon-info-4"></i>
-                    <img th:src="@{patient/img/icon_cat_3.svg}" width="60" height="60" alt="">
-                    <h3>MRI Resonance</h3>
-                    <ul class="clearfix">
-                        <li><strong>124</strong>Doctors</li>
-                        <li><strong>60</strong>Clinics</li>
-                    </ul>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <a th:href="@{/list?q=blood%20test}" class="box_cat_home">
-                    <i class="icon-info-4"></i>
-                    <img th:src="@{patient/img/icon_cat_4.svg}" width="60" height="60" alt="">
-                    <h3>Blood test</h3>
-                    <ul class="clearfix">
-                        <li><strong>124</strong>Doctors</li>
-                        <li><strong>60</strong>Clinics</li>
-                    </ul>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <a th:href="@{/list?q=laboratory}" class="box_cat_home">
-                    <i class="icon-info-4"></i>
-                    <img th:src="@{patient/img/icon_cat_7.svg}" width="60" height="60" alt="">
-                    <h3>Laboratory</h3>
-                    <ul class="clearfix">
-                        <li><strong>124</strong>Doctors</li>
-                        <li><strong>60</strong>Clinics</li>
-                    </ul>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <a th:href="@{/list?q=dentistry}" class="box_cat_home">
-                    <i class="icon-info-4"></i>
-                    <img th:src="@{patient/img/icon_cat_5.svg}" width="60" height="60" alt="">
-                    <h3>Dentistry</h3>
-                    <ul class="clearfix">
-                        <li><strong>124</strong>Doctors</li>
-                        <li><strong>60</strong>Clinics</li>
-                    </ul>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <a th:href="@{/list?q=x%20-%20ray}" class="box_cat_home">
-                    <i class="icon-info-4"></i>
-                    <img th:src="@{patient/img/icon_cat_6.svg}" width="60" height="60" alt="">
-                    <h3>X - Ray</h3>
-                    <ul class="clearfix">
-                        <li><strong>124</strong>Doctors</li>
-                        <li><strong>60</strong>Clinics</li>
-                    </ul>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <a th:href="@{/list?q=psychologist}" class="box_cat_home">
-                    <i class="icon-info-4"></i>
-                    <img th:src="@{patient/img/icon_cat_8.svg}" width="60" height="60" alt="">
-                    <h3>Psychologist</h3>
-                    <ul class="clearfix">
-                        <li><strong>124</strong>Doctors</li>
-                        <li><strong>60</strong>Clinics</li>
-                    </ul>
-                </a>
-            </div>
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- /container -->
 </main>
 <!-- /main -->
 </body>

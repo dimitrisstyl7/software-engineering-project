@@ -13,6 +13,8 @@ public class PatientMapper {
                 .user(patient.getUser())
                 .dateOfBirth(patient.getDateOfBirth())
                 .registeredOn(patient.getRegisteredOn())
+                .ratings(patient.getRatings())
+                .appointments(patient.getAppointments())
                 .build();
     }
 
@@ -22,6 +24,8 @@ public class PatientMapper {
                 .user(patientDto.getUser())
                 .dateOfBirth(patientDto.getDateOfBirth())
                 .registeredOn(patientDto.getRegisteredOn())
+                .ratings(patientDto.getRatings())
+                .appointments(patientDto.getAppointments())
                 .build();
     }
 }

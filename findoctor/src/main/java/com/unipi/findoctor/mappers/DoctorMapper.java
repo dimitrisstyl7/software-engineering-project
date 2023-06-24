@@ -18,7 +18,6 @@ public class DoctorMapper {
                 .status(doctor.getStatus())
                 .address(doctor.getAddress())
                 .ratings(doctor.getRatings())
-                .views(doctor.getViews())
                 .build();
     }
     public Doctor mapToDoctor(DoctorDto doctorDto) {
@@ -32,7 +31,6 @@ public class DoctorMapper {
                 .status(doctorDto.getStatus())
                 .address(doctorDto.getAddress())
                 .ratings(doctorDto.getRatings())
-                .views(doctorDto.getViews())
                 .build();
     }
 

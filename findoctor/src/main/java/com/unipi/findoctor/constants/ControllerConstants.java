@@ -12,11 +12,7 @@ public class ControllerConstants {
     public static final String PATIENT_ROOT_URL = "/";
     public static final String PATIENT_INDEX_URL_1 = "/index";
     public static final String PATIENT_PROFILE_PAGE_URL = "/profile";
-    public static final String PATIENT_ABOUT_URL = "/about";
-    public static final String PATIENT_BOOKING_URL = "/booking";
-    public static final String PATIENT_CONTACT_US_URL = "/contact-us";
     public static final String PATIENT_DETAIL_PAGE_URL = "/details/{doctorUsername}";
-    public static final String PATIENT_FAQ_URL = "/faq";
     public static final String PATIENT_GRID_LIST_URL = "/list";
     public static final String PATIENT_GET_SUBMIT_REVIEW_URL = "/review/new/{doctorUsername}";
     public static final String PATIENT_GET_EDIT_REVIEW_URL = "/review/edit/{doctorUsername}";
@@ -71,11 +67,7 @@ public class ControllerConstants {
     /* PATIENT HTML FILE NAMES */
     public static final String PATIENT_INDEX_FILE = "patient/index";
     public static final String PATIENT_PROFILE_FILE = "patient/profile";
-    public static final String PATIENT_ABOUT_FILE = "patient/about";
-    public static final String PATIENT_BOOKING_FILE = "patient/booking";
-    public static final String PATIENT_CONTACT_US_FILE = "patient/contact-us";
     public static final String PATIENT_DETAIL_PAGE_FILE = "patient/detail-page";
-    public static final String PATIENT_FAQ_FILE = "patient/faq";
     public static final String PATIENT_GRID_LIST_FILE = "patient/grid-list";
     public static final String PATIENT_SUBMIT_REVIEW_FILE = "patient/submit-review";
     public static final String PATIENT_EDIT_REVIEW_FILE = "patient/edit-review";

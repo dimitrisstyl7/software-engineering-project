@@ -49,22 +49,16 @@ public class PatientController {
 
     @GetMapping(PATIENT_PROFILE_PAGE_URL)
     public String patientProfilePage(Model model) {
+
+        PatientDto patientDto = securityUtil.getSessionPatient();
+        if (patientDto == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+
+        model.addAttribute("patient", patientDto);
+        model.addAttribute("isLoggedIn", securityUtil.isPatientLoggedIn());
         return PATIENT_PROFILE_FILE;
-    }
-
-    @GetMapping(PATIENT_ABOUT_URL)
-    public String patientAboutPage() {
-        return PATIENT_ABOUT_FILE;
-    }
-
-    @GetMapping(PATIENT_BOOKING_URL)
-    public String patientBookingPage() {
-        return PATIENT_BOOKING_FILE;
-    }
-
-    @GetMapping(PATIENT_CONTACT_US_URL)
-    public String patientContactUsPage() {
-        return PATIENT_CONTACT_US_FILE;
     }
 
     @GetMapping(PATIENT_DETAIL_PAGE_URL)
@@ -87,19 +81,12 @@ public class PatientController {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
         }
 
-        int views = doctorService.getDoctorViews(doctorUsername);
 
         model.addAttribute("doctorDetails", doctorDto);
         model.addAttribute("loggedInUserType", loggedInUserType);
-        model.addAttribute("views", views);
         model.addAttribute("isLoggedIn", securityUtil.isPatientLoggedIn());
         model.addAttribute("hasReviewed", hasReviewed);
         return PATIENT_DETAIL_PAGE_FILE;
-    }
-
-    @GetMapping(PATIENT_FAQ_URL)
-    public String patientFaqPage() {
-        return PATIENT_FAQ_FILE;
     }
 
     @GetMapping(PATIENT_GRID_LIST_URL)

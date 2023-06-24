@@ -4,7 +4,6 @@ import com.unipi.findoctor.dto.DoctorDto;
 import com.unipi.findoctor.mappers.DoctorMapper;
 import com.unipi.findoctor.models.Doctor;
 import com.unipi.findoctor.repositories.DoctorRepository;
-import com.unipi.findoctor.repositories.ViewRepository;
 import com.unipi.findoctor.security.SecurityConfig;
 import com.unipi.findoctor.services.DoctorService;
 import lombok.AllArgsConstructor;
@@ -21,7 +20,6 @@ import java.util.Optional;
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;
-    private final ViewRepository viewRepository;
 
     @Override
     public DoctorDto getDoctorDetailsByUsername(String username) {
@@ -72,10 +70,6 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public Doctor findByAfm(String afm) {
         return doctorRepository.findByAfm(afm);
-    }
-
-    public int getDoctorViews(String username) {
-        return viewRepository.countByDoctor_User_username(username);
     }
 
 }

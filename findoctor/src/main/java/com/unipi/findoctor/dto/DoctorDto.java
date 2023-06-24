@@ -2,11 +2,9 @@ package com.unipi.findoctor.dto;
 
 import com.unipi.findoctor.models.Rating;
 import com.unipi.findoctor.models.User;
-import com.unipi.findoctor.models.View;
 import lombok.Builder;
 import lombok.Data;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,7 +21,6 @@ public class DoctorDto {
     private String imageName;
     private String status;
     private List<Rating> ratings;
-    private List<View> views;
 
     public double getAverageRating() {
 

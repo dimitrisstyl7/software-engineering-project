@@ -40,8 +40,6 @@ public class Doctor {
 //    @OneToMany(mappedBy = "doctor", cascade = CascadeType.REFRESH)
 //    private List<Appointment> appointments;
 
-    @OneToMany(mappedBy = "doctor")
-    private List<View> views;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.REFRESH)
     @OrderBy("date DESC")
@@ -53,6 +51,10 @@ public class Doctor {
                 "afm=" + getAfm() +
                 ", username='" + getUser().getUsername() + '\'' +
                 ')';
+    }
+
+    public String getFullName() {
+        return "Dr. " + user.getName() + " " + user.getSurname();
     }
 
 }
