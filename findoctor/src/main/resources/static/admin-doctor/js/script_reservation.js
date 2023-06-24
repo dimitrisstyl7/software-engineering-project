@@ -14,6 +14,7 @@ const backDrop = document.getElementById('modalBackDrop');
 const eventTitleInput = document.getElementById('eventTitleInput');
 const clientAFM = document.getElementById('clientAFM');
 const clientName = document.getElementById('clientName');
+const doctorId = document.getElementById('clientName');
 const clientSurname = document.getElementById('clientSurname');
 const clientEmail = document.getElementById('clientEmail');
 const eventTime = document.getElementById('eventTimeOfDate');
@@ -27,9 +28,11 @@ const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frida
 // Auto to function exei tin leitourgia otan patisi o xristis mia fora na mpori na tou emfanisti
 // enas pinakas me ola ta stoixia tou xristi
 // ---------------------------------------------------------------------------------------------
-function openModal(date) {
+function fetchData(date) {
     // To clicked periexei tin imera pou exi patisi o xristis
     clicked = date;
+
+    console.log()
 
     // Filtari ta dedomena tis imeras pou iparxoun sto locale storage
     const filter = events.filter( e => e.date === clicked);
@@ -206,12 +209,14 @@ function load() {
                 daySquare.appendChild(eventDiv);
             }
 
-            daySquare.addEventListener('click', () => openModal(dayString));
+            daySquare.addEventListener('click', () => fetchData(dayString));
+            /*
             daySquare.addEventListener('dblclick', () => {
                 const eventForDay = events.find(e => e.date === paddingDays);
                 newEventModal.style.display = 'block';
                 backDrop.style.display = 'block';
             });
+             */
         } else {
             daySquare.classList.add('padding');
         }
