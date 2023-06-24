@@ -2,18 +2,21 @@ package com.unipi.findoctor.controllers;
 
 import com.unipi.findoctor.dto.UserDto;
 import com.unipi.findoctor.security.SecurityUtil;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import static com.unipi.findoctor.constants.ControllerConstants.*;
 
-@NoArgsConstructor
+@AllArgsConstructor
 @Controller
 public class DoctorController {
+    private SecurityUtil securityUtil ;
     @GetMapping({DOCTOR_ROOT_URL, DOCTOR_INDEX_URL_1, DOCTOR_INDEX_URL_2})
     public String doctorIndexPage() {
-        UserDto Userdto = SecurityUtil.getSessionUser();
+        UserDto Userdto = securityUtil.getSessionUser();
         Userdto.getUsername();
         return DOCTOR_INDEX_FILE;
     }
@@ -24,7 +27,7 @@ public class DoctorController {
     }
 
     @GetMapping(DOCTOR_BOOKINGS_URL)
-    public String doctorBookingsPage() {
+    public String doctorBookingsPage(Model model) {
         return DOCTOR_BOOKINGS_FILE;
     }
 
