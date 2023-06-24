@@ -9,15 +9,34 @@
 
     <!-- SPECIFIC CSS -->
     <link th:href="@{/patient/css/date_picker.css}" rel="stylesheet">
+    <style>
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+    </style>
 </head>
 
 <body>
+
 <main layout:fragment="main">
+
+    <div class="toast-container" th:if="${message != null}">
+    <div id="mainToast" class="toast float-left" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto" th:text="${title}"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body" th:text="${message}"></div>
+    </div>
+    </div>
+
     <div id="breadcrumb">
         <div class="container">
             <ul>
                 <li><a th:href="@{/}">Home</a></li>
-                <li>Details</li>
+                <li><a th:href="@{/list}">List</a></li>
                 <li th:text="${doctorDetails.getFullName()}"></li>
             </ul>
         </div>
@@ -30,19 +49,16 @@
             <aside class="col-xl-3 col-lg-4" id="sidebar">
                 <div class="box_profile">
                     <figure>
-                        <img th:src="${doctorDetails.getImageURL()}" alt="" class="img-fluid">
+                        <img th:if="${doctorDetails.getImageName() == null}" th:src="@{/img/default.png}" alt="" class="img-fluid">
+                        <img th:unless="${doctorDetails.getImageName() == null}" th:src="@{${'/img/' + doctorDetails.getImageName()}}" alt="" class="img-fluid">
                     </figure>
                     <small th:text="${doctorDetails.getSpecialization()}"></small>
                     <h1 th:text="${doctorDetails.getFullName()}"></h1>
                     <span class="rating">
 					<i th:each="star : ${#numbers.sequence(1, 5)}"
-                       th:class="${doctorDetails.getAverageRating() >= star} ? 'icon_star voted' : 'icon_star'"></i>
+                       th:class="${doctorDetails.getRoundAverageRating() >= star} ? 'icon_star voted' : 'icon_star'"></i>
 					<small th:text="${'(' + doctorDetails.getRatings().size() + ')'}"></small>
 				</span>
-                    <ul class="statistic">
-                        <li th:text="${views + ' Views'}"></li>
-                        <li>124 Patients</li>
-                    </ul>
                     <ul class="contacts">
                         <li>
                             <h6>Address</h6><span
@@ -230,7 +246,7 @@
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <div id="review_summary">
-                                            <strong th:text="${doctorDetails.getAverageRating()}">4.7</strong>
+                                            <strong style="display:block" th:text="${doctorDetails.getAverageRating()}"></strong>
                                             <div class="rating">
                                                 <i class="icon_star voted"></i>
                                             </div>
@@ -299,6 +315,17 @@
 
                                 <hr>
 
+                                <div th:if="${loggedInUserType.equals('patient')}" class="text-end">
+                                    <a th:if="${hasReviewed}"
+                                       th:href="${'/review/edit/'+ doctorDetails.getUser().getUsername()}"
+                                       class="btn_1 add_bottom_15">Edit
+                                        review</a>
+                                    <a th:unless="${hasReviewed}"
+                                        th:href="${'/review/new/'+ doctorDetails.getUser().getUsername()}"
+                                        class="btn_1 add_bottom_15">Submit
+                                    review</a>
+                                </div>
+
                                 <div th:each="rating : ${doctorDetails.getRatings()}" class="review-box clearfix">
                                     <div class="rev-content">
                                         <div class="rating">
@@ -320,11 +347,7 @@
                             </div>
                             <!-- End review-container -->
                             <hr>
-                            <div th:if="${loggedInUserType.equals('patient')}" class="text-end"><a
-                                    th:href="${'/review/new/'+ doctorDetails.getUser().getUsername()}"
-                                    class="btn_1 add_bottom_15">Submit
-                                review</a>
-                            </div>
+
                         </div>
                         <!-- /tab_3 -->
                     </div>
@@ -343,6 +366,11 @@
 
 <div layout:fragment="additional-scripts">
     <script th:src="@{/patient/js/bootstrap-datepicker.js}"></script>
+    <script th:if="${message != null}">
+        $(document).ready(function() {
+            $("#mainToast").toast("show");
+        })
+    </script>
     <script>
         $(document).ready(function () {
             $('#calendar').datepicker({

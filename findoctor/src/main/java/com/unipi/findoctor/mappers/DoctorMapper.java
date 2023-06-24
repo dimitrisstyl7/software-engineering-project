@@ -14,11 +14,26 @@ public class DoctorMapper {
                 .specialization(doctor.getSpecialization())
                 .businessPhone(doctor.getBusinessPhone())
                 .city(doctor.getCity())
-                .imageURL(doctor.getImageURL())
+                .imageName(doctor.getImageName())
                 .status(doctor.getStatus())
                 .address(doctor.getAddress())
                 .ratings(doctor.getRatings())
-                .views(doctor.getViews())
                 .build();
     }
+    public Doctor mapToDoctor(DoctorDto doctorDto) {
+        return Doctor.builder()
+                .afm(doctorDto.getAfm())
+                .user(doctorDto.getUser())
+                .specialization(doctorDto.getSpecialization())
+                .businessPhone(doctorDto.getBusinessPhone())
+                .city(doctorDto.getCity())
+                .imageName(doctorDto.getImageName())
+                .status(doctorDto.getStatus())
+                .address(doctorDto.getAddress())
+                .ratings(doctorDto.getRatings())
+                .build();
+    }
+
+
+
 }

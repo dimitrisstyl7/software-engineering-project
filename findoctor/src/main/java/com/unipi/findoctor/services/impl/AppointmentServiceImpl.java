@@ -1,5 +1,6 @@
 package com.unipi.findoctor.services.impl;
 
+import com.unipi.findoctor.dto.AppointmentDetailsDto;
 import com.unipi.findoctor.dto.AppointmentDto;
 import com.unipi.findoctor.mappers.AppointmentMapper;
 import com.unipi.findoctor.models.Appointment;
@@ -13,6 +14,8 @@ import java.time.LocalTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.util.stream.Collectors.toList;
 
 @AllArgsConstructor
 @Service
@@ -57,5 +60,21 @@ public class AppointmentServiceImpl implements AppointmentService {
     public AppointmentDto saveAppointment(AppointmentDto appointmentDto) {
         Appointment savedAppointment = appointmentRepository.save(appointmentMapper.mapToAppointment(appointmentDto));
         return appointmentMapper.mapToAppointmentDto(savedAppointment);
+    }
+
+    @Override
+    public List<AppointmentDetailsDto> fetchDoctorAppointments(String doctorUsername, LocalDate date) {
+
+        List<Appointment> appointments = appointmentRepository.findAppointmentsByDoctor_User_UsernameAndDate(doctorUsername, date);
+
+        if (appointments.isEmpty()) {
+            return null;
+        }
+
+        List<AppointmentDetailsDto> appointmentDetailDtos = appointments.stream()
+                .map(appointment -> appointmentMapper.mapToAppointmentDetailsDto(appointment))
+                .toList();
+
+        return appointmentDetailDtos;
     }
 }

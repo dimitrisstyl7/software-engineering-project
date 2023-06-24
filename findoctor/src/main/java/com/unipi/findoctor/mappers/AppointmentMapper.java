@@ -1,5 +1,6 @@
 package com.unipi.findoctor.mappers;
 
+import com.unipi.findoctor.dto.AppointmentDetailsDto;
 import com.unipi.findoctor.dto.AppointmentDto;
 import com.unipi.findoctor.models.Appointment;
 import org.springframework.stereotype.Component;
@@ -25,4 +26,15 @@ public class AppointmentMapper {
                 .timeSlot(appointmentDto.getTime_slot())
                 .build();
     }
+
+    public AppointmentDetailsDto mapToAppointmentDetailsDto(Appointment appointment) {
+        return AppointmentDetailsDto.builder()
+                .amka(appointment.getPatient().getAmka())
+                .name(appointment.getPatient().getUser().getName())
+                .surname(appointment.getPatient().getUser().getSurname())
+                .phone(appointment.getPatient().getUser().getPhone())
+                .timeSlot(appointment.getTimeSlot())
+                .build();
+    }
+
 }
