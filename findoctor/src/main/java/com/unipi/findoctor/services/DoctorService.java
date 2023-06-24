@@ -7,13 +7,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface DoctorService {
+    DoctorDto getDoctorDetailsByUsername(String username);
+
     void saveDoctor(Doctor doctor);
 
     Doctor findByAfm(String afm);
 
-    DoctorDto getDoctorDetailsByUsername(String username);
+    Doctor findDoctor(String username);
 
-    Boolean doctorExists(String username);
+    boolean doctorExists(String username);
 
-    Page<DoctorDto> getDoctorsByPage(int pageNumber, int pageSize);
+    Page<DoctorDto> getDoctorsByPage(String query, int pageNumber, int pageSize);
+
+    int getDoctorViews(String username);
+
 }

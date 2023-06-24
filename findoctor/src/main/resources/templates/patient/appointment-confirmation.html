@@ -13,9 +13,6 @@
         <div class="container">
             <ul>
                 <li><a th:href="@{/}">Home</a></li>
-                <li><a th:href="@{/register}">Register</a></li>
-                <li th:if="${isDoctor}">Doctor</li>
-                <li th:if="${!isDoctor}">Patient</li>
             </ul>
         </div>
     </div>
@@ -35,9 +32,15 @@
                             </g>
                         </svg>
                     </div>
-                    <h2>Registration completed successfully!</h2>
-                    <p th:if="${isDoctor}">Your account will be activated by an administrator soon, and you will be notified by email.</p>
-                    <p th:if="${!isDoctor}">You can now log in to your account.</p>
+                    <div th:if="${status.equalsIgnoreCase('new-booking')}">
+                        <h2>Appointment Reservation Successful!</h2>
+                        <p>Your appointment has been successfully reserved. #[[ ${appointmentId} ]] </p>
+                    </div>
+
+                    <div th:unless="${status.equalsIgnoreCase('new-booking')}">
+                        <h2>Demo!</h2>
+                        <p>Your account will be activated by an administrator soon, and you will be notified by email.</p>
+                    </div>
                 </div>
             </div>
         </div>

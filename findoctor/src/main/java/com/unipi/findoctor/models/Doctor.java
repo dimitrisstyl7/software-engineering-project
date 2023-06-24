@@ -30,7 +30,7 @@ public class Doctor {
     private String businessPhone;
     private String city;
     private String address;
-    private boolean isVerified;
+    private String status; // "pending" or "approved" or "rejected"
     private String imageURL;
 
 
@@ -40,6 +40,18 @@ public class Doctor {
 //    @OneToMany(mappedBy = "doctor", cascade = CascadeType.REFRESH)
 //    private List<Appointment> appointments;
 
+    @OneToMany(mappedBy = "doctor")
+    private List<View> views;
+
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.REFRESH)
     private List<Rating> ratings;
+
+    @Override
+    public String toString() {
+        return "Doctor(" +
+                "afm=" + getAfm() +
+                ", username='" + getUser().getUsername() + '\'' +
+                ')';
+    }
+
 }

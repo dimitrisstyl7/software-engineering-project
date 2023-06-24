@@ -2,14 +2,19 @@ package com.unipi.findoctor.dto;
 
 import com.unipi.findoctor.models.Rating;
 import com.unipi.findoctor.models.User;
+import com.unipi.findoctor.models.View;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class DoctorDto {
     private String afm;
     private User user;
@@ -19,8 +24,9 @@ public class DoctorDto {
     private String city;
     private String address;
     private String imageURL;
-
+    private String status;
     private List<Rating> ratings;
+    private List<View> views;
 
     public double getAverageRating() {
 
@@ -47,5 +53,12 @@ public class DoctorDto {
 
     public String getFullName() {
         return "Dr. " + user.getName() + " " + user.getSurname();
+    }
+
+    @Override
+    public String toString() {
+        return "DoctorDetails(" +
+                "for=" + getUser().getUsername() +
+                ')';
     }
 }

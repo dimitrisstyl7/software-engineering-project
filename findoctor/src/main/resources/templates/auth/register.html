@@ -2,7 +2,7 @@
 <html lang="en, gr"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{visitor_layout}">
+      layout:decorate="~{patient_layout}">
 <head>
     <title>Register</title>
 </head>
@@ -254,13 +254,13 @@
                                 <div class="checkbox-holder text-left">
                                     <div class="checkbox_2">
                                         <input type="checkbox" value="terms_accepted" id="terms_check_box"
-                                               name="terms_check_box" onchange="checkTerms()" checked>
+                                               name="terms_check_box" onchange="checkTerms()">
                                         <label for="terms_check_box"><span>I Agree to the <strong>Terms &amp; Conditions</strong></span></label>
                                     </div>
                                 </div>
                                 <div class="form-group text-center add_top_30">
                                     <input class="btn_1" type="submit" value="Submit" name="submit_btn"
-                                           id="submit_btn">
+                                           id="submit_btn" hidden>
                                 </div>
                             </div>
                             <p class="text-center link_bright">Have an account already? <a

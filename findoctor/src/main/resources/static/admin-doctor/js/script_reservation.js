@@ -14,11 +14,21 @@ const backDrop = document.getElementById('modalBackDrop');
 const eventTitleInput = document.getElementById('eventTitleInput');
 const clientAFM = document.getElementById('clientAFM');
 const clientName = document.getElementById('clientName');
-const doctorId = document.getElementById('clientName');
 const clientSurname = document.getElementById('clientSurname');
 const clientEmail = document.getElementById('clientEmail');
 const eventTime = document.getElementById('eventTimeOfDate');
+
+const newEventModal2 = document.getElementById('newEventModal2');
+const backDrop2 = document.getElementById('modalBackDrop2');
+const newTime = document.getElementById('newTimeOfDate');
+const newTitleInput = document.getElementById('newTitleInput');
+const newClientAFM = document.getElementById('newClientAFM');
+const newClientName = document.getElementById('newClientName');
+const newClientSurname = document.getElementById('newClientSurname');
+
 const tbl = document.getElementById("myTable");
+const doctorUsername = document.getElementById('doctorUsername');
+
 
 
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -32,9 +42,27 @@ function fetchData(date) {
     // To clicked periexei tin imera pou exi patisi o xristis
     clicked = date;
 
-    console.log()
+    console.log(doctorUsername.value);
 
-    // Filtari ta dedomena tis imeras pou iparxoun sto locale storage
+    /*
+    fetch('https://api.example.com/data')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); // Parse the response as plain text
+        })
+        .then(data => {
+            // Process the retrieved data
+            console.log(data);
+        })
+        .catch(error => {
+            // Handle any errors that occurred during the request
+            console.error('Error:', error);
+        });
+
+     */
+
     const filter = events.filter( e => e.date === clicked);
 
     // Diagrafi oti dara iparxoun sto mytable
@@ -113,7 +141,11 @@ function fetchData(date) {
         editButton.textContent = 'Edit';
         editButton.style.color = "black";
         // Dimiourgo event gia to edit
-        editButton.addEventListener('click', editRow);
+        editButton.addEventListener('click', () => {
+            const eventForDay = events.find(e => e.date === clicked);
+            newEventModal2.style.display = 'block';
+            backDrop2.style.display = 'block';
+        });
         return editButton;
     }
 
@@ -210,13 +242,11 @@ function load() {
             }
 
             daySquare.addEventListener('click', () => fetchData(dayString));
-            /*
             daySquare.addEventListener('dblclick', () => {
                 const eventForDay = events.find(e => e.date === paddingDays);
                 newEventModal.style.display = 'block';
                 backDrop.style.display = 'block';
             });
-             */
         } else {
             daySquare.classList.add('padding');
         }
@@ -336,6 +366,104 @@ function saveEvent(){
     }
 }
 
+// -------------------------------------------------------------------------------------
+// Auti einai i Function pou klini to Modal block pou einai gia tin eisagogi ton stixion
+// -------------------------------------------------------------------------------------
+function closeModal2() {
+    // Prin na to kliso kano remove ta errors ean iparxoun
+    newTitleInput.classList.remove('error');
+    newTime.classList.remove('error');
+    newClientAFM.classList.remove('error');
+    newClientName.classList.remove('error');
+    newClientSurname.classList.remove('error');
+
+    // Kano se ola ta display na feugoun apo to screen
+    newEventModal2.style.display = 'none';
+    backDrop2.style.display = 'none';
+
+    // Pio kato feugo ola ta stoixia pou egra4e prin sta inputs
+    newTitleInput.value = '';
+    newClientAFM.value = '';
+    newClientName.value = '';
+    newClientSurname.value = '';
+    eventTime.value = '';
+
+    // Me to clicked null feugo tin imera pou eixe patisi o xristis prin
+    clicked = null;
+    // Kano load oste na prosthesi tixon kainourgia stoixia stin selida
+    // px. Events Titles
+    load();
+}
+
+
+// -------------------------------------------------------------------------------------
+// Sto pio kato Function apothikevi ta inputs pou exei kani o xristis
+// -------------------------------------------------------------------------------------
+function saveEvent2(){
+    // To c=0 einai gia na kratisoume ena value oste ean se kapio apo ta input eixe lathos
+    // na mporousame na stamatisoume na kani save
+    let c=0;
+
+    // Elenxi ean einai keno to time
+    if ( newTime.value == "" ){
+        newTime.classList.add('error');
+    }else{
+        newTime.classList.remove('error');
+        c=c+1;
+    }
+
+    // Elenxi ean exei numbers mesa sto input me tin xrisi tou NaN
+    // Akomi elenxoume ean einai keno to input
+    if ( ( !isNaN(newClientName.value) ) || (newClientName.value =="")){
+        newClientName.classList.add('error');
+    }else{
+        newClientName.classList.remove('error');
+        c=c+1;
+    }
+
+    // Elenxi ean exei numbers mesa sto input me tin xrisi tou NaN
+    // Akomi elenxoume ean einai keno to input
+    if ( ( !isNaN(newClientSurname.value) ) || (newClientSurname.value =="")){
+        newClientSurname.classList.add('error');
+    }else{
+        newClientSurname.classList.remove('error');
+        c=c+1;
+    }
+
+    // Elenxi ean exei characters mesa sto input me tin xrisi tou NaN
+    // Akomi elenxoume ean einai keno to input
+    if ( ( isNaN(newClientAFM.value) ) || ( newClientAFM.value =="") ){
+        newClientAFM.classList.add('error');
+    }else{
+        newClientAFM.classList.remove('error');
+        c=c+1;
+    }
+
+    // Elenxoume ean einai keno to input
+    if (newTitleInput.value ==""){
+        newTitleInput.classList.add('error');
+    }else{
+        newTitleInput.classList.remove('error');
+        c=c+1;
+    }
+
+    // Elenxoume ean ola ta value (c) einai 6 oste na doume oti einai ola sosta
+    // Epeita apothikevoume sto localstorage me tin xrisi tou push
+    if (c == 5) {
+
+        events.push({
+            date: clicked , // to clicked einai to date pou patise o xristis
+            eventTime: clicked + " " + eventTime.value,
+            title: eventTitleInput.value,
+            clientAFM: clientAFM.value,
+            clientName: clientName.value,
+            clientSurname: clientSurname.value,
+        });
+
+        localStorage.setItem('events', JSON.stringify(events));
+        closeModal2(); // Klini to Modal block pou fenete
+    }
+}
 
 // ------------------------------------------------------------------------------------------
 //  Sto pio kato Fuction kani tis leitourgies back - next month kai to save - cancel to Modal
@@ -353,6 +481,8 @@ function initButtons() {
 
     document.getElementById('saveButton').addEventListener('click', saveEvent);
     document.getElementById('cancelButton').addEventListener('click', closeModal)
+    document.getElementById('saveButton2').addEventListener('click', saveEvent2);
+    document.getElementById('cancelButton2').addEventListener('click', closeModal2)
 }
 
 initButtons();

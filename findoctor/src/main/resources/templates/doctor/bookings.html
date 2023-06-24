@@ -23,7 +23,7 @@
     <a style="font-style: italic; font-weight: bold;"> Double click to add a new Event</a>
 
 <div id="container">
-    <input th:type="hidden" th:value="model" id="doctorId">
+    <input th:type="hidden" th:value="${doctorUsername}" id="doctorUsername">
     <div id="header">
         <div id="monthDisplay"></div>
         <div>
@@ -59,6 +59,19 @@
     <button id="cancelButton">Cancel</button>
 </div>
 
+<div id="newEventModal2">
+    <h2>Change Client Event</h2>
+
+    <input id="newTitleInput" placeholder="Event Title" />
+    <input id="newTimeOfDate" type="time" placeholder="Event Time of the Day" />
+    <input id="newClientAFM" placeholder="Client Id" />
+    <input id="newClientName" placeholder="Client Name" />
+    <input id="newClientSurname" placeholder="Client Surname" />
+
+    <button id="saveButton2">Save</button>
+    <button id="cancelButton2">Cancel</button>
+</div>
+
 <div id="deleteEventModal">
     <h2>Event</h2>
 
@@ -69,6 +82,7 @@
 </div>
 
 <div id="modalBackDrop"></div>
+<div id="modalBackDrop2"></div>
 
     <div>
         <table id="myTable">

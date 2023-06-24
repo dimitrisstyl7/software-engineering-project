@@ -2,7 +2,7 @@
 <html lang="en, gr"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{visitor_layout}">
+      layout:decorate="~{patient_layout}">
 <head>
     <title>Log in page</title>
 </head>
@@ -20,6 +20,10 @@
             <div th:if="${param.expired}" class="alert alert-warning"
                  style="text-align: center; width: 30%; display: block; margin: 0 auto;">
                 Your session has expired.
+            </div>
+            <div th:if="${param.notApproved}" class="alert alert-warning"
+                 style="text-align: center; width: 30%; display: block; margin: 0 auto;">
+                You are not approved yet. Please wait for the approval.
             </div>
             <div id="login">
                 <h1>Please login to Findoctor!</h1>

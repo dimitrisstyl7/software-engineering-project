@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -30,5 +31,16 @@ public class Rating {
 
     private String review;
     private int ratingValue;
+
+    @UpdateTimestamp
     private LocalDateTime date;
+
+    @Override
+    public String toString() {
+        return "Rating(" +
+                "id=" + getId() +
+                ", from=" + getPatient().getUser().getUsername() +
+                ", to=" + getDoctor().getUser().getUsername() +
+                ')';
+    }
 }

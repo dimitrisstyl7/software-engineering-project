@@ -4,6 +4,7 @@ import com.unipi.findoctor.dto.DoctorDto;
 import com.unipi.findoctor.mappers.DoctorMapper;
 import com.unipi.findoctor.models.Doctor;
 import com.unipi.findoctor.repositories.DoctorRepository;
+import com.unipi.findoctor.repositories.ViewRepository;
 import com.unipi.findoctor.security.SecurityConfig;
 import com.unipi.findoctor.services.DoctorService;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.Optional;
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;
+    private final ViewRepository viewRepository;
 
     @Override
     public DoctorDto getDoctorDetailsByUsername(String username) {
@@ -29,31 +31,36 @@ public class DoctorServiceImpl implements DoctorService {
             return null;
         }
 
-        if (doctor.isVerified() == false) {
+        if (!doctor.getStatus().equals("approved")) {
             return null;
         }
 
-        return doctorMapper.mapToDoctorDetailsDto(doctor);
+        return doctorMapper.mapToDoctorDto(doctor);
     }
 
     @Override
-    public Boolean doctorExists(String username) {
-        Optional<Doctor> doctor = Optional.ofNullable(doctorRepository.findByUser_username(username));
+    public Doctor findDoctor(String username) {
+        return doctorRepository.findByUser_username(username);
+    }
 
-        if (doctor.isEmpty()) {
-            return false;
+    @Override
+    public boolean doctorExists(String username) {
+        Optional<Doctor> doctor = Optional.ofNullable(doctorRepository.findByUser_username(username));
+        return doctor.isPresent();
+    }
+
+    @Override
+    public Page<DoctorDto> getDoctorsByPage(String query, int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<Doctor> doctorsPage;
+
+        if (query == null) {
+            doctorsPage = doctorRepository.findAll(pageable);
+        } else {
+            doctorsPage = doctorRepository.searchDoctors(query, pageable);
         }
 
-        return true;
-    }
-
-    @Override
-    public Page<DoctorDto> getDoctorsByPage(int pageNumber, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        Page<Doctor> doctorPage = doctorRepository.findAll(pageable);
-        Page<DoctorDto> doctorDetailsDtoPage = doctorPage.map(doctor -> doctorMapper.mapToDoctorDetailsDto(doctor));
-
-        return doctorDetailsDtoPage;
+        return doctorsPage.map(doctorMapper::mapToDoctorDto);
     }
 
     @Override
@@ -66,4 +73,9 @@ public class DoctorServiceImpl implements DoctorService {
     public Doctor findByAfm(String afm) {
         return doctorRepository.findByAfm(afm);
     }
+
+    public int getDoctorViews(String username) {
+        return viewRepository.countByDoctor_User_username(username);
+    }
+
 }

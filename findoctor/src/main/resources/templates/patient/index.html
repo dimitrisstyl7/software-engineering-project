@@ -1,39 +1,28 @@
 <!DOCTYPE html>
 <html lang="en, gr"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{patient_layout}">
+      layout:decorate="~{patient_layout}"
+      th:with="isLoggedIn=${isLoggedIn}">
 
 <head>
     <title>Main</title>
 </head>
 
+<body>
 <main layout:fragment="main">
+
     <div class="hero_home version_1">
         <div class="content">
             <h3>Find a Doctor!</h3>
             <p>
                 Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.
             </p>
-            <form method="post" action="list.html">
+            <form role="form" method="get" th:action="@{/list}">
                 <div id="custom-search-input">
                     <div class="input-group">
-                        <input type="text" class=" search-query" placeholder="Ex. Name, Specialization ....">
-                        <input type="submit" class="btn_search" value="Search">
+                            <input name="q" type="text" class="search-query" placeholder="Ex. Specialist, Name, Doctor...">
+                            <input type="submit" value="Search">
                     </div>
-                    <ul>
-                        <li>
-                            <input type="radio" id="all" name="radio_search" value="all" checked>
-                            <label for="all">All</label>
-                        </li>
-                        <li>
-                            <input type="radio" id="doctor" name="radio_search" value="doctor">
-                            <label for="doctor">Doctor</label>
-                        </li>
-                        <li>
-                            <input type="radio" id="clinic" name="radio_search" value="clinic">
-                            <label for="clinic">Clinic</label>
-                        </li>
-                    </ul>
                 </div>
             </form>
         </div>
@@ -72,7 +61,7 @@
             </div>
         </div>
         <!-- /row -->
-        <p class="text-center"><a href="list.html" class="btn_1 medium">Find Doctor</a></p>
+        <p class="text-center"><a th:href="@{/list}" class="btn_1 medium">Find Doctor</a></p>
 
     </div>
     <!-- /container -->
@@ -235,9 +224,8 @@
         </div>
         <!-- /row -->
     </div>
-
     <!-- /container -->
 </main>
 <!-- /main -->
-
+</body>
 </html>

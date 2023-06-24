@@ -7,18 +7,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class DoctorMapper {
 
-    public DoctorDto mapToDoctorDetailsDto(Doctor doctor) {
-        DoctorDto doctorDto = DoctorDto.builder()
+    public DoctorDto mapToDoctorDto(Doctor doctor) {
+        return DoctorDto.builder()
                 .afm(doctor.getAfm())
                 .user(doctor.getUser())
                 .specialization(doctor.getSpecialization())
                 .businessPhone(doctor.getBusinessPhone())
                 .city(doctor.getCity())
                 .imageURL(doctor.getImageURL())
+                .status(doctor.getStatus())
                 .address(doctor.getAddress())
                 .ratings(doctor.getRatings())
+                .views(doctor.getViews())
                 .build();
-
-        return doctorDto;
     }
 }
