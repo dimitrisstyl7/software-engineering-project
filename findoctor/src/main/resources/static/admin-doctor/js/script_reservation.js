@@ -44,7 +44,6 @@ function fetchData(date) {
 
     console.log(doctorUsername.value);
 
-    /*
     fetch('https://api.example.com/data')
         .then(response => {
             if (!response.ok) {
@@ -60,8 +59,6 @@ function fetchData(date) {
             // Handle any errors that occurred during the request
             console.error('Error:', error);
         });
-
-     */
 
     const filter = events.filter( e => e.date === clicked);
 

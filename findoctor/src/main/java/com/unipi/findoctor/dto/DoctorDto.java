@@ -2,6 +2,7 @@ package com.unipi.findoctor.dto;
 
 import com.unipi.findoctor.models.Rating;
 import com.unipi.findoctor.models.User;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
