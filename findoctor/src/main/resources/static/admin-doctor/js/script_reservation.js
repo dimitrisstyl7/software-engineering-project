@@ -30,9 +30,9 @@ const tbl = document.getElementById("myTable");
 const doctorUsername = document.getElementById('doctorUsername');
 
 
-
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
+let linklist=[];
 
 // ---------------------------------------------------------------------------------------------
 // Auto to function exei tin leitourgia otan patisi o xristis mia fora na mpori na tou emfanisti
@@ -42,9 +42,9 @@ function fetchData(date) {
     // To clicked periexei tin imera pou exi patisi o xristis
     clicked = date;
 
-    console.log(doctorUsername.value);
+    console.log(date);
 
-    fetch('https://api.example.com/data')
+    fetch('http://localhost:8080/api/v1/appointments?doctorUsername=' + doctorUsername.value + '&date=' + clicked)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -53,26 +53,78 @@ function fetchData(date) {
         })
         .then(data => {
             // Process the retrieved data
-            console.log(data);
+            console.log(typeof data);
+            if (data.length !== 0){
+                linklist = JSON.parse(data);
+            }else{
+                linklist = "";
+            }
+            createTable(linklist);
         })
         .catch(error => {
             // Handle any errors that occurred during the request
             console.error('Error:', error);
         });
 
-    const filter = events.filter( e => e.date === clicked);
+}
 
+function createTable(linklist){
     // Diagrafi oti dara iparxoun sto mytable
     // Auto to kani oste na min iparxoun proigoumen data apo alles imeres
-    let linklist = filter.length;
     while (tbl.rows.length > 0) {
         tbl.deleteRow(0);
     }
 
+
     // Function to delete a specific row
-    function deleteRow(event) {
+   async function deleteRow(event) {
         const row = event.target.parentNode.parentNode; // Get the parent row element
-        tbl.deleteRow(row.rowIndex);
+        const dateAndTime = row.cells[0].innerText;
+        const dateString = dateAndTime.split(' ')[0];
+        const timeString = dateAndTime.split(' ')[1];
+
+        let url = 'http://localhost:8080/api/v1/appointments?doctorUsername='+ doctorUsername.value + '&date=' + dateString;
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Parse the response as JSON
+            })
+            .then(data => {
+
+                for ( let i =0; i<data.length; i++) {
+                    if (data[i]['timeSlot'] === timeString) {
+                        const filteredData = data.filter(appointment => appointment.timeSlot !== timeString);
+
+                        const updatedData = JSON.stringify(filteredData);
+
+                        console.log(updatedData);
+
+                        fetch(url, {
+                            "method": 'PUT',
+                            "body": updatedData
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    if (response.status === 405) {
+                                        throw new Error('Method Not Allowed - Please check the allowed methods for the endpoint');
+                                    }
+                                    throw new Error('Failed to update the data');
+                                }
+                                console.log('Data updated successfully');
+                            })
+
+                    }
+                }
+            })
+            .catch(error => {
+            // Handle any errors that occurred during the request
+            console.error('Error:', error);
+            });
+
+        //tbl.deleteRow(row.rowIndex);
     }
 
     // Function to create a delete button for each row
@@ -146,8 +198,7 @@ function fetchData(date) {
         return editButton;
     }
 
-    // Otan den iparxoun data mesa stin imera tote topo8eta null sto row
-    if (linklist == 0 ){
+    if (linklist.length === 0 ){
         let r = tbl.insertRow();
         let cell1 = r.insertCell();
         let cell2 = r.insertCell();
@@ -156,7 +207,7 @@ function fetchData(date) {
         let cell5 = r.insertCell();
         let cell6 = r.insertCell();
 
-        cell1.innerHTML=null;
+        cell1.innerText=null;
         cell2.innerText=null;
         cell3.innerText=null;
         cell4.innerText=null;
@@ -166,7 +217,7 @@ function fetchData(date) {
 
     // Create Rows of Information
     // Me ena for vazoume ola ta data mesa ston pinaka tis imeras
-    for (let i=0; i<linklist; i++){
+    for (let i=0; i<linklist.length; i++){
         let r = tbl.insertRow();
         let cell1 = r.insertCell();
         let cell2 = r.insertCell();
@@ -175,10 +226,10 @@ function fetchData(date) {
         let cell5 = r.insertCell();
         let cell6 = r.insertCell();
 
-        cell1.innerHTML=filter[i].eventTime;
-        cell2.innerText=filter[i].clientAFM;
-        cell3.innerText=filter[i].clientName;
-        cell4.innerText=filter[i].clientSurname;
+        cell1.innerText= clicked +" " + linklist[i]['timeSlot'];
+        cell2.innerText=linklist[i]['amka'];
+        cell3.innerText=linklist[i]['name'];
+        cell4.innerText=linklist[i]['surname'];
         cell5.appendChild(createDeleteButton()); // Add delete button
         cell6.appendChild(createEditButton()); // Add edit button
 
@@ -221,7 +272,9 @@ function load() {
         const daySquare = document.createElement('div');
         daySquare.classList.add('day');
 
-        const dayString = `${month + 1}/${i - paddingDays}/${year}`;
+        const monthString = (month < 9 ? '0' + (month + 1) : month + 1);
+        const dayString = (i-paddingDays < 10 ? '0' + (i - paddingDays): i-paddingDays);
+        const dateString = `${year}-${monthString}-${dayString}`;
 
         if (i > paddingDays) {
             daySquare.innerText = i - paddingDays;
@@ -238,7 +291,7 @@ function load() {
                 daySquare.appendChild(eventDiv);
             }
 
-            daySquare.addEventListener('click', () => fetchData(dayString));
+            daySquare.addEventListener('click', () => fetchData(dateString));
             daySquare.addEventListener('dblclick', () => {
                 const eventForDay = events.find(e => e.date === paddingDays);
                 newEventModal.style.display = 'block';
