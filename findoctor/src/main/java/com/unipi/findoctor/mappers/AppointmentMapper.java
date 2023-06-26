@@ -29,6 +29,7 @@ public class AppointmentMapper {
 
     public AppointmentDetailsDto mapToAppointmentDetailsDto(Appointment appointment) {
         return AppointmentDetailsDto.builder()
+                .id(appointment.getId())
                 .amka(appointment.getPatient().getAmka())
                 .name(appointment.getPatient().getUser().getName())
                 .surname(appointment.getPatient().getUser().getSurname())

@@ -12,6 +12,7 @@ import java.time.LocalTime;
 @Builder
 @Data
 public class AppointmentDetailsDto {
+    private long id;
     private String amka;
     private String name;
     private String surname;
