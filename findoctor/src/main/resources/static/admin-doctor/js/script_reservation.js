@@ -149,7 +149,7 @@ function createTable(linklist){
 
     function createEditButton() {
         const editButton = document.createElement('button');
-        editButton.textContent = 'Edit';
+        editButton.textContent = 'Update time';
         editButton.style.color = "black";
         // Dimiourgo event gia to edit
         editButton.addEventListener('click', editRow);
@@ -172,13 +172,14 @@ function createTable(linklist){
 
     // Prota Prota vazoume stin proti stili ta pio kato stoixeia oste
     // o xristis na mpori na xeri ti einai to kathe ena
-    headerCell1.innerHTML = "Appointment ID";
+    headerCell1.innerHTML = "ID";
     headerCell2.innerHTML = "Date and Time";
     headerCell3.innerHTML = "Patient Id";
     headerCell4.innerHTML = "Name";
     headerCell5.innerHTML = "Surname";
-    headerCell6.innerHTML = "Delete";
-    headerCell7.innerHTML = "Edit";
+    headerCell6.innerHTML = "Update time";
+    headerCell7.innerHTML = "Delete";
+
 
     if (linklist.length === 0 ){
         let r = tbl.insertRow();
@@ -216,8 +217,9 @@ function createTable(linklist){
         cell3.innerText=linklist[i]['amka'];
         cell4.innerText=linklist[i]['name'];
         cell5.innerText=linklist[i]['surname'];
-        cell6.appendChild(createDeleteButton()); // Add delete button
-        cell7.appendChild(createEditButton()); // Add edit button
+        cell6.appendChild(createEditButton()); // Add edit button
+        cell7.appendChild(createDeleteButton()); // Add delete button
+
 
     }
 }
