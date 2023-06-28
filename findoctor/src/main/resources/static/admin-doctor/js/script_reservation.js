@@ -334,6 +334,7 @@ function saveButton2() {
             if (response.ok) {
                 console.log("JSON API updated successfully.");
                 newTime.classList.remove('error');
+                fetchData(clicked);
                 closeModal2();
             } else {
                 console.error("Failed to update JSON API.");
