@@ -1,12 +1,18 @@
 package com.unipi.findoctor.controllers;
 
+import com.unipi.findoctor.dto.DoctorDto;
 import com.unipi.findoctor.dto.UserDto;
+import com.unipi.findoctor.mappers.DoctorMapper;
+import com.unipi.findoctor.models.Doctor;
+import com.unipi.findoctor.repositories.DoctorRepository;
 import com.unipi.findoctor.security.SecurityUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import static com.unipi.findoctor.constants.ControllerConstants.*;
 
@@ -14,6 +20,8 @@ import static com.unipi.findoctor.constants.ControllerConstants.*;
 @Controller
 public class DoctorController {
     private final SecurityUtil securityUtil;
+    private final DoctorRepository doctorRepository;
+    private final DoctorMapper doctorMapper;
 
     @GetMapping({DOCTOR_ROOT_URL, DOCTOR_INDEX_URL_1, DOCTOR_INDEX_URL_2})
     public String doctorIndexPage() {
@@ -39,7 +47,15 @@ public class DoctorController {
     }
 
     @GetMapping(DOCTOR_DOCTOR_PROFILE_URL)
-    public String doctorDoctorProfilePage() {
+    public String doctorDoctorProfilePage(Model model) {
+        String username = securityUtil.getSessionUser().getUsername();
+        Doctor doctor = doctorRepository.findByUser_username(username);
+        if (doctor == null){
+           throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        DoctorDto doctorDto = doctorMapper.mapToDoctorDto(doctor);
+        model.addAttribute("doctor",doctorDto);
+
         return DOCTOR_PROFILE_FILE;
     }
 
