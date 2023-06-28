@@ -45,43 +45,37 @@
     <div id="calendar"></div>
 </div>
 
-<div id="newEventModal">
-    <h2>New Event for the client</h2>
-
-    <input id="eventTitleInput" placeholder="Event Title" />
-    <input id="eventTimeOfDate" type="time" placeholder="Event Time of the Day" />
-    <input id="clientAFM" placeholder="Client Id" />
-    <input id="clientName" placeholder="Client Name" />
-    <input id="clientSurname" placeholder="Client Surname" />
-    <input id="clientEmail" placeholder="Client Email" />
-
-    <button id="saveButton">Save</button>
-    <button id="cancelButton">Cancel</button>
-</div>
-
 <div id="newEventModal2">
     <h2>Change Client Event</h2>
-
+    <label for="newAppointmentID">Appointment Id</label>
     <input id="newAppointmentID" disabled />
-    <input id="newTimeOfDate" type="time" />
+    <label for="newTimeOfDate">New Time</label>
+    <select id="newTimeOfDate" >
+        <option value="08:00" >08:00</option>
+        <option value="09:00" >09:00</option>
+        <option value="10:00" >10:00</option>
+        <option value="11:00" >11:00</option>
+        <option value="12:00" >12:00</option>
+        <option value="13:00" >13:00</option>
+        <option value="14:00" >14:00</option>
+        <option value="15:00" >15:00</option>
+        <option value="16:00" >16:00</option>
+        <option value="17:00" >17:00</option>
+        <option value="18:00" >18:00</option>
+        <option value="19:00" >19:00</option>
+        <option value="20:00" >20:00</option>
+    </select>
+    <label for="newClientAFM">Client AFM</label>
     <input id="newClientAFM" disabled />
+    <label for="newClientName">Client Name</label>
     <input id="newClientName" disabled />
+    <label for="newClientSurname">Client Surname</label>
     <input id="newClientSurname" disabled />
 
     <button id="saveButton2">Save</button>
     <button id="cancelButton2">Cancel</button>
 </div>
 
-<div id="deleteEventModal">
-    <h2>Event</h2>
-
-    <p id="eventText"></p>
-
-    <button id="deleteButton">Delete</button>
-    <button id="closeButton">Close</button>
-</div>
-
-<div id="modalBackDrop"></div>
 <div id="modalBackDrop2"></div>
 
     <div style="margin-top: 60px">

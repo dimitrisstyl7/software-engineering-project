@@ -9,13 +9,7 @@ let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('e
 
 const calendar = document.getElementById('calendar');
 const newEventModal = document.getElementById('newEventModal');
-const deleteEventModal = document.getElementById('deleteEventModal');
 const backDrop = document.getElementById('modalBackDrop');
-const eventTitleInput = document.getElementById('eventTitleInput');
-const clientAFM = document.getElementById('clientAFM');
-const clientName = document.getElementById('clientName');
-const clientSurname = document.getElementById('clientSurname');
-const clientEmail = document.getElementById('clientEmail');
 const eventTime = document.getElementById('eventTimeOfDate');
 
 const newEventModal2 = document.getElementById('newEventModal2');
@@ -89,19 +83,50 @@ function deleteRow(event) {
 
 function editRow(event){
 
-    newEventModal2.style.display = 'block';
-    backDrop2.style.display = 'block';
-
     const row = event.target.parentNode.parentNode; // Get the parent row element
     const ClientAppointment = row.cells[0].innerText;
+    const DayAndTime = row.cells[1].innerText;
+    const Day = DayAndTime.split(' ')[0]
     const ClientAFM = row.cells[2].innerText;
     const ClientName = row.cells[3].innerText;
     const ClientSurname= row.cells[4].innerText;
+
+    let selectElement = document.getElementById("newTimeOfDate");
+
+    let url = 'http://localhost:8080/api/v1/available-time-slots?&date='+ Day +'&doctorUsername='+ doctorUsername.value;
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); // Parse the response as plain text
+        })
+        .then(data => {
+
+            let TimeSlots = JSON.parse(data);
+
+            // Iterate over the options and disable if the value is false
+            for (let i = 0; i < selectElement.options.length; i++) {
+                let optionValue = selectElement.options[i].value;
+                let jsonValue = TimeSlots[optionValue];
+
+                if (jsonValue === false) {
+                    selectElement.options[i].disabled = true;
+                }
+            }
+
+        })
+
+
 
     newAppointmentID.value=ClientAppointment;
     newClientAFM.value=ClientAFM;
     newClientName.value=ClientName;
     newClientSurname.value=ClientSurname;
+
+    newEventModal2.style.display = 'block';
+    backDrop2.style.display = 'block';
 }
 
 
@@ -269,117 +294,6 @@ function load() {
 // -------------------------------------------------------------------------------------
 // Auti einai i Function pou klini to Modal block pou einai gia tin eisagogi ton stixion
 // -------------------------------------------------------------------------------------
-function closeModal() {
-    // Prin na to kliso kano remove ta errors ean iparxoun
-    eventTitleInput.classList.remove('error');
-    eventTime.classList.remove('error');
-    clientAFM.classList.remove('error');
-    clientName.classList.remove('error');
-    clientSurname.classList.remove('error');
-    clientEmail.classList.remove('error');
-
-    // Kano se ola ta display na feugoun apo to screen
-    newEventModal.style.display = 'none';
-    deleteEventModal.style.display = 'none';
-    backDrop.style.display = 'none';
-
-    // Pio kato feugo ola ta stoixia pou egra4e prin sta inputs
-    eventTitleInput.value = '';
-    clientAFM.value = '';
-    clientName.value = '';
-    clientSurname.value = '';
-    clientEmail.value = '';
-    eventTime.value = '';
-
-    // Me to clicked null feugo tin imera pou eixe patisi o xristis prin
-    clicked = null;
-    // Kano load oste na prosthesi tixon kainourgia stoixia stin selida
-    // px. Events Titles
-    load();
-}
-
-// -------------------------------------------------------------------------------------
-// Sto pio kato Function apothikevi ta inputs pou exei kani o xristis
-// -------------------------------------------------------------------------------------
-function saveEvent(){
-    // To c=0 einai gia na kratisoume ena value oste ean se kapio apo ta input eixe lathos
-    // na mporousame na stamatisoume na kani save
-    let c=0;
-    // Pattern gia to email px a + @gmail + .com
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    // Elenxi ( trexei to test ) ean isxi me to emailPattern
-    if ( emailPattern.test(clientEmail.value) ){
-        clientEmail.classList.remove('error');
-        c=c+1;
-    }else{
-        clientEmail.classList.add('error');
-    }
-
-    // Elenxi ean einai keno to time
-    if ( eventTime.value === "" ){
-        eventTime.classList.add('error');
-    }else{
-        eventTime.classList.remove('error');
-        c=c+1;
-    }
-
-    // Elenxi ean exei numbers mesa sto input me tin xrisi tou NaN
-    // Akomi elenxoume ean einai keno to input
-    if ( ( !isNaN(clientName.value) ) || (clientName.value === "")){
-        clientName.classList.add('error');
-    }else{
-        clientName.classList.remove('error');
-        c=c+1;
-    }
-
-    // Elenxi ean exei numbers mesa sto input me tin xrisi tou NaN
-    // Akomi elenxoume ean einai keno to input
-    if ( ( !isNaN(clientSurname.value) ) || (clientSurname.value === "")){
-        clientSurname.classList.add('error');
-    }else{
-        clientSurname.classList.remove('error');
-        c=c+1;
-    }
-
-    // Elenxi ean exei characters mesa sto input me tin xrisi tou NaN
-    // Akomi elenxoume ean einai keno to input
-    if ( ( isNaN(clientAFM.value) ) || ( clientAFM.value === "") ){
-        clientAFM.classList.add('error');
-    }else{
-        clientAFM.classList.remove('error');
-        c=c+1;
-    }
-
-    // Elenxoume ean einai keno to input
-    if (eventTitleInput.value === ""){
-        eventTitleInput.classList.add('error');
-    }else{
-        eventTitleInput.classList.remove('error');
-        c=c+1;
-    }
-
-    // Elenxoume ean ola ta value (c) einai 6 oste na doume oti einai ola sosta
-    // Epeita apothikevoume sto localstorage me tin xrisi tou push
-    if (c == 6) {
-
-        events.push({
-            date: clicked , // to clicked einai to date pou patise o xristis
-            eventTime: clicked + " " + eventTime.value,
-            title: eventTitleInput.value,
-            clientAFM: clientAFM.value,
-            clientName: clientName.value,
-            clientSurname: clientSurname.value,
-        });
-
-        localStorage.setItem('events', JSON.stringify(events));
-        closeModal(); // Klini to Modal block pou fenete
-    }
-}
-
-// -------------------------------------------------------------------------------------
-// Auti einai i Function pou klini to Modal block pou einai gia tin eisagogi ton stixion
-// -------------------------------------------------------------------------------------
 function closeModal2() {
     // Prin na to kliso kano remove ta errors ean iparxoun
     newTime.classList.remove('error');
@@ -408,72 +322,29 @@ function closeModal2() {
 // -------------------------------------------------------------------------------------
 // Sto pio kato Function apothikevi ta inputs pou exei kani o xristis
 // -------------------------------------------------------------------------------------
-function saveButton2(){
+function saveButton2() {
 
-    let urlGet ='http://localhost:8080/api/v1/appointments?date=' + clicked;
-
-    let urlPut ='http://localhost:8080/api/v1/appointments/update/' + newAppointmentID.value;
+    let urlPut = 'http://localhost:8080/api/v1/appointments/update/' + newAppointmentID.value +'?newTime='+ newTime.value;
     console.log(urlPut);
-    console.log(newTime.value);
 
-    let dataTime =[];
-
-    fetch(urlGet)
+    fetch(urlPut, {
+        method: 'PUT',
+    })
         .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+            if (response.ok) {
+                console.log("JSON API updated successfully.");
+                newTime.classList.remove('error');
+                closeModal2();
+            } else {
+                console.error("Failed to update JSON API.");
+                newTime.classList.add('error');
             }
-            return response.text(); // Parse the response as plain text
         })
-        .then(data => {
+        .catch(error => {
+            console.error("An error occurred while updating JSON API:", error);
+            // Handle the error
+        });
 
-            dataTime = JSON.parse(data);
-            console.log(dataTime);
-
-                // Elenxi ean einai keno to time
-                if ( newTime.value === "" ){
-                    newTime.classList.add('error');
-                }else{
-
-                    newTime.value = newTime.value + ':00';
-                    console.log("New Time with :00 " , newTime.value);
-
-                    dataTime.forEach(item => {
-                        if ( (item.id === Number(newAppointmentID.value) ) && (item.timeSlot !== newTime.value) ) {
-                            item.timeSlot = newTime.value;
-                        }
-                        else{
-                            newTime.classList.add('error');
-                        }
-                    });
-
-                    const updatedJson = JSON.stringify(dataTime);
-                    console.log(updatedJson);
-
-                    fetch(urlPut, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: updatedJson
-                    })
-                        .then(response => {
-                            if (response.ok) {
-                                console.log("JSON API updated successfully.");
-                                newTime.classList.remove('error');
-                                closeModal2();
-                            } else {
-                                console.error("Failed to update JSON API.");
-                                newTime.classList.add('error');
-                            }
-                        })
-                        .catch(error => {
-                            console.error("An error occurred while updating JSON API:", error);
-                            // Handle the error
-                        });
-                }
-            }
-        )
 }
 
 // ------------------------------------------------------------------------------------------
@@ -490,8 +361,6 @@ function initButtons() {
         load();
     });
 
-    document.getElementById('saveButton').addEventListener('click', saveEvent);
-    document.getElementById('cancelButton').addEventListener('click', closeModal)
     document.getElementById('saveButton2').addEventListener('click', saveButton2);
     document.getElementById('cancelButton2').addEventListener('click', closeModal2)
 }
