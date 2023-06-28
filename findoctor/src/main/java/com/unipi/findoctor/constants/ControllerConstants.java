@@ -51,7 +51,7 @@ public class ControllerConstants {
     public static final String ADMIN_INDEX_URL_1 = "/admin";
     public static final String ADMIN_INDEX_URL_2 = "/admin/index";
     public static final String ADMIN_ADD_LISTING_URL = "/admin/add-listing";
-    public static final String ADMIN_BOOKINGS_URL = "/admin/bookings";
+    public static final String ADMIN_VALIDATIONS_URL = "/admin/validations";
     public static final String ADMIN_CHARTS_URL = "/admin/charts";
     public static final String ADMIN_DOCTOR_PROFILE_URL = "/admin/doctor-profile";
     public static final String ADMIN_MESSAGES_URL = "/admin/messages";
@@ -62,6 +62,8 @@ public class ControllerConstants {
     public static final String ADMIN_VIEW_URL = "/admin/view_doctors";
 
     public static final String ADMIN_PATIENTS_URL = "/admin/patients";
+
+    public static final String ADMIN_UPDATE_URL = "/admin/update-profile";
     /* END OF ADMIN URL */
 
     /* -------------------------------------------------------------------------- */
@@ -103,7 +105,7 @@ public class ControllerConstants {
     /* ADMIN HTML FILE NAMES */
     public static final String ADMIN_INDEX_FILE = "admin/index";
     public static final String ADMIN_ADD_LISTING_FILE = "admin/add-listing";
-    public static final String ADMIN_BOOKINGS_FILE = "admin/bookings";
+    public static final String ADMIN_VALIDATIONS_FILE = "admin/validations";
     public static final String ADMIN_CHARTS_FILE = "admin/charts";
     public static final String ADMIN_DOCTOR_PROFILE_FILE = "admin/doctor-profile";
     public static final String ADMIN_MESSAGES_FILE = "admin/messages";
@@ -114,5 +116,7 @@ public class ControllerConstants {
     public static final String ADMIN_VIEW_FILE = "admin/view_doctors";
 
     public static final String ADMIN_PATIENTS_FILE = "admin/patients";
+
+    public static final String ADMIN_UPDATE_FILE = "admin/update-profile";
     /* END OF ADMIN HTML FILE NAMES */
 }
