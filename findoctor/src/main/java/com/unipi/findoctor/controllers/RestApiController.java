@@ -61,7 +61,7 @@ public class RestApiController {
 
         UserDto userDto = securityUtil.getSessionUser();
 
-        if (userDto == null || userDto.getUserType() != ControllerConstants.USER_TYPE_DOCTOR) {
+        if (userDto == null || !userDto.getUserType().equals(ControllerConstants.USER_TYPE_DOCTOR)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 

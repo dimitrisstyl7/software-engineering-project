@@ -20,8 +20,8 @@ const eventTime = document.getElementById('eventTimeOfDate');
 
 const newEventModal2 = document.getElementById('newEventModal2');
 const backDrop2 = document.getElementById('modalBackDrop2');
+const newAppointmentID = document.getElementById('newAppointmentID');
 const newTime = document.getElementById('newTimeOfDate');
-const newTitleInput = document.getElementById('newTitleInput');
 const newClientAFM = document.getElementById('newClientAFM');
 const newClientName = document.getElementById('newClientName');
 const newClientSurname = document.getElementById('newClientSurname');
@@ -44,7 +44,7 @@ function fetchData(date) {
 
     console.log(date);
 
-    fetch('http://localhost:8080/api/v1/appointments?doctorUsername=' + doctorUsername.value + '&date=' + clicked)
+    fetch('http://localhost:8080/api/v1/appointments?date=' + clicked)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -68,63 +68,48 @@ function fetchData(date) {
 
 }
 
+function deleteRow(event) {
+    const row = event.target.parentNode.parentNode; // Get the parent row element
+    const appointmentID = row.cells[0].innerText;
+
+    let url = 'http://localhost:8080/api/v1/appointments/delete/' + appointmentID;
+
+    fetch(url,{method:'DELETE'})
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            row.remove();
+        })
+        .catch(error => {
+            // Handle any errors that occurred during the request
+            console.error('Error:', error);
+        });
+}
+
+function editRow(event){
+
+    newEventModal2.style.display = 'block';
+    backDrop2.style.display = 'block';
+
+    const row = event.target.parentNode.parentNode; // Get the parent row element
+    const ClientAppointment = row.cells[0].innerText;
+    const ClientAFM = row.cells[2].innerText;
+    const ClientName = row.cells[3].innerText;
+    const ClientSurname= row.cells[4].innerText;
+
+    newAppointmentID.value=ClientAppointment;
+    newClientAFM.value=ClientAFM;
+    newClientName.value=ClientName;
+    newClientSurname.value=ClientSurname;
+}
+
+
 function createTable(linklist){
     // Diagrafi oti dara iparxoun sto mytable
     // Auto to kani oste na min iparxoun proigoumen data apo alles imeres
     while (tbl.rows.length > 0) {
         tbl.deleteRow(0);
-    }
-
-
-    // Function to delete a specific row
-   async function deleteRow(event) {
-        const row = event.target.parentNode.parentNode; // Get the parent row element
-        const dateAndTime = row.cells[0].innerText;
-        const dateString = dateAndTime.split(' ')[0];
-        const timeString = dateAndTime.split(' ')[1];
-
-        let url = 'http://localhost:8080/api/v1/appointments?doctorUsername='+ doctorUsername.value + '&date=' + dateString;
-
-        fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json(); // Parse the response as JSON
-            })
-            .then(data => {
-
-                for ( let i =0; i<data.length; i++) {
-                    if (data[i]['timeSlot'] === timeString) {
-                        const filteredData = data.filter(appointment => appointment.timeSlot !== timeString);
-
-                        const updatedData = JSON.stringify(filteredData);
-
-                        console.log(updatedData);
-
-                        fetch(url, {
-                            "method": 'PUT',
-                            "body": updatedData
-                        })
-                            .then(response => {
-                                if (!response.ok) {
-                                    if (response.status === 405) {
-                                        throw new Error('Method Not Allowed - Please check the allowed methods for the endpoint');
-                                    }
-                                    throw new Error('Failed to update the data');
-                                }
-                                console.log('Data updated successfully');
-                            })
-
-                    }
-                }
-            })
-            .catch(error => {
-            // Handle any errors that occurred during the request
-            console.error('Error:', error);
-            });
-
-        //tbl.deleteRow(row.rowIndex);
     }
 
     // Function to create a delete button for each row
@@ -135,6 +120,15 @@ function createTable(linklist){
         // Dimiourgo event gia to delete
         deleteButton.addEventListener('click', deleteRow);
         return deleteButton;
+    }
+
+    function createEditButton() {
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.style.color = "black";
+        // Dimiourgo event gia to edit
+        editButton.addEventListener('click', editRow);
+        return editButton;
     }
 
     // Create Header Row
@@ -149,54 +143,17 @@ function createTable(linklist){
     let headerCell4 = headerRow.insertCell();
     let headerCell5 = headerRow.insertCell();
     let headerCell6 = headerRow.insertCell();
+    let headerCell7 = headerRow.insertCell();
 
     // Prota Prota vazoume stin proti stili ta pio kato stoixeia oste
     // o xristis na mpori na xeri ti einai to kathe ena
-    headerCell1.innerHTML = "Date and Time";
-    headerCell2.innerHTML = "Patient Id";
-    headerCell3.innerHTML = "Name";
-    headerCell4.innerHTML = "Surname";
-    headerCell5.innerHTML = "Delete";
-    headerCell6.innerHTML = "Edit";
-
-    // Function to handle edit button click
-    function editRow(event) {
-        const row = event.target.parentNode.parentNode; // Get the parent row element
-
-        // Perni ta stoixia tis grammis
-        const eventTimeCell = row.cells[0];
-        const clientAFMCell = row.cells[1];
-        const clientNameCell = row.cells[2];
-        const clientSurnameCell = row.cells[3];
-
-        // Efanizontas ena prompt dini tin epilogi sto xristi na mpori
-        // na allaxi ta dedomena pou einai kataxorimena
-        const newEventTime = prompt('Enter the new event time:', eventTimeCell.innerHTML);
-        const newClientAFM = prompt('Enter the new client AFM:', clientAFMCell.innerText);
-        const newClientName = prompt('Enter the new client name:', clientNameCell.innerText);
-        const newClientSurname = prompt('Enter the new client surname:', clientSurnameCell.innerText);
-
-        // Allazi ola ta proigoumena stoixia me ta kainourgia stoixia pou exei dosi
-        eventTimeCell.innerHTML = newEventTime;
-        clientAFMCell.innerText = newClientAFM;
-        clientNameCell.innerText = newClientName;
-        clientSurnameCell.innerText = newClientSurname;
-    }
-
-
-    // Function to create an edit button for each row
-    function createEditButton() {
-        const editButton = document.createElement('button');
-        editButton.textContent = 'Edit';
-        editButton.style.color = "black";
-        // Dimiourgo event gia to edit
-        editButton.addEventListener('click', () => {
-            const eventForDay = events.find(e => e.date === clicked);
-            newEventModal2.style.display = 'block';
-            backDrop2.style.display = 'block';
-        });
-        return editButton;
-    }
+    headerCell1.innerHTML = "Appointment ID";
+    headerCell2.innerHTML = "Date and Time";
+    headerCell3.innerHTML = "Patient Id";
+    headerCell4.innerHTML = "Name";
+    headerCell5.innerHTML = "Surname";
+    headerCell6.innerHTML = "Delete";
+    headerCell7.innerHTML = "Edit";
 
     if (linklist.length === 0 ){
         let r = tbl.insertRow();
@@ -206,6 +163,7 @@ function createTable(linklist){
         let cell4 = r.insertCell();
         let cell5 = r.insertCell();
         let cell6 = r.insertCell();
+        let cell7 = r.insertCell();
 
         cell1.innerText=null;
         cell2.innerText=null;
@@ -213,6 +171,7 @@ function createTable(linklist){
         cell4.innerText=null;
         cell5.innerText=null;
         cell6.innerText=null;
+        cell7.innerText=null;
     }
 
     // Create Rows of Information
@@ -225,13 +184,15 @@ function createTable(linklist){
         let cell4 = r.insertCell();
         let cell5 = r.insertCell();
         let cell6 = r.insertCell();
+        let cell7 = r.insertCell();
 
-        cell1.innerText= clicked +" " + linklist[i]['timeSlot'];
-        cell2.innerText=linklist[i]['amka'];
-        cell3.innerText=linklist[i]['name'];
-        cell4.innerText=linklist[i]['surname'];
-        cell5.appendChild(createDeleteButton()); // Add delete button
-        cell6.appendChild(createEditButton()); // Add edit button
+        cell1.innerText=linklist[i]['id'];
+        cell2.innerText= clicked +" " + linklist[i]['timeSlot'];
+        cell3.innerText=linklist[i]['amka'];
+        cell4.innerText=linklist[i]['name'];
+        cell5.innerText=linklist[i]['surname'];
+        cell6.appendChild(createDeleteButton()); // Add delete button
+        cell7.appendChild(createEditButton()); // Add edit button
 
     }
 }
@@ -356,7 +317,7 @@ function saveEvent(){
     }
 
     // Elenxi ean einai keno to time
-    if ( eventTime.value == "" ){
+    if ( eventTime.value === "" ){
         eventTime.classList.add('error');
     }else{
         eventTime.classList.remove('error');
@@ -365,7 +326,7 @@ function saveEvent(){
 
     // Elenxi ean exei numbers mesa sto input me tin xrisi tou NaN
     // Akomi elenxoume ean einai keno to input
-    if ( ( !isNaN(clientName.value) ) || (clientName.value =="")){
+    if ( ( !isNaN(clientName.value) ) || (clientName.value === "")){
         clientName.classList.add('error');
     }else{
         clientName.classList.remove('error');
@@ -374,7 +335,7 @@ function saveEvent(){
 
     // Elenxi ean exei numbers mesa sto input me tin xrisi tou NaN
     // Akomi elenxoume ean einai keno to input
-    if ( ( !isNaN(clientSurname.value) ) || (clientSurname.value =="")){
+    if ( ( !isNaN(clientSurname.value) ) || (clientSurname.value === "")){
         clientSurname.classList.add('error');
     }else{
         clientSurname.classList.remove('error');
@@ -383,7 +344,7 @@ function saveEvent(){
 
     // Elenxi ean exei characters mesa sto input me tin xrisi tou NaN
     // Akomi elenxoume ean einai keno to input
-    if ( ( isNaN(clientAFM.value) ) || ( clientAFM.value =="") ){
+    if ( ( isNaN(clientAFM.value) ) || ( clientAFM.value === "") ){
         clientAFM.classList.add('error');
     }else{
         clientAFM.classList.remove('error');
@@ -391,7 +352,7 @@ function saveEvent(){
     }
 
     // Elenxoume ean einai keno to input
-    if (eventTitleInput.value ==""){
+    if (eventTitleInput.value === ""){
         eventTitleInput.classList.add('error');
     }else{
         eventTitleInput.classList.remove('error');
@@ -421,7 +382,6 @@ function saveEvent(){
 // -------------------------------------------------------------------------------------
 function closeModal2() {
     // Prin na to kliso kano remove ta errors ean iparxoun
-    newTitleInput.classList.remove('error');
     newTime.classList.remove('error');
     newClientAFM.classList.remove('error');
     newClientName.classList.remove('error');
@@ -431,8 +391,7 @@ function closeModal2() {
     newEventModal2.style.display = 'none';
     backDrop2.style.display = 'none';
 
-    // Pio kato feugo ola ta stoixia pou egra4e prin sta inputs
-    newTitleInput.value = '';
+    // Pio kato feugo ola ta stoixia pou egra4e prin sta input
     newClientAFM.value = '';
     newClientName.value = '';
     newClientSurname.value = '';
@@ -449,70 +408,72 @@ function closeModal2() {
 // -------------------------------------------------------------------------------------
 // Sto pio kato Function apothikevi ta inputs pou exei kani o xristis
 // -------------------------------------------------------------------------------------
-function saveEvent2(){
-    // To c=0 einai gia na kratisoume ena value oste ean se kapio apo ta input eixe lathos
-    // na mporousame na stamatisoume na kani save
-    let c=0;
+function saveButton2(){
 
-    // Elenxi ean einai keno to time
-    if ( newTime.value == "" ){
-        newTime.classList.add('error');
-    }else{
-        newTime.classList.remove('error');
-        c=c+1;
-    }
+    let urlGet ='http://localhost:8080/api/v1/appointments?date=' + clicked;
 
-    // Elenxi ean exei numbers mesa sto input me tin xrisi tou NaN
-    // Akomi elenxoume ean einai keno to input
-    if ( ( !isNaN(newClientName.value) ) || (newClientName.value =="")){
-        newClientName.classList.add('error');
-    }else{
-        newClientName.classList.remove('error');
-        c=c+1;
-    }
+    let urlPut ='http://localhost:8080/api/v1/appointments/update/' + newAppointmentID.value;
+    console.log(urlPut);
+    console.log(newTime.value);
 
-    // Elenxi ean exei numbers mesa sto input me tin xrisi tou NaN
-    // Akomi elenxoume ean einai keno to input
-    if ( ( !isNaN(newClientSurname.value) ) || (newClientSurname.value =="")){
-        newClientSurname.classList.add('error');
-    }else{
-        newClientSurname.classList.remove('error');
-        c=c+1;
-    }
+    let dataTime =[];
 
-    // Elenxi ean exei characters mesa sto input me tin xrisi tou NaN
-    // Akomi elenxoume ean einai keno to input
-    if ( ( isNaN(newClientAFM.value) ) || ( newClientAFM.value =="") ){
-        newClientAFM.classList.add('error');
-    }else{
-        newClientAFM.classList.remove('error');
-        c=c+1;
-    }
+    fetch(urlGet)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); // Parse the response as plain text
+        })
+        .then(data => {
 
-    // Elenxoume ean einai keno to input
-    if (newTitleInput.value ==""){
-        newTitleInput.classList.add('error');
-    }else{
-        newTitleInput.classList.remove('error');
-        c=c+1;
-    }
+            dataTime = JSON.parse(data);
+            console.log(dataTime);
 
-    // Elenxoume ean ola ta value (c) einai 6 oste na doume oti einai ola sosta
-    // Epeita apothikevoume sto localstorage me tin xrisi tou push
-    if (c == 5) {
+                // Elenxi ean einai keno to time
+                if ( newTime.value === "" ){
+                    newTime.classList.add('error');
+                }else{
 
-        events.push({
-            date: clicked , // to clicked einai to date pou patise o xristis
-            eventTime: clicked + " " + eventTime.value,
-            title: eventTitleInput.value,
-            clientAFM: clientAFM.value,
-            clientName: clientName.value,
-            clientSurname: clientSurname.value,
-        });
+                    newTime.value = newTime.value + ':00';
+                    console.log("New Time with :00 " , newTime.value);
 
-        localStorage.setItem('events', JSON.stringify(events));
-        closeModal2(); // Klini to Modal block pou fenete
-    }
+                    dataTime.forEach(item => {
+                        if ( (item.id === Number(newAppointmentID.value) ) && (item.timeSlot !== newTime.value) ) {
+                            item.timeSlot = newTime.value;
+                        }
+                        else{
+                            newTime.classList.add('error');
+                        }
+                    });
+
+                    const updatedJson = JSON.stringify(dataTime);
+                    console.log(updatedJson);
+
+                    fetch(urlPut, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: updatedJson
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                console.log("JSON API updated successfully.");
+                                newTime.classList.remove('error');
+                                closeModal2();
+                            } else {
+                                console.error("Failed to update JSON API.");
+                                newTime.classList.add('error');
+                            }
+                        })
+                        .catch(error => {
+                            console.error("An error occurred while updating JSON API:", error);
+                            // Handle the error
+                        });
+                }
+            }
+        )
 }
 
 // ------------------------------------------------------------------------------------------
@@ -531,7 +492,7 @@ function initButtons() {
 
     document.getElementById('saveButton').addEventListener('click', saveEvent);
     document.getElementById('cancelButton').addEventListener('click', closeModal)
-    document.getElementById('saveButton2').addEventListener('click', saveEvent2);
+    document.getElementById('saveButton2').addEventListener('click', saveButton2);
     document.getElementById('cancelButton2').addEventListener('click', closeModal2)
 }
 
