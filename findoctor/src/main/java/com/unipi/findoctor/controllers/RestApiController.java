@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Map;
@@ -96,4 +97,44 @@ public class RestApiController {
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @PutMapping("/appointments/update/{id}")
+    public ResponseEntity updateAppointment(@PathVariable("id") String idString,
+                                            @RequestParam(value = "newTime") String newTimeString) {
+
+        LocalTime newTime;
+
+        // Check if time is in the correct format
+        try {
+            newTime = LocalTime.parse(newTimeString);
+        } catch (DateTimeParseException e) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+        }
+
+        Long id;
+
+        // Check if id is Long
+        try {
+            id = Long.parseLong(idString);
+        } catch (NumberFormatException e) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+        }
+
+        UserDto userDto = securityUtil.getSessionUser();
+
+        if (userDto == null || !userDto.getUserType().equals(ControllerConstants.USER_TYPE_DOCTOR)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        String doctorUsername = userDto.getUsername();
+
+        try {
+            appointmentService.updateAppointment(id, doctorUsername, newTime);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        return ResponseEntity.ok("Updated");
+    }
+
 }

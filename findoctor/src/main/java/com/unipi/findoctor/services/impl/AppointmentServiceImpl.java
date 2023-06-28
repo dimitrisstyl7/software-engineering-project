@@ -16,6 +16,7 @@ import java.time.LocalTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -83,9 +84,26 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public void deleteById(Long id, String doctorUsername) throws RuntimeException {
         if (!appointmentRepository.existsAppointmentByIdAndDoctor_User_Username(id, doctorUsername)) {
-            throw new RuntimeException("Can't delete");
+            throw new RuntimeException("Cannot delete");
         }
 
         appointmentRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateAppointment(Long id, String doctorUsername, LocalTime newTime) {
+        if (!appointmentRepository.existsAppointmentByIdAndDoctor_User_Username(id, doctorUsername)) {
+            throw new RuntimeException("Cannot update");
+        }
+
+        Optional<Appointment> appointment = appointmentRepository.findById(id);
+        if (appointment.isEmpty()) {
+            throw new RuntimeException("Not found");
+        }
+
+        appointment.get().setTimeSlot(newTime);
+
+        appointmentRepository.save(appointment.get());
+
     }
 }
