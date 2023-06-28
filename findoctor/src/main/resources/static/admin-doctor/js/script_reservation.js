@@ -280,11 +280,6 @@ function load() {
             }
 
             daySquare.addEventListener('click', () => fetchData(dateString));
-            daySquare.addEventListener('dblclick', () => {
-                const eventForDay = events.find(e => e.date === paddingDays);
-                newEventModal.style.display = 'block';
-                backDrop.style.display = 'block';
-            });
         } else {
             daySquare.classList.add('padding');
         }
