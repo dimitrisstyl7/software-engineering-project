@@ -5,6 +5,7 @@ import com.unipi.findoctor.dto.AppointmentDto;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
@@ -14,5 +15,7 @@ public interface AppointmentService {
     AppointmentDto saveAppointment(AppointmentDto appointment);
     List<AppointmentDetailsDto> fetchDoctorAppointments(String doctorUsername, LocalDate date);
     void deleteById(Long id, String doctorUsername);
+
+    void updateAppointment(Long id, String doctorUsername, LocalTime newTime);
 
 }
