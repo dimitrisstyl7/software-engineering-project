@@ -11,7 +11,7 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
+            <a th:href="@{/admin/}">Dashboard</a>
         </li>
         <li class="breadcrumb-item active">Validations</li>
     </ol>
@@ -30,12 +30,10 @@
         <div th:each="doctor :${doctors}" class="list_general">
             <ul>
                 <li th:if="${doctor.getStatus().equals('pending')}">
-                    <figure><img th:src="${doctor.imageURL}" alt=""></figure>
-                    <h4 >
+                    <h4>
                         <span th:utext="${doctor.getFullName()}" th:remove="tag"></span>
                         <i class="pending">pending</i>
                     </h4>
-
                     <ul class="booking_details">
                         <li><strong>Afm </strong><i th:text="${doctor.getAfm()}"></i></li>
                         <li><strong>Username</strong><i th:text="${doctor.getUser().getUsername()}"></i></li>
@@ -45,10 +43,12 @@
                         <li><strong>Email </strong><i th:text="${doctor.getUser().getEmail()}"></i></li>
                     </ul>
                     <ul class="buttons">
-                        <li><a th:href="${'/admin/' +doctor.getAfm()+ '/approval'}" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i>
+                        <li><a th:href="${'/admin/' + doctor.getAfm() + '/approval'}" class="btn_1 gray approve"><i
+                                class="fa fa-fw fa-check-circle-o"></i>
                             Approve</a>
                         </li>
-                        <li><a th:href="${'/admin/' +doctor.getAfm()+ '/cancelled'}" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> Cancel</a>
+                        <li><a th:href="${'/admin/' + doctor.getAfm() + '/cancelled'}" class="btn_1 gray delete"><i
+                                class="fa fa-fw fa-times-circle-o"></i> Cancel</a>
                         </li>
                     </ul>
                 </li>

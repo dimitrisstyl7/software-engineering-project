@@ -55,7 +55,6 @@ public class DoctorController {
         }
         DoctorDto doctorDto = doctorMapper.mapToDoctorDto(doctor);
         model.addAttribute("doctor", doctorDto);
-        System.out.println(doctorDto.getDateOfBirth());
         return DOCTOR_PROFILE_FILE;
     }
 

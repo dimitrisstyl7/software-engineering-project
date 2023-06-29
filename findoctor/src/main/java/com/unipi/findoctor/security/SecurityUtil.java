@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import static com.unipi.findoctor.constants.ControllerConstants.*;
 
 @Service
-@NoArgsConstructor
 @AllArgsConstructor
 public class SecurityUtil {
     private PatientService patientService;

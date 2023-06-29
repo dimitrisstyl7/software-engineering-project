@@ -34,6 +34,7 @@ public class DoctorMapper {
                 .imageName(doctor.getImageName())
                 .status(doctor.getStatus())
                 .address(doctor.getAddress())
+                .registeredOn(doctor.getRegisteredOn())
                 .dateOfBirth(doctor.getDateOfBirth())
                 .ratings(doctor.getRatings())
                 .build();
@@ -59,6 +60,7 @@ public class DoctorMapper {
                 .imageName(doctorDto.getImageName())
                 .status(doctorDto.getStatus())
                 .address(doctorDto.getAddress())
+                .registeredOn(doctorDto.getRegisteredOn())
                 .dateOfBirth(doctorDto.getDateOfBirth())
                 .ratings(doctorDto.getRatings())
                 .build();
