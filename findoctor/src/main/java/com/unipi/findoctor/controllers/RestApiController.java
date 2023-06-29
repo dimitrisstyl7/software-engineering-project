@@ -2,7 +2,7 @@ package com.unipi.findoctor.controllers;
 
 import com.unipi.findoctor.constants.ControllerConstants;
 import com.unipi.findoctor.dto.AppointmentDetailsDto;
-import com.unipi.findoctor.dto.UserDto;
+import com.unipi.findoctor.dto.AuthDto;
 import com.unipi.findoctor.security.SecurityUtil;
 import com.unipi.findoctor.services.AppointmentService;
 import com.unipi.findoctor.services.DoctorService;
@@ -60,13 +60,13 @@ public class RestApiController {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
 
-        UserDto userDto = securityUtil.getSessionUser();
+        AuthDto authDto = securityUtil.getSessionUser();
 
-        if (userDto == null || !userDto.getUserType().equals(ControllerConstants.USER_TYPE_DOCTOR)) {
+        if (authDto == null || !authDto.getUserType().equals(ControllerConstants.USER_TYPE_DOCTOR)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        List<AppointmentDetailsDto> appointmentDetailDtos = appointmentService.fetchDoctorAppointments(userDto.getUsername(), date);
+        List<AppointmentDetailsDto> appointmentDetailDtos = appointmentService.fetchDoctorAppointments(authDto.getUsername(), date);
 
         return ResponseEntity.ok(appointmentDetailDtos);
     }
@@ -83,14 +83,14 @@ public class RestApiController {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
 
-        UserDto userDto = securityUtil.getSessionUser();
+        AuthDto authDto = securityUtil.getSessionUser();
 
-        if (userDto == null || !userDto.getUserType().equals(ControllerConstants.USER_TYPE_DOCTOR)) {
+        if (authDto == null || !authDto.getUserType().equals(ControllerConstants.USER_TYPE_DOCTOR)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
         try {
-            appointmentService.deleteById(id, userDto.getUsername());
+            appointmentService.deleteById(id, authDto.getUsername());
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
@@ -120,13 +120,13 @@ public class RestApiController {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
 
-        UserDto userDto = securityUtil.getSessionUser();
+        AuthDto authDto = securityUtil.getSessionUser();
 
-        if (userDto == null || !userDto.getUserType().equals(ControllerConstants.USER_TYPE_DOCTOR)) {
+        if (authDto == null || !authDto.getUserType().equals(ControllerConstants.USER_TYPE_DOCTOR)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        String doctorUsername = userDto.getUsername();
+        String doctorUsername = authDto.getUsername();
 
         try {
             appointmentService.updateAppointment(id, doctorUsername, newTime);
