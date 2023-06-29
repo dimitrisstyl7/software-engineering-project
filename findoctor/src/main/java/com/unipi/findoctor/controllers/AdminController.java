@@ -28,7 +28,7 @@ import static com.unipi.findoctor.constants.ControllerConstants.*;
 public class AdminController {
     private AdminService adminService;
     private DoctorService doctorService;
-    private DoctorMapper drmapper;
+    private DoctorMapper doctorMapper;
     private SecurityUtil securityUtil;
     private UserService userService;
 
@@ -58,26 +58,24 @@ public class AdminController {
 
     @GetMapping("/admin/{Afm}/approval")
     public String approveDoctor(@PathVariable("Afm") String Afm) {
-
         DoctorDto doctor = adminService.findDoctorByAfm(Afm);
         if (doctor == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         if (doctor.getStatus().equals("pending")) {
             doctor.setStatus("approved");
-            doctorService.updateDoctor(drmapper.mapToDoctor(doctor));
+            doctorService.updateDoctorStatus(doctorMapper.mapToDoctor(doctor));
         }
-        return "redirect:/admin/validations";
+        return "redirect:" + ADMIN_VALIDATIONS_URL;
     }
 
     @GetMapping("/admin/{Afm}/cancelled")
     public String cancelDoctor(@PathVariable("Afm") String Afm) {
-
         DoctorDto doctor = adminService.findDoctorByAfm(Afm);
         if (doctor == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         if (doctor.getStatus().equals("pending")) {
             doctor.setStatus("cancelled");
-            doctorService.updateDoctor(drmapper.mapToDoctor(doctor));
+            doctorService.updateDoctorStatus(doctorMapper.mapToDoctor(doctor));
         }
-        return "redirect:/admin/validations";
+        return "redirect:" + ADMIN_VALIDATIONS_URL;
     }
 
     @GetMapping(ADMIN_VIEW_URL)
