@@ -9,42 +9,132 @@ let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('e
 
 const calendar = document.getElementById('calendar');
 const newEventModal = document.getElementById('newEventModal');
-const deleteEventModal = document.getElementById('deleteEventModal');
 const backDrop = document.getElementById('modalBackDrop');
-const eventTitleInput = document.getElementById('eventTitleInput');
-const clientAFM = document.getElementById('clientAFM');
-const clientName = document.getElementById('clientName');
-const clientSurname = document.getElementById('clientSurname');
-const clientEmail = document.getElementById('clientEmail');
 const eventTime = document.getElementById('eventTimeOfDate');
+
+const newEventModal2 = document.getElementById('newEventModal2');
+const backDrop2 = document.getElementById('modalBackDrop2');
+const newAppointmentID = document.getElementById('newAppointmentID');
+const newTime = document.getElementById('newTimeOfDate');
+const newClientAFM = document.getElementById('newClientAFM');
+const newClientName = document.getElementById('newClientName');
+const newClientSurname = document.getElementById('newClientSurname');
+
 const tbl = document.getElementById("myTable");
+const doctorUsername = document.getElementById('doctorUsername');
 
 
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
+let linklist=[];
 
 // ---------------------------------------------------------------------------------------------
 // Auto to function exei tin leitourgia otan patisi o xristis mia fora na mpori na tou emfanisti
 // enas pinakas me ola ta stoixia tou xristi
 // ---------------------------------------------------------------------------------------------
-function openModal(date) {
+function fetchData(date) {
     // To clicked periexei tin imera pou exi patisi o xristis
     clicked = date;
 
-    // Filtari ta dedomena tis imeras pou iparxoun sto locale storage
-    const filter = events.filter( e => e.date === clicked);
+    console.log(date);
 
+    fetch('http://localhost:8080/api/v1/appointments?date=' + clicked)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); // Parse the response as plain text
+        })
+        .then(data => {
+            // Process the retrieved data
+            console.log(typeof data);
+            if (data.length !== 0){
+                linklist = JSON.parse(data);
+            }else{
+                linklist = "";
+            }
+            createTable(linklist);
+        })
+        .catch(error => {
+            // Handle any errors that occurred during the request
+            console.error('Error:', error);
+        });
+
+}
+
+function deleteRow(event) {
+    const row = event.target.parentNode.parentNode; // Get the parent row element
+    const appointmentID = row.cells[0].innerText;
+
+    let url = 'http://localhost:8080/api/v1/appointments/delete/' + appointmentID;
+
+    fetch(url,{method:'DELETE'})
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            row.remove();
+        })
+        .catch(error => {
+            // Handle any errors that occurred during the request
+            console.error('Error:', error);
+        });
+}
+
+function editRow(event){
+
+    const row = event.target.parentNode.parentNode; // Get the parent row element
+    const ClientAppointment = row.cells[0].innerText;
+    const DayAndTime = row.cells[1].innerText;
+    const Day = DayAndTime.split(' ')[0]
+    const ClientAFM = row.cells[2].innerText;
+    const ClientName = row.cells[3].innerText;
+    const ClientSurname= row.cells[4].innerText;
+
+    let selectElement = document.getElementById("newTimeOfDate");
+
+    let url = 'http://localhost:8080/api/v1/available-time-slots?&date='+ Day +'&doctorUsername='+ doctorUsername.value;
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); // Parse the response as plain text
+        })
+        .then(data => {
+
+            let TimeSlots = JSON.parse(data);
+
+            // Iterate over the options and disable if the value is false
+            for (let i = 0; i < selectElement.options.length; i++) {
+                let optionValue = selectElement.options[i].value;
+                let jsonValue = TimeSlots[optionValue];
+
+                if (jsonValue === false) {
+                    selectElement.options[i].disabled = true;
+                }
+            }
+
+        })
+
+
+
+    newAppointmentID.value=ClientAppointment;
+    newClientAFM.value=ClientAFM;
+    newClientName.value=ClientName;
+    newClientSurname.value=ClientSurname;
+
+    newEventModal2.style.display = 'block';
+    backDrop2.style.display = 'block';
+}
+
+
+function createTable(linklist){
     // Diagrafi oti dara iparxoun sto mytable
     // Auto to kani oste na min iparxoun proigoumen data apo alles imeres
-    let linklist = filter.length;
     while (tbl.rows.length > 0) {
         tbl.deleteRow(0);
-    }
-
-    // Function to delete a specific row
-    function deleteRow(event) {
-        const row = event.target.parentNode.parentNode; // Get the parent row element
-        tbl.deleteRow(row.rowIndex);
     }
 
     // Function to create a delete button for each row
@@ -55,6 +145,15 @@ function openModal(date) {
         // Dimiourgo event gia to delete
         deleteButton.addEventListener('click', deleteRow);
         return deleteButton;
+    }
+
+    function createEditButton() {
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Update time';
+        editButton.style.color = "black";
+        // Dimiourgo event gia to edit
+        editButton.addEventListener('click', editRow);
+        return editButton;
     }
 
     // Create Header Row
@@ -69,53 +168,20 @@ function openModal(date) {
     let headerCell4 = headerRow.insertCell();
     let headerCell5 = headerRow.insertCell();
     let headerCell6 = headerRow.insertCell();
+    let headerCell7 = headerRow.insertCell();
 
     // Prota Prota vazoume stin proti stili ta pio kato stoixeia oste
     // o xristis na mpori na xeri ti einai to kathe ena
-    headerCell1.innerHTML = "Date and Time";
-    headerCell2.innerHTML = "Patient Id";
-    headerCell3.innerHTML = "Name";
-    headerCell4.innerHTML = "Surname";
-    headerCell5.innerHTML = "Delete";
-    headerCell6.innerHTML = "Edit";
-
-    // Function to handle edit button click
-    function editRow(event) {
-        const row = event.target.parentNode.parentNode; // Get the parent row element
-
-        // Perni ta stoixia tis grammis
-        const eventTimeCell = row.cells[0];
-        const clientAFMCell = row.cells[1];
-        const clientNameCell = row.cells[2];
-        const clientSurnameCell = row.cells[3];
-
-        // Efanizontas ena prompt dini tin epilogi sto xristi na mpori
-        // na allaxi ta dedomena pou einai kataxorimena
-        const newEventTime = prompt('Enter the new event time:', eventTimeCell.innerHTML);
-        const newClientAFM = prompt('Enter the new client AFM:', clientAFMCell.innerText);
-        const newClientName = prompt('Enter the new client name:', clientNameCell.innerText);
-        const newClientSurname = prompt('Enter the new client surname:', clientSurnameCell.innerText);
-
-        // Allazi ola ta proigoumena stoixia me ta kainourgia stoixia pou exei dosi
-        eventTimeCell.innerHTML = newEventTime;
-        clientAFMCell.innerText = newClientAFM;
-        clientNameCell.innerText = newClientName;
-        clientSurnameCell.innerText = newClientSurname;
-    }
+    headerCell1.innerHTML = "ID";
+    headerCell2.innerHTML = "Date and Time";
+    headerCell3.innerHTML = "Patient Id";
+    headerCell4.innerHTML = "Name";
+    headerCell5.innerHTML = "Surname";
+    headerCell6.innerHTML = "Update time";
+    headerCell7.innerHTML = "Delete";
 
 
-    // Function to create an edit button for each row
-    function createEditButton() {
-        const editButton = document.createElement('button');
-        editButton.textContent = 'Edit';
-        editButton.style.color = "black";
-        // Dimiourgo event gia to edit
-        editButton.addEventListener('click', editRow);
-        return editButton;
-    }
-
-    // Otan den iparxoun data mesa stin imera tote topo8eta null sto row
-    if (linklist == 0 ){
+    if (linklist.length === 0 ){
         let r = tbl.insertRow();
         let cell1 = r.insertCell();
         let cell2 = r.insertCell();
@@ -123,18 +189,20 @@ function openModal(date) {
         let cell4 = r.insertCell();
         let cell5 = r.insertCell();
         let cell6 = r.insertCell();
+        let cell7 = r.insertCell();
 
-        cell1.innerHTML=null;
+        cell1.innerText=null;
         cell2.innerText=null;
         cell3.innerText=null;
         cell4.innerText=null;
         cell5.innerText=null;
         cell6.innerText=null;
+        cell7.innerText=null;
     }
 
     // Create Rows of Information
     // Me ena for vazoume ola ta data mesa ston pinaka tis imeras
-    for (let i=0; i<linklist; i++){
+    for (let i=0; i<linklist.length; i++){
         let r = tbl.insertRow();
         let cell1 = r.insertCell();
         let cell2 = r.insertCell();
@@ -142,13 +210,16 @@ function openModal(date) {
         let cell4 = r.insertCell();
         let cell5 = r.insertCell();
         let cell6 = r.insertCell();
+        let cell7 = r.insertCell();
 
-        cell1.innerHTML=filter[i].eventTime;
-        cell2.innerText=filter[i].clientAFM;
-        cell3.innerText=filter[i].clientName;
-        cell4.innerText=filter[i].clientSurname;
-        cell5.appendChild(createDeleteButton()); // Add delete button
+        cell1.innerText=linklist[i]['id'];
+        cell2.innerText= clicked +" " + linklist[i]['timeSlot'];
+        cell3.innerText=linklist[i]['amka'];
+        cell4.innerText=linklist[i]['name'];
+        cell5.innerText=linklist[i]['surname'];
         cell6.appendChild(createEditButton()); // Add edit button
+        cell7.appendChild(createDeleteButton()); // Add delete button
+
 
     }
 }
@@ -189,7 +260,9 @@ function load() {
         const daySquare = document.createElement('div');
         daySquare.classList.add('day');
 
-        const dayString = `${month + 1}/${i - paddingDays}/${year}`;
+        const monthString = (month < 9 ? '0' + (month + 1) : month + 1);
+        const dayString = (i-paddingDays < 10 ? '0' + (i - paddingDays): i-paddingDays);
+        const dateString = `${year}-${monthString}-${dayString}`;
 
         if (i > paddingDays) {
             daySquare.innerText = i - paddingDays;
@@ -206,12 +279,7 @@ function load() {
                 daySquare.appendChild(eventDiv);
             }
 
-            daySquare.addEventListener('click', () => openModal(dayString));
-            daySquare.addEventListener('dblclick', () => {
-                const eventForDay = events.find(e => e.date === paddingDays);
-                newEventModal.style.display = 'block';
-                backDrop.style.display = 'block';
-            });
+            daySquare.addEventListener('click', () => fetchData(dateString));
         } else {
             daySquare.classList.add('padding');
         }
@@ -223,26 +291,21 @@ function load() {
 // -------------------------------------------------------------------------------------
 // Auti einai i Function pou klini to Modal block pou einai gia tin eisagogi ton stixion
 // -------------------------------------------------------------------------------------
-function closeModal() {
+function closeModal2() {
     // Prin na to kliso kano remove ta errors ean iparxoun
-    eventTitleInput.classList.remove('error');
-    eventTime.classList.remove('error');
-    clientAFM.classList.remove('error');
-    clientName.classList.remove('error');
-    clientSurname.classList.remove('error');
-    clientEmail.classList.remove('error');
+    newTime.classList.remove('error');
+    newClientAFM.classList.remove('error');
+    newClientName.classList.remove('error');
+    newClientSurname.classList.remove('error');
 
     // Kano se ola ta display na feugoun apo to screen
-    newEventModal.style.display = 'none';
-    deleteEventModal.style.display = 'none';
-    backDrop.style.display = 'none';
+    newEventModal2.style.display = 'none';
+    backDrop2.style.display = 'none';
 
-    // Pio kato feugo ola ta stoixia pou egra4e prin sta inputs
-    eventTitleInput.value = '';
-    clientAFM.value = '';
-    clientName.value = '';
-    clientSurname.value = '';
-    clientEmail.value = '';
+    // Pio kato feugo ola ta stoixia pou egra4e prin sta input
+    newClientAFM.value = '';
+    newClientName.value = '';
+    newClientSurname.value = '';
     eventTime.value = '';
 
     // Me to clicked null feugo tin imera pou eixe patisi o xristis prin
@@ -252,85 +315,35 @@ function closeModal() {
     load();
 }
 
+
 // -------------------------------------------------------------------------------------
 // Sto pio kato Function apothikevi ta inputs pou exei kani o xristis
 // -------------------------------------------------------------------------------------
-function saveEvent(){
-    // To c=0 einai gia na kratisoume ena value oste ean se kapio apo ta input eixe lathos
-    // na mporousame na stamatisoume na kani save
-    let c=0;
-    // Pattern gia to email px a + @gmail + .com
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+function saveButton2() {
 
-    // Elenxi ( trexei to test ) ean isxi me to emailPattern
-    if ( emailPattern.test(clientEmail.value) ){
-        clientEmail.classList.remove('error');
-        c=c+1;
-    }else{
-        clientEmail.classList.add('error');
-    }
+    let urlPut = 'http://localhost:8080/api/v1/appointments/update/' + newAppointmentID.value +'?newTime='+ newTime.value;
+    console.log(urlPut);
 
-    // Elenxi ean einai keno to time
-    if ( eventTime.value == "" ){
-        eventTime.classList.add('error');
-    }else{
-        eventTime.classList.remove('error');
-        c=c+1;
-    }
-
-    // Elenxi ean exei numbers mesa sto input me tin xrisi tou NaN
-    // Akomi elenxoume ean einai keno to input
-    if ( ( !isNaN(clientName.value) ) || (clientName.value =="")){
-        clientName.classList.add('error');
-    }else{
-        clientName.classList.remove('error');
-        c=c+1;
-    }
-
-    // Elenxi ean exei numbers mesa sto input me tin xrisi tou NaN
-    // Akomi elenxoume ean einai keno to input
-    if ( ( !isNaN(clientSurname.value) ) || (clientSurname.value =="")){
-        clientSurname.classList.add('error');
-    }else{
-        clientSurname.classList.remove('error');
-        c=c+1;
-    }
-
-    // Elenxi ean exei characters mesa sto input me tin xrisi tou NaN
-    // Akomi elenxoume ean einai keno to input
-    if ( ( isNaN(clientAFM.value) ) || ( clientAFM.value =="") ){
-        clientAFM.classList.add('error');
-    }else{
-        clientAFM.classList.remove('error');
-        c=c+1;
-    }
-
-    // Elenxoume ean einai keno to input
-    if (eventTitleInput.value ==""){
-        eventTitleInput.classList.add('error');
-    }else{
-        eventTitleInput.classList.remove('error');
-        c=c+1;
-    }
-
-    // Elenxoume ean ola ta value (c) einai 6 oste na doume oti einai ola sosta
-    // Epeita apothikevoume sto localstorage me tin xrisi tou push
-    if (c == 6) {
-
-        events.push({
-            date: clicked , // to clicked einai to date pou patise o xristis
-            eventTime: clicked + " " + eventTime.value,
-            title: eventTitleInput.value,
-            clientAFM: clientAFM.value,
-            clientName: clientName.value,
-            clientSurname: clientSurname.value,
+    fetch(urlPut, {
+        method: 'PUT',
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log("JSON API updated successfully.");
+                newTime.classList.remove('error');
+                fetchData(clicked);
+                closeModal2();
+            } else {
+                console.error("Failed to update JSON API.");
+                newTime.classList.add('error');
+            }
+        })
+        .catch(error => {
+            console.error("An error occurred while updating JSON API:", error);
+            // Handle the error
         });
 
-        localStorage.setItem('events', JSON.stringify(events));
-        closeModal(); // Klini to Modal block pou fenete
-    }
 }
-
 
 // ------------------------------------------------------------------------------------------
 //  Sto pio kato Fuction kani tis leitourgies back - next month kai to save - cancel to Modal
@@ -346,8 +359,8 @@ function initButtons() {
         load();
     });
 
-    document.getElementById('saveButton').addEventListener('click', saveEvent);
-    document.getElementById('cancelButton').addEventListener('click', closeModal)
+    document.getElementById('saveButton2').addEventListener('click', saveButton2);
+    document.getElementById('cancelButton2').addEventListener('click', closeModal2)
 }
 
 initButtons();

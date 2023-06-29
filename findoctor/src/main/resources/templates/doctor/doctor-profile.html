@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en, gr"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{doctor_layout}">
 
@@ -15,36 +16,85 @@
         </li>
         <li class="breadcrumb-item active">Add listing</li>
     </ol>
-    <div class="box_general padding_bottom">
-        <div class="header_box version_2">
-            <h2><i class="fa fa-file"></i>Basic info</h2>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" placeholder="Your name">
+    <form method="post" th:action="@{/doctor/doctor-profile}" th:object="${doctor}" onsubmit="return validation();">
+        <div class="box_general padding_bottom">
+            <div class="header_box version_2">
+                <h2><i class="fa fa-file"></i>Basic info</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Afm</label>
+                        <input type="text" class="form-control" th:value="*{getAfm()}"
+                               th:field="*{afm}" readonly>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Last name</label>
-                    <input type="text" class="form-control" placeholder="Your last name">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" th:value="*{user.getName()}"
+                               th:field="*{user.name}" id="name" name="name" placeholder="Your name">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Surname</label>
+                        <input type="text" class="form-control" th:value="*{user.getSurname()}"
+                               th:field="*{user.surname}" id="surname" name="surname" placeholder="Your surname">
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- /row-->
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Telephone</label>
-                    <input type="text" class="form-control" placeholder="Your telephone number">
+            <!-- /row-->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Personal phone</label>
+                        <input type="text" class="form-control" th:value="*{user.getPhone()}"
+                               th:field="*{user.phone}" id="personal_phone" name="personal_phone"
+                               placeholder="Your personal phone">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Business phone</label>
+                        <input type="text" class="form-control" th:value="*{getBusinessPhone()}"
+                               th:field="*{businessPhone}" placeholder="Your business phone">
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control" placeholder="Your email">
+            <!-- /row-->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" th:value="*{user.getUsername()}"
+                               th:field="*{user.username}" readonly>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" th:value="*{user.getEmail()}"
+                               th:field="*{user.email}" id="email" name="email" placeholder="Your email">
+                    </div>
+                </div>
+            </div>
+            <!-- /row-->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Date of birth</label>
+                        <input th:type="Date" class="form-control" th:value="*{getDateOfBirth().toString()}" readonly>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Specialization</label>
+                        <input type="text" class="form-control" th:value="*{specialization}"
+                               th:field="*{specialization}" placeholder="Your specialization" readonly>
+                    </div>
                 </div>
             </div>
         </div>
@@ -53,123 +103,221 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label>Profile picture</label>
-                    <form action="/file-upload" class="dropzone"></form>
+                    <input type="file" class="form-control" th:value="*{getImageName()}"
+                           th:field="*{imageName}" placeholder="Your profile picture">
                 </div>
             </div>
         </div>
         <!-- /row-->
-    </div>
-    <!-- /box_general-->
+        <!-- /box_general-->
 
-    <div class="box_general padding_bottom">
-        <div class="header_box version_2">
-            <h2><i class="fa fa-map-marker"></i>Address</h2>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>City</label>
-                    <select class="form-control">
-                        <option value="">Select city</option>
-                        <option value="New York">New York</option>
-                        <option value="Chicago">Chicago</option>
-                        <option value="Miami">Miami</option>
-                        <option value="Los Angeles">Los Angeles</option>
-                    </select>
+        <div class="box_general padding_bottom">
+            <div class="header_box version_2">
+                <h2><i class="fa fa-map-marker"></i>Address</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" class="form-control" th:value="*{getCity()}"
+                               th:field="*{city}" placeholder="City">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" class="form-control" th:value="*{getAddress()}"
+                               th:field="*{address}" placeholder="Your address">
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Address</label>
-                    <input type="text" class="form-control" placeholder="Your address">
-                </div>
-            </div>
+            <!-- /row-->
         </div>
-        <!-- /row-->
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>State</label>
-                    <input type="text" class="form-control" placeholder="Your state">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Zip code</label>
-                    <input type="text" class="form-control" placeholder="Your zip code">
-                </div>
-            </div>
+        <!-- /box_general-->
+        <div class="form-group text-center add_top_30">
+            <input class="btn_1" type="submit" value="Submit" name="submit_btn"
+                   id="submit_btn">
         </div>
-        <!-- /row-->
-    </div>
-    <!-- /box_general-->
-
-    <div class="box_general padding_bottom">
-        <div class="header_box version_2">
-            <h2><i class="fa fa-file-text"></i>Curriculum</h2>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>Professional statement</label>
-                    <div class="editor"></div>
-                </div>
-            </div>
-        </div>
-        <!-- /row-->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>Specialization <a href="#0" data-toggle="tooltip" data-placement="top"
-                                             title="Separated by commas"><i class="fa fa-fw fa-question-circle"></i></a></label>
-                    <input type="text" class="form-control" placeholder="Ex: Piscologist, Pediatrician...">
-                </div>
-            </div>
-        </div>
-        <!-- /row-->
-    </div>
-    <!-- /box_general-->
-
-    <div class="box_general padding_bottom">
-        <div class="header_box version_2">
-            <h2><i class="fa fa-folder"></i>Pricing</h2>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h6>Treatments</h6>
-                <table id="pricing-list-container" style="width:100%;">
-                    <tr class="pricing-list-item">
-                        <td>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Title">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Price">
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <a class="delete" href="#"><i class="fa fa-fw fa-remove"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <a href="#0" class="btn_1 gray add-pricing-list-item"><i class="fa fa-fw fa-plus-circle"></i>Add
-                    Item</a>
-            </div>
-        </div>
-        <!-- /row-->
-    </div>
-    <!-- /box_general-->
-    <p><a href="#0" class="btn_1 medium">Save</a></p>
-
+    </form>
 </div>
 <!-- /div -->
 
+<!-- SCRIPT -->
+<script th:inline="javascript">
+    function setInvalidInput(input, label, message) {
+        input.style.borderColor = "red";
+        label.hidden = false;
+        label.innerText = message;
+    }
+
+    function validation() {
+        // const amka = document.getElementById("patient_amka");
+        // const afm = document.getElementById("doctor_afm");
+        // const name = document.getElementById("name");
+        // const surname = document.getElementById("surname");
+        // const email = document.getElementById("email");
+        // const personalPhone = document.getElementById("personal_phone");
+        // const dateOfBirth = document.getElementById("date_of_birth");
+        // const businessPhone = document.getElementById("business_phone");
+        // const specialization = document.getElementById("doctor_specialization");
+        // const address = document.getElementById("doctor_office_address");
+        // const city = document.getElementById("doctor_office_city");
+        // const username = document.getElementById("username");
+        // const password = document.getElementById("password");
+        // const confirmPassword = document.getElementById("confirm_password");
+        //
+        // const amkaLabel = document.getElementById("amka_label");
+        // const afmLabel = document.getElementById("afm_label");
+        // const nameLabel = document.getElementById("name_label");
+        // const surnameLabel = document.getElementById("surname_label");
+        // const emailLabel = document.getElementById("email_label");
+        // const personalPhoneLabel = document.getElementById("personal_phone_label");
+        // const dateOfBirthLabel = document.getElementById("date_of_birth_label");
+        // const businessPhoneLabel = document.getElementById("business_phone_label");
+        // const specializationLabel = document.getElementById("specialization_label");
+        // const addressLabel = document.getElementById("address_label");
+        // const cityLabel = document.getElementById("city_label");
+        // const usernameLabel = document.getElementById("username_label");
+        // const passwordLabel = document.getElementById("password_label");
+        // const confirmPasswordLabel = document.getElementById("confirm_password_label");
+        //
+        // amka.style.borderColor = afm.style.borderColor = name.style.borderColor = surname.style.borderColor =
+        //     email.style.borderColor = personalPhone.style.borderColor = dateOfBirth.style.borderColor =
+        //         businessPhone.style.borderColor = specialization.style.borderColor = address.style.borderColor =
+        //             city.style.borderColor = username.style.borderColor = password.style.borderColor =
+        //                 confirmPassword.style.borderColor = "initial";
+        //
+        // amkaLabel.hidden = afmLabel.hidden = nameLabel.hidden = surnameLabel.hidden = emailLabel.hidden =
+        //     personalPhoneLabel.hidden = dateOfBirthLabel.hidden = businessPhoneLabel.hidden =
+        //         specializationLabel.hidden = addressLabel.hidden = cityLabel.hidden = usernameLabel.hidden =
+        //             passwordLabel.hidden = confirmPasswordLabel.hidden = true;
+        //
+        // let validationFailed = false;
+        // const email_pattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+        // const phone_pattern = /^[0-9]{10}$/;
+        // const username_pattern = /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
+        // const password_pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        //
+        // /* Common fields */
+        // if (name.value === "" || name.value === undefined) {
+        //     setInvalidInput(name, nameLabel, "Name is required");
+        //     validationFailed = true;
+        // }
+        //
+        // if (surname.value === "" || surname.value === undefined) {
+        //     setInvalidInput(surname, surnameLabel, "Surname is required");
+        //     validationFailed = true;
+        // }
+        //
+        // if (email.value === "" || email.value === undefined) {
+        //     setInvalidInput(email, emailLabel, "Email is required");
+        //     validationFailed = true;
+        // } else if (!email_pattern.test(email.value)) {
+        //     setInvalidInput(email, emailLabel, "Email is invalid");
+        //     validationFailed = true;
+        // }
+        //
+        // if (personalPhone.value === "" || personalPhone.value === undefined) {
+        //     setInvalidInput(personalPhone, personalPhoneLabel, "Personal phone is required");
+        //     validationFailed = true;
+        // } else if (!phone_pattern.test(personalPhone.value)) {
+        //     setInvalidInput(personalPhone, personalPhoneLabel, "Personal phone must be 10 digits");
+        //     validationFailed = true;
+        // }
+        //
+        // if (dateOfBirth.value === "" || dateOfBirth.value === undefined) {
+        //     setInvalidInput(dateOfBirth, dateOfBirthLabel, "Date of birth is required");
+        //     validationFailed = true;
+        // }
+        //
+        // if (username.value === "" || username.value === undefined) {
+        //     setInvalidInput(username, usernameLabel, "Username is required");
+        //     validationFailed = true;
+        // } else if (!username_pattern.test(username.value)) {
+        //     setInvalidInput(username, usernameLabel,
+        //         "Username must be 8-20 characters long.\n" +
+        //         "Valid usernames: username, username123, username_123\n" +
+        //         "Invalid usernames: user name, username-123, username_123_");
+        //     validationFailed = true;
+        // }
+        //
+        // if (password.value === "" || password.value === undefined) {
+        //     setInvalidInput(password, document.getElementById("password_label"), "Password is required");
+        //     validationFailed = true;
+        // } else if (!password_pattern.test(password.value)) {
+        //     setInvalidInput(password, passwordLabel,
+        //         "Password must be 8 characters long and contain at least one letter and one number.");
+        //     validationFailed = true;
+        // } else if (password.value !== confirmPassword.value) {
+        //     setInvalidInput(password, passwordLabel, "");
+        //     setInvalidInput(confirmPassword, confirmPasswordLabel, "Passwords do not match");
+        //     validationFailed = true;
+        // }
+        //
+        // /* Doctor fields */
+        // if (checkbox.checked) {
+        //     const afm_pattern = /^[0-9]{9}$/;
+        //
+        //     if (afm.value === "" || afm.value === undefined) {
+        //         setInvalidInput(afm, afmLabel, "AFM is required");
+        //         validationFailed = true;
+        //     } else if (!afm_pattern.test(afm.value)) {
+        //         setInvalidInput(afm, afmLabel, "AFM must be 9 digits");
+        //         validationFailed = true;
+        //     }
+        //
+        //     if (businessPhone.value === "" || businessPhone.value === undefined) {
+        //         setInvalidInput(businessPhone, businessPhoneLabel, "Business phone is required");
+        //         validationFailed = true;
+        //     } else if (!phone_pattern.test(businessPhone.value)) {
+        //         setInvalidInput(businessPhone, businessPhoneLabel, "Business phone must be 10 digits");
+        //         validationFailed = true;
+        //     }
+        //
+        //     if (specialization.value === "" || specialization.value === undefined) {
+        //         setInvalidInput(specialization, specializationLabel, "Specialization is required");
+        //         validationFailed = true;
+        //     }
+        //
+        //     if (address.value === "" || address.value === undefined) {
+        //         setInvalidInput(address, addressLabel, "Address is required");
+        //         validationFailed = true;
+        //     }
+        //
+        //     if (city.value === "" || city.value === undefined) {
+        //         setInvalidInput(city, cityLabel, "City is required");
+        //         validationFailed = true;
+        //     }
+        // }
+        // /* Patient fields */
+        // else {
+        //     const amka_pattern = /^[0-9]{11}$/;
+        //
+        //     if (amka.value === "" || amka.value === undefined) {
+        //         setInvalidInput(amka, amkaLabel, "AMKA is required");
+        //         return false;
+        //     } else if (!amka_pattern.test(amka.value)) {
+        //         setInvalidInput(amka, amkaLabel, "AMKA must be 11 digits");
+        //         return false;
+        //     }
+        // }
+        // if (validationFailed) {
+        //     return false;
+        // } else {
+        //     amka.value = checkbox.checked ? "" : amka.value;
+        //     afm.value = checkbox.checked ? afm.value : "";
+        //     businessPhone.value = checkbox.checked ? businessPhone.value : "";
+        //     specialization.value = checkbox.checked ? specialization.value : "";
+        //     address.value = checkbox.checked ? address.value : "";
+        //     city.value = checkbox.checked ? city.value : "";
+        //     return true;
+        // }
+        const afm = document.getElementById("doctor_afm");
+        const dateOfBirth = document.getElementById("date_of_birth");
+        const specialization = document.getElementById("doctor_specialization");
+        const username = document.getElementById("username");
+        return true;
+    }
+</script>
+<!-- /SCRIPT -->
 </html>

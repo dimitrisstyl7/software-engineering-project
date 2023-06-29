@@ -5,15 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@Builder
-@AllArgsConstructor
+import java.time.LocalTime;
+
 @NoArgsConstructor
-public class UserDto {
-    private String username;
+@AllArgsConstructor
+@Builder
+@Data
+public class AppointmentDetailsDto {
+    private long id;
+    private String amka;
     private String name;
     private String surname;
-    private String email;
-    private String userType;
     private String phone;
+    private LocalTime timeSlot;
 }

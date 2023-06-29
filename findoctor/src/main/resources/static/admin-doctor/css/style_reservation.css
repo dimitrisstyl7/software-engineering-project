@@ -91,9 +91,9 @@ button {
     box-shadow: none !important;
 }
 
-#newEventModal, #deleteEventModal {
+#newEventModal2, #deleteEventModal2 {
     display: none;
-    z-index: 20;
+    z-index: 20.0;
     padding: 25px;
     background-color: #e8f4fa;
     box-shadow: 0px 0px 3px black;
@@ -105,7 +105,7 @@ button {
     font-family: sans-serif;
 }
 
-#eventTitleInput {
+#newAppointmentID {
     padding: 10px;
     width: 100%;
     box-sizing: border-box;
@@ -116,7 +116,7 @@ button {
     box-shadow: 0px 0px 3px gray;
 }
 
-#clientAFM {
+#newClientAFM {
     padding: 10px;
     width: 100%;
     box-sizing: border-box;
@@ -127,7 +127,7 @@ button {
     box-shadow: 0px 0px 3px gray;
 }
 
-#clientEmail {
+#newClientName {
     padding: 10px;
     width: 100%;
     box-sizing: border-box;
@@ -138,7 +138,7 @@ button {
     box-shadow: 0px 0px 3px gray;
 }
 
-#clientName {
+#newClientSurname {
     padding: 10px;
     width: 100%;
     box-sizing: border-box;
@@ -149,7 +149,7 @@ button {
     box-shadow: 0px 0px 3px gray;
 }
 
-#clientSurname {
+#newTimeOfDate {
     padding: 10px;
     width: 100%;
     box-sizing: border-box;
@@ -160,40 +160,26 @@ button {
     box-shadow: 0px 0px 3px gray;
 }
 
-#eventTimeOfDate {
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 25px;
-    border-radius: 3px;
-    outline: none;
-    border: none;
-    box-shadow: 0px 0px 3px gray;
-}
-
-#eventTimeOfDate.error {
+#newTimeOfDate.error {
     border: 2px solid red;
 }
 
-#eventTitleInput.error {
+#newTitleInput.error {
     border: 2px solid red;
 }
 
-#clientAFM.error{
+#newClientAFM.error{
     border: 2px solid red;
 }
 
-#clientName.error{
+#newClientName.error{
     border: 2px solid red;
 }
 
-#clientSurname.error{
+#newClientSurname.error{
     border: 2px solid red;
 }
 
-#clientEmail.error{
-    border: 2px solid red;
-}
 #cancelButton, #deleteButton {
     background-color: #d36c6c;
 }

@@ -4,14 +4,15 @@ import com.unipi.findoctor.dto.DoctorDto;
 import com.unipi.findoctor.mappers.DoctorMapper;
 import com.unipi.findoctor.models.Doctor;
 import com.unipi.findoctor.repositories.DoctorRepository;
-import com.unipi.findoctor.repositories.ViewRepository;
 import com.unipi.findoctor.security.SecurityConfig;
 import com.unipi.findoctor.services.DoctorService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -21,7 +22,6 @@ import java.util.Optional;
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;
-    private final ViewRepository viewRepository;
 
     @Override
     public DoctorDto getDoctorDetailsByUsername(String username) {
@@ -64,6 +64,24 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public void updateDoctor(Doctor doctor) {
+        Doctor existingDoctor = doctorRepository.findByUser_username(doctor.getUser().getUsername());
+
+        if (existingDoctor == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        doctor.setStatus(existingDoctor.getStatus());
+        doctor.setRegisteredOn(existingDoctor.getRegisteredOn());
+        doctor.setRatings(existingDoctor.getRatings());
+        doctor.setDateOfBirth(existingDoctor.getDateOfBirth());
+        doctor.getUser().setPassword(existingDoctor.getUser().getPassword());
+        doctor.getUser().setUserType("doctor");
+        doctorRepository.save(doctor);
+    }
+
+
+    @Override
     public void saveDoctor(Doctor doctor) {
         doctor.getUser().setPassword(SecurityConfig.passwordEncoder().encode(doctor.getUser().getPassword()));
         doctorRepository.save(doctor);
@@ -74,8 +92,5 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorRepository.findByAfm(afm);
     }
 
-    public int getDoctorViews(String username) {
-        return viewRepository.countByDoctor_User_username(username);
-    }
 
 }

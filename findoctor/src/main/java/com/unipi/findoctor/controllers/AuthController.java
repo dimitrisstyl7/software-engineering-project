@@ -5,6 +5,7 @@ import com.unipi.findoctor.mappers.AuthMapper;
 import com.unipi.findoctor.models.Doctor;
 import com.unipi.findoctor.models.Patient;
 import com.unipi.findoctor.models.User;
+import com.unipi.findoctor.security.SecurityUtil;
 import com.unipi.findoctor.services.DoctorService;
 import com.unipi.findoctor.services.PatientService;
 import com.unipi.findoctor.services.UserService;
@@ -28,6 +29,7 @@ public class AuthController {
     private final UserService userService;
     private final PatientService patientService;
     private final DoctorService doctorService;
+    private final SecurityUtil securityUtil;
 
     @GetMapping(LOGIN_URL)
     public String loginPage() {
@@ -51,7 +53,10 @@ public class AuthController {
 
     @GetMapping(REGISTER_URL)
     public String registerPage(Model model) {
-        addAttributesToModel(new RegistrationDto(), model);
+        if (securityUtil.getSessionUser() != null) { // if logged in, redirect to home page
+            return securityUtil.redirectBasedOnUserRole();
+        }
+        model.addAttribute("user", new RegistrationDto());
         return REGISTER_FILE;
     }
 

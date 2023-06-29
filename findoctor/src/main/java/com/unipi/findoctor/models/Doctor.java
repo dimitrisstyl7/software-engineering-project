@@ -31,7 +31,7 @@ public class Doctor {
     private String city;
     private String address;
     private String status; // "pending" or "approved" or "rejected"
-    private String imageURL;
+    private String imageName;
 
 
     @CreationTimestamp
@@ -40,10 +40,9 @@ public class Doctor {
 //    @OneToMany(mappedBy = "doctor", cascade = CascadeType.REFRESH)
 //    private List<Appointment> appointments;
 
-    @OneToMany(mappedBy = "doctor")
-    private List<View> views;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.REFRESH)
+    @OrderBy("date DESC")
     private List<Rating> ratings;
 
     @Override
@@ -52,6 +51,10 @@ public class Doctor {
                 "afm=" + getAfm() +
                 ", username='" + getUser().getUsername() + '\'' +
                 ')';
+    }
+
+    public String getFullName() {
+        return "Dr. " + user.getName() + " " + user.getSurname();
     }
 
 }

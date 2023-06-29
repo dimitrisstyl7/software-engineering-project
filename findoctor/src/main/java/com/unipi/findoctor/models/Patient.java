@@ -31,6 +31,7 @@ public class Patient {
     private LocalDateTime registeredOn;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.REFRESH)
+    @OrderBy("date DESC")
     private List<Appointment> appointments;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.REFRESH)

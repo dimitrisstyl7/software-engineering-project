@@ -13,8 +13,9 @@ public interface DoctorRepository extends JpaRepository<Doctor, String> {
 
     Doctor findByAfm(String afm);
 
+    @Query("SELECT d FROM Doctor d WHERE d.status = 'approved'")
     Page<Doctor> findAll(Pageable pageable);
 
-    @Query("SELECT d FROM Doctor d WHERE LOWER(d.user.name) LIKE CONCAT('%', LOWER(:query), '%') OR LOWER(d.user.surname) LIKE CONCAT('%', LOWER(:query), '%') OR LOWER(d.specialization) LIKE CONCAT('%', LOWER(:query), '%') ")
+    @Query("SELECT d FROM Doctor d WHERE (LOWER(d.user.name) LIKE CONCAT('%', LOWER(:query), '%') OR LOWER(d.user.surname) LIKE CONCAT('%', LOWER(:query), '%') OR LOWER(d.specialization) LIKE CONCAT('%', LOWER(:query), '%')) AND d.status = 'approved' ")
     Page<Doctor> searchDoctors(String query, Pageable pageable);
 }
