@@ -30,12 +30,10 @@
         <div th:each="doctor :${doctors}" class="list_general">
             <ul>
                 <li th:if="${doctor.getStatus().equals('approved')}">
-                    <figure><img th:src="${doctor.imageURL}" alt=""></figure>
                     <h4>
                         <span th:text="${doctor.getFullName()}" th:remove="tag"></span>
                         <i class="approved">approved</i>
                     </h4>
-
                     <ul class="booking_details">
                         <li><strong>Afm </strong><i th:text="${doctor.getAfm()}"></i></li>
                         <li><strong>Registered on </strong><i th:text="${doctor.getRegisteredDate()}"></i></li>
