@@ -10,7 +10,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -62,6 +64,24 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public void updateDoctor(Doctor doctor) {
+        Doctor existingDoctor = doctorRepository.findByUser_username(doctor.getUser().getUsername());
+
+        if (existingDoctor == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        doctor.setStatus(existingDoctor.getStatus());
+        doctor.setRegisteredOn(existingDoctor.getRegisteredOn());
+        doctor.setRatings(existingDoctor.getRatings());
+        doctor.setDateOfBirth(existingDoctor.getDateOfBirth());
+        doctor.getUser().setPassword(existingDoctor.getUser().getPassword());
+        doctor.getUser().setUserType("doctor");
+        doctorRepository.save(doctor);
+    }
+
+
+    @Override
     public void saveDoctor(Doctor doctor) {
         doctor.getUser().setPassword(SecurityConfig.passwordEncoder().encode(doctor.getUser().getPassword()));
         doctorRepository.save(doctor);
@@ -71,5 +91,6 @@ public class DoctorServiceImpl implements DoctorService {
     public Doctor findByAfm(String afm) {
         return doctorRepository.findByAfm(afm);
     }
+
 
 }
