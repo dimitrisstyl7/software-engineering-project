@@ -1,7 +1,6 @@
 package com.unipi.findoctor.dto;
 
 import com.unipi.findoctor.models.Rating;
-import com.unipi.findoctor.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class DoctorDto {
     private String afm;
-    private User user;
+    private UserDto user;
     private LocalDate dateOfBirth;
     private String specialization;
     private String businessPhone;
