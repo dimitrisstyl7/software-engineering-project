@@ -88,6 +88,11 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public void updateDoctorStatus(Doctor doctor) {
+        doctorRepository.save(doctor);
+    }
+
+    @Override
     public Doctor findByAfm(String afm) {
         return doctorRepository.findByAfm(afm);
     }

@@ -12,8 +12,11 @@ import java.util.Map;
 @Service
 public interface AppointmentService {
     Map<String, Boolean> getDoctorAvailableTimeSlots(String doctorUsername, LocalDate date);
+
     AppointmentDto saveAppointment(AppointmentDto appointment);
+
     List<AppointmentDetailsDto> fetchDoctorAppointments(String doctorUsername, LocalDate date);
+
     void deleteById(Long id, String doctorUsername);
 
     void updateAppointment(Long id, String doctorUsername, LocalTime newTime);

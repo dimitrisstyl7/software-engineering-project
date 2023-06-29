@@ -14,6 +14,9 @@
                    style="text-align: center; width: 40%; display: block; margin: 0 auto;"></p>
                 <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="alert alert-warning"
                    style="text-align: center; width: 40%; display: block; margin: 0 auto;"></p>
+                <p th:if="${#fields.hasErrors('specialization')}" th:errors="*{specialization}"
+                   class="alert alert-warning"
+                   style="text-align: center; width: 40%; display: block; margin: 0 auto;"></p>
                 <p th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="alert alert-warning"
                    style="text-align: center; width: 40%; display: block; margin: 0 auto;"></p>
                 <p th:if="${#fields.hasErrors('personalPhone')}" th:errors="*{personalPhone}"
@@ -164,12 +167,17 @@
                                                 <label style="color:red" for="doctor_specialization"
                                                        id="specialization_label"
                                                        hidden></label><br>
-                                                <input type="text"
-                                                       class="form-control"
-                                                       placeholder="Specialization"
-                                                       name="doctor_specialization"
-                                                       th:field="*{specialization}"
-                                                       id="doctor_specialization">
+                                                <select class="form-select" name="specialization"
+                                                        id="doctor_specialization">
+                                                    <!-- Spring MVC thymeleaf will automatically bind the value of the
+                                                    selected option to the registrationDto.specialization attribute,
+                                                    as long as the name of the select tag matches the name of the attribute. -->
+                                                    <option style="text-align: center" selected disabled value="">
+                                                        Specialization
+                                                    </option>
+                                                    <option th:each="element : ${specializationList}"
+                                                            th:value="${element}" th:text="${element}"></option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>

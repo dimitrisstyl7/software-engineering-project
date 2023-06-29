@@ -1,7 +1,6 @@
 package com.unipi.findoctor.repositories;
 
 import com.unipi.findoctor.models.Appointment;
-import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;

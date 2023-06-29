@@ -37,13 +37,13 @@ public class AuthController {
         if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) { // if logged in
             String role = auth.getAuthorities().iterator().next().getAuthority(); // get logged in user's role
             switch (role) { // redirect to the correct page based on the role
-                case "admin" -> {
+                case USER_TYPE_ADMIN -> {
                     return "redirect:" + ADMIN_ROOT_URL;
                 }
-                case "patient" -> {
+                case USER_TYPE_PATIENT -> {
                     return "redirect:" + PATIENT_ROOT_URL;
                 }
-                case "doctor" -> {
+                case USER_TYPE_DOCTOR -> {
                     return "redirect:" + DOCTOR_ROOT_URL;
                 }
             }
@@ -63,8 +63,7 @@ public class AuthController {
     @PostMapping(REGISTER_URL)
     public String registerSave(@Valid @ModelAttribute("user") RegistrationDto registrationDto, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            registrationDto.setIsDoctor(false); // reset isDoctor to false (reset radio button)
-            model.addAttribute("user", registrationDto);
+            addAttributesToModel(registrationDto, model);
             return REGISTER_FILE;
         }
 
@@ -73,8 +72,13 @@ public class AuthController {
             if (existingDoctor != null && existingDoctor.getAfm() != null && !existingDoctor.getAfm().isEmpty()) {
                 result.rejectValue("afm", "afm.alreadyexists",
                         "There is already an account registered with this AFM.");
-                registrationDto.setIsDoctor(false);
-                model.addAttribute("user", registrationDto);
+                addAttributesToModel(registrationDto, model);
+                return REGISTER_FILE;
+            }
+            if (registrationDto.getSpecialization() == null || registrationDto.getSpecialization().isEmpty()) {
+                result.rejectValue("specialization", "specialization.empty",
+                        "Please select a specialization.");
+                addAttributesToModel(registrationDto, model);
                 return REGISTER_FILE;
             }
         } else { // is patient
@@ -82,8 +86,7 @@ public class AuthController {
             if (existingPatient != null && existingPatient.getAmka() != null && !existingPatient.getAmka().isEmpty()) {
                 result.rejectValue("amka", "amka.alreadyexists",
                         "There is already an account registered with this AMKA.");
-                registrationDto.setIsDoctor(false);
-                model.addAttribute("user", registrationDto);
+                addAttributesToModel(registrationDto, model);
                 return REGISTER_FILE;
             }
         }
@@ -92,8 +95,7 @@ public class AuthController {
         if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()) {
             result.rejectValue("username", "username.alreadyexists",
                     "There is already an account registered with this username.");
-            registrationDto.setIsDoctor(false);
-            model.addAttribute("user", registrationDto);
+            addAttributesToModel(registrationDto, model);
             return REGISTER_FILE;
         }
 
@@ -112,5 +114,11 @@ public class AuthController {
     public String confirmationPage(@PathVariable("isDoctor") boolean isDoctor, Model model) {
         model.addAttribute("isDoctor", isDoctor);
         return CONFIRMATION_FILE;
+    }
+
+    private void addAttributesToModel(RegistrationDto registrationDto, Model model) {
+        registrationDto.setIsDoctor(false); // reset isDoctor to false (reset radio button)
+        model.addAttribute("user", registrationDto);
+        model.addAttribute("specializationList", DOCTOR_SPECIALIZATION_LIST);
     }
 }

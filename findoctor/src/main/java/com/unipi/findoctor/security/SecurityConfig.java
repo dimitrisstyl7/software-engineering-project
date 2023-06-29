@@ -60,9 +60,9 @@ public class SecurityConfig {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String role = authentication.getAuthorities().iterator().next().getAuthority();
             switch (role) {
-                case "admin" -> response.sendRedirect(ADMIN_ROOT_URL);
-                case "patient" -> response.sendRedirect(PATIENT_ROOT_URL);
-                case "doctor" -> {
+                case USER_TYPE_ADMIN -> response.sendRedirect(ADMIN_ROOT_URL);
+                case USER_TYPE_PATIENT -> response.sendRedirect(PATIENT_ROOT_URL);
+                case USER_TYPE_DOCTOR -> {
                     String username = authentication.getName();
                     var doctor = doctorService.getDoctorDetailsByUsername(username);
                     if (doctor != null && doctor.getStatus().equals("approved")) {

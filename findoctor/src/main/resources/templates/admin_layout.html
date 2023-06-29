@@ -28,9 +28,9 @@
 <body class="fixed-nav sticky-footer" id="page-top">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
-    <a class="navbar-brand" href="index.html"><img th:src="@{/admin-doctor/img/logo.png}" data-retina="true" alt=""
-                                                   width="163"
-                                                   height="36"></a>
+    <a class="navbar-brand" th:href="@{/admin/}"><img th:src="@{/admin-doctor/img/logo.png}" data-retina="true" alt=""
+                                                      width="163"
+                                                      height="36"></a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -39,73 +39,57 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" th:href="@{/admin/index}">
                     <i class="fa fa-fw fa-dashboard"></i>
                     <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-                <a class="nav-link" href="messages.html">
+                <a class="nav-link" th:href="@{/admin/messages}">
                     <i class="fa fa-fw fa-envelope-open"></i>
                     <span class="nav-link-text">Messages</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
-                <a class="nav-link" href="bookings.html">
-                    <i class="fa fa-fw fa-calendar-check-o"></i>
-                    <span class="nav-link-text">Bookings <span class="badge badge-pill badge-primary">6
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Validations">
+                <a class="nav-link" th:href="@{/admin/validations}">
+                    <i class="fa fa-fw fa-question-circle"></i>
+                    <span class="nav-link-text">Validations <span class="badge badge-pill badge-primary">2
                                 New</span></span>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
-                <a class="nav-link" href="reviews.html">
+                <a class="nav-link" th:href="@{/admin/reviews}">
                     <i class="fa fa-fw fa-star"></i>
                     <span class="nav-link-text">Reviews</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">
-                <a class="nav-link" href="bookmarks.html">
-                    <i class="fa fa-fw fa-heart"></i>
-                    <span class="nav-link-text">Bookmarks</span>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Patients">
+                <a class="nav-link" th:href="@{/admin/patients}">
+                    <i class="fa fa-fw fa-users"></i>
+                    <span class="nav-link-text">Patients</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
-                <a class="nav-link" href="add-listing.html">
-                    <i class="fa fa-fw fa-plus-circle"></i>
-                    <span class="nav-link-text">Add listing</span>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Doctors">
+                <a class="nav-link" th:href="@{/admin/doctors}">
+                    <i class="fa fa-fw fa-user-md"></i>
+                    <span class="nav-link-text">Doctors</span>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProfile"
-                   data-parent="#exampleAccordion">
+                <a class="nav-link" th:href="@{/admin/profile}">
                     <i class="fa fa-fw fa-wrench"></i>
                     <span class="nav-link-text">My profile</span>
                 </a>
-                <ul class="sidenav-second-level collapse" id="collapseProfile">
-                    <li>
-                        <a href="user-profile.html">User profile</a>
-                    </li>
-                    <li>
-                        <a href="doctor-profile.html">Doctor profile</a>
-                    </li>
-                </ul>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents"
-                   data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-gear"></i>
-                    <span class="nav-link-text">Components</span>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Banned doctors">
+                <a class="nav-link" th:href="@{/admin/banned-doctors}">
+                    <i class="fa fa-fw fa-minus-circle"></i>
+                    <span class="nav-link-text">Banned doctors</span>
                 </a>
-                <ul class="sidenav-second-level collapse" id="collapseComponents">
-                    <li>
-                        <a href="charts.html">Charts</a>
-                    </li>
-                    <li>
-                        <a href="tables.html">Tables</a>
-                    </li>
-                </ul>
             </li>
         </ul>
+
+
         <ul class="navbar-nav sidenav-toggler">
             <li class="nav-item">
                 <a class="nav-link text-center" id="sidenavToggler">

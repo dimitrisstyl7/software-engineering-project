@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en, gr"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin_layout}">
+
+<head>
+    <title>Bookings</title>
+</head>
+
+<div layout:fragment="main">
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Bookings</li>
+    </ol>
+    <div class="box_general">
+        <div class="header_box">
+            <h2 class="d-inline-block">Doctors List</h2>
+            <div class="filter">
+                <select name="orderby" class="selectbox">
+                    <option value="Any status">Any status</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </div>
+        </div>
+        <div th:each="doctor :${doctors}" class="list_general">
+            <ul>
+                <li th:if="${doctor.getStatus().equals('approved')}">
+                    <figure><img th:src="${doctor.imageURL}" alt=""></figure>
+                    <h4>
+                        <span th:text="${doctor.getFullName()}" th:remove="tag"></span>
+                        <i class="approved">approved</i>
+                    </h4>
+
+                    <ul class="booking_details">
+                        <li><strong>Afm </strong><i th:text="${doctor.getAfm()}"></i></li>
+                        <li><strong>Registered on </strong><i th:text="${doctor.getRegisteredDate()}"></i></li>
+                        <li><strong>Specialization </strong><i th:text="${doctor.getSpecialization()}"></i></li>
+                        <li><strong>Business phone </strong><i th:text="${doctor.getBusinessPhone()}"></i></li>
+                        <li><strong>Email </strong><i th:text="${doctor.getUser().getEmail()}"></i></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /box_general-->
+    <nav aria-label="...">
+        <ul class="pagination pagination-sm add_bottom_30">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- /pagination-->
+</div>
+<!-- /div -->
+
+</html>

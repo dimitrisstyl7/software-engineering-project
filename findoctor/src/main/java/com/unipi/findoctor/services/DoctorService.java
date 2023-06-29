@@ -11,6 +11,8 @@ public interface DoctorService {
 
     void saveDoctor(Doctor doctor);
 
+    void updateDoctorStatus(Doctor doctor);
+
     Doctor findByAfm(String afm);
 
     Doctor findDoctor(String username);
