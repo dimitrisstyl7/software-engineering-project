@@ -1,14 +1,11 @@
 package com.unipi.findoctor.dto;
 
-import com.unipi.findoctor.mappers.AppointmentMapper;
 import com.unipi.findoctor.models.Appointment;
 import com.unipi.findoctor.models.Rating;
 import com.unipi.findoctor.models.User;
-import com.unipi.findoctor.services.PatientService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -49,7 +46,7 @@ public class PatientDto {
 
         Appointment closestAppointment;
         if (nextAppointment.isPresent()) {
-            closestAppointment =  nextAppointment.get();
+            closestAppointment = nextAppointment.get();
             String formattedDate = closestAppointment.getDate().format(dateFormatter);
             String formattedTimeSlot = closestAppointment.getTimeSlot().format(timeFormatter);
 
@@ -64,6 +61,7 @@ public class PatientDto {
     public String getFullName() {
         return user.getName() + " " + user.getSurname();
     }
+
     public String getRegisteredDate() {
         // Split the date and time parts
         String[] parts = getRegisteredOn().toString().split("T");
