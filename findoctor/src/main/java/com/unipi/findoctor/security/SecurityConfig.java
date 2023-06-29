@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .requestMatchers(ADMIN_INDEX_URL_1, ADMIN_ROOT_URL + "**").hasAuthority("admin")
                 .requestMatchers(DOCTOR_INDEX_URL_1, DOCTOR_ROOT_URL + "**").hasAuthority("doctor")
-                .requestMatchers(CONFIRMATION_URL).denyAll()
+                .requestMatchers(REGISTER_CONFIRMATION_URL).denyAll()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin(form -> form

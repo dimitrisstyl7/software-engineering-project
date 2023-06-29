@@ -57,6 +57,7 @@ public class AuthController {
             return securityUtil.redirectBasedOnUserRole();
         }
         model.addAttribute("user", new RegistrationDto());
+        model.addAttribute("specializationList", DOCTOR_SPECIALIZATION_LIST);
         return REGISTER_FILE;
     }
 
@@ -107,13 +108,13 @@ public class AuthController {
             patientService.savePatient(patient);
         }
 
-        return "redirect:" + CONFIRMATION_URL + "/" + registrationDto.getIsDoctor();
+        return "redirect:" + REGISTER_CONFIRMATION_URL + "/" + registrationDto.getIsDoctor();
     }
 
-    @GetMapping(CONFIRMATION_URL + "/{isDoctor}")
+    @GetMapping(REGISTER_CONFIRMATION_URL + "/{isDoctor}")
     public String confirmationPage(@PathVariable("isDoctor") boolean isDoctor, Model model) {
         model.addAttribute("isDoctor", isDoctor);
-        return CONFIRMATION_FILE;
+        return REGISTER_CONFIRMATION_FILE;
     }
 
     private void addAttributesToModel(RegistrationDto registrationDto, Model model) {

@@ -58,6 +58,7 @@ public class ControllerConstants {
     public static final String PATIENT_PUT_REVIEW_URL = "/review/edit";
     public static final String PATIENT_DELETE_REVIEW_URL = "/review/delete/{doctorUsername}";
     public static final String PATIENT_NEW_APPOINTMENT_POST_URL = "/appointment/new";
+    public static final String APPOINTMENT_CONFIRMATION_URL = "/appointment/confirmation";
 
     /* END OF PATIENT URL */
 
@@ -81,7 +82,7 @@ public class ControllerConstants {
     public static final String LOGIN_URL = "/login";
     public static final String REGISTER_URL = "/register";
     public static final String LOGOUT_URL = "/logout";
-    public static final String CONFIRMATION_URL = "/confirmation";
+    public static final String REGISTER_CONFIRMATION_URL = "/register/confirmation";
     /* END OF AUTH URLs */
 
 
@@ -113,7 +114,7 @@ public class ControllerConstants {
     public static final String PATIENT_GRID_LIST_FILE = "patient/grid-list";
     public static final String PATIENT_SUBMIT_REVIEW_FILE = "patient/submit-review";
     public static final String PATIENT_EDIT_REVIEW_FILE = "patient/edit-review";
-    public static final String PATIENT_CONFIRMATION_FILE = "patient/appointment-confirmation";
+    public static final String APPOINTMENT_CONFIRMATION_FILE = "patient/appointment-confirmation";
     /* END OF PATIENT HTML FILE NAMES */
 
 
@@ -133,7 +134,7 @@ public class ControllerConstants {
     /* AUTH HTML FILE NAMES */
     public static final String LOGIN_FILE = "auth/login";
     public static final String REGISTER_FILE = "auth/register";
-    public static final String CONFIRMATION_FILE = "auth/confirmation";
+    public static final String REGISTER_CONFIRMATION_FILE = "auth/register-confirmation";
     /* END OF AUTH HTML FILE NAMES */
 
 

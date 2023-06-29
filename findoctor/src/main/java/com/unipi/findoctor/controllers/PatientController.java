@@ -44,9 +44,6 @@ public class PatientController {
     @GetMapping({PATIENT_ROOT_URL, PATIENT_INDEX_URL_1})
     public String patientIndexPage(Model model) {
         checkAccess();
-
-        PatientDto patientDto = securityUtil.getSessionPatient();
-
         model.addAttribute("isLoggedIn", securityUtil.isPatientLoggedIn());
         return PATIENT_INDEX_FILE;
     }
@@ -303,11 +300,11 @@ public class PatientController {
         AppointmentDto appointmentDto = appointmentService.saveAppointment(appointmentToSave);
         redirectAttributes.addFlashAttribute("status", "new-booking");
         redirectAttributes.addFlashAttribute("appointmentId", appointmentDto.getId());
-        return "redirect:/confirmation";
+        return "redirect:" + APPOINTMENT_CONFIRMATION_URL;
     }
 
 
-    @GetMapping("/confirmation")
+    @GetMapping(APPOINTMENT_CONFIRMATION_URL)
     public String showSuccessPage(@ModelAttribute("status") String status) {
         checkAccess();
 
@@ -315,7 +312,7 @@ public class PatientController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        return PATIENT_CONFIRMATION_FILE;
+        return APPOINTMENT_CONFIRMATION_FILE;
     }
 
 }
