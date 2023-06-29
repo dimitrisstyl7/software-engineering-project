@@ -56,12 +56,11 @@ public class DoctorController {
         }
         DoctorDto doctorDto = doctorMapper.mapToDoctorDto(doctor);
         model.addAttribute("doctor", doctorDto);
-        System.out.println(doctorDto.getDateOfBirth());
         return DOCTOR_PROFILE_FILE;
     }
 
     @PostMapping(DOCTOR_DOCTOR_PROFILE_URL)
-    public String doctorDoctorProfileUpdate(@Valid @ModelAttribute("user") DoctorDto doctorDto, Model model) {
+    public String doctorDoctorProfileUpdate(@Valid @ModelAttribute("user") DoctorDto doctorDto) {
         Doctor doctor = doctorMapper.mapToDoctor(doctorDto);
         doctorService.updateDoctor(doctor);
         return "redirect:" + DOCTOR_DOCTOR_PROFILE_URL;
