@@ -6,7 +6,6 @@ import com.unipi.findoctor.models.Doctor;
 import com.unipi.findoctor.repositories.DoctorRepository;
 import com.unipi.findoctor.security.SecurityUtil;
 import com.unipi.findoctor.services.DoctorService;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -47,7 +46,7 @@ public class DoctorController {
         return DOCTOR_CHARTS_FILE;
     }
 
-    @GetMapping(DOCTOR_DOCTOR_PROFILE_URL)
+    @GetMapping(DOCTOR_PROFILE_URL)
     public String doctorDoctorProfilePage(Model model) {
         String username = securityUtil.getSessionUser().getUsername();
         Doctor doctor = doctorRepository.findByUser_username(username);
@@ -60,11 +59,11 @@ public class DoctorController {
         return DOCTOR_PROFILE_FILE;
     }
 
-    @PostMapping(DOCTOR_DOCTOR_PROFILE_URL)
-    public String doctorDoctorProfileUpdate(@Valid @ModelAttribute("user") DoctorDto doctorDto, Model model) {
+    @PostMapping(DOCTOR_PROFILE_URL)
+    public String doctorDoctorProfileUpdate(@ModelAttribute("user") DoctorDto doctorDto) {
         Doctor doctor = doctorMapper.mapToDoctor(doctorDto);
         doctorService.updateDoctor(doctor);
-        return "redirect:" + DOCTOR_DOCTOR_PROFILE_URL;
+        return "redirect:" + DOCTOR_PROFILE_URL;
     }
 
     @GetMapping(DOCTOR_MESSAGES_URL)
