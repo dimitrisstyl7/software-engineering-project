@@ -19,5 +19,5 @@ public interface DoctorService {
 
     Page<DoctorDto> getDoctorsByPage(String query, int pageNumber, int pageSize);
 
-
+    void updateDoctor(Doctor doctor);
 }
