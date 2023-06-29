@@ -2,7 +2,6 @@ package com.unipi.findoctor.controllers;
 
 import com.unipi.findoctor.dto.DoctorDto;
 import com.unipi.findoctor.dto.PatientDto;
-import com.unipi.findoctor.dto.UserDto;
 import com.unipi.findoctor.mappers.DoctorMapper;
 import com.unipi.findoctor.models.User;
 import com.unipi.findoctor.security.SecurityUtil;
@@ -10,7 +9,6 @@ import com.unipi.findoctor.services.AdminService;
 import com.unipi.findoctor.services.DoctorService;
 import com.unipi.findoctor.services.UserService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +31,7 @@ public class AdminController {
     private DoctorMapper drmapper;
     private SecurityUtil securityUtil;
     private UserService userService;
+
     @GetMapping({ADMIN_ROOT_URL, ADMIN_INDEX_URL_1, ADMIN_INDEX_URL_2})
     public String adminIndexPage() {
         return ADMIN_INDEX_FILE;
@@ -49,28 +48,31 @@ public class AdminController {
         model.addAttribute("doctors", doctors);
         return ADMIN_VALIDATIONS_FILE;
     }
+
     @GetMapping(ADMIN_PATIENTS_URL)
     public String viewPatients(Model model) {
         List<PatientDto> patients = adminService.findAllPatients();
         model.addAttribute("patients", patients);
         return ADMIN_PATIENTS_FILE;
     }
+
     @GetMapping("/admin/{Afm}/approval")
-    public String approveDoctor(@PathVariable("Afm") String Afm){
+    public String approveDoctor(@PathVariable("Afm") String Afm) {
 
         DoctorDto doctor = adminService.findDoctorByAfm(Afm);
-        if (doctor == null) throw  new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if (doctor == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         if (doctor.getStatus().equals("pending")) {
             doctor.setStatus("approved");
             doctorService.updateDoctor(drmapper.mapToDoctor(doctor));
         }
         return "redirect:/admin/validations";
     }
+
     @GetMapping("/admin/{Afm}/cancelled")
-    public String cancelDoctor(@PathVariable("Afm") String Afm){
+    public String cancelDoctor(@PathVariable("Afm") String Afm) {
 
         DoctorDto doctor = adminService.findDoctorByAfm(Afm);
-        if (doctor == null) throw  new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if (doctor == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         if (doctor.getStatus().equals("pending")) {
             doctor.setStatus("cancelled");
             doctorService.updateDoctor(drmapper.mapToDoctor(doctor));
@@ -84,8 +86,9 @@ public class AdminController {
         model.addAttribute("doctors", doctors);
         return ADMIN_VIEW_FILE;
     }
-    @GetMapping(ADMIN_UPDATE_URL)
-    public  String updateProfile(Model model){
+
+    @GetMapping(ADMIN_PROFILE_URL)
+    public String updateProfile(Model model) {
         String username;
         username = securityUtil.getSessionUser().getUsername();
         User user1 = userService.findByUsername(username);
@@ -93,14 +96,15 @@ public class AdminController {
                 .email(user1.getEmail())
                 .phone(user1.getPhone())
                 .build());
-        return ADMIN_UPDATE_FILE;
+        return ADMIN_PROFILE_FILE;
     }
-    @PostMapping(ADMIN_UPDATE_URL)
-    public String updateProfilePost(@ModelAttribute User user){
-        userService.updateUser(user);
-        return ADMIN_UPDATE_FILE;
 
+    @PostMapping(ADMIN_PROFILE_URL)
+    public String updateProfilePost(@ModelAttribute User user) {
+        userService.updateUser(user);
+        return "redirect:" + ADMIN_PROFILE_URL;
     }
+
     @GetMapping(ADMIN_CHARTS_URL)
     public String adminChartsPage() {
         return ADMIN_CHARTS_FILE;
@@ -126,11 +130,10 @@ public class AdminController {
         return ADMIN_REVIEWS_FILE;
     }
 
-    @GetMapping(ADMIN_TABLES_URL)
+    @GetMapping(ADMIN_BANNED_DOCTORS_URL)
     public String adminTablesPage() {
-        return ADMIN_TABLES_FILE;
+        return ADMIN_BANNED_DOCTORS_FILE;
     }
-
 
 
 }
