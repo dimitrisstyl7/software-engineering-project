@@ -57,6 +57,7 @@ public class AuthController {
             return securityUtil.redirectBasedOnUserRole();
         }
         model.addAttribute("user", new RegistrationDto());
+        model.addAttribute("specializationList", DOCTOR_SPECIALIZATION_LIST);
         return REGISTER_FILE;
     }
 
