@@ -1,7 +1,5 @@
 package com.unipi.findoctor.services;
 
-import com.unipi.findoctor.dto.UserDto;
-import com.unipi.findoctor.models.Doctor;
 import com.unipi.findoctor.models.User;
 import org.springframework.stereotype.Service;
 
