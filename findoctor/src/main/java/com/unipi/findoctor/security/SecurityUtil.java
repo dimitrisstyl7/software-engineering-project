@@ -4,6 +4,7 @@ import com.unipi.findoctor.dto.AuthDto;
 import com.unipi.findoctor.dto.PatientDto;
 import com.unipi.findoctor.services.PatientService;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import static com.unipi.findoctor.constants.ControllerConstants.*;
 
 @Service
+@NoArgsConstructor
 @AllArgsConstructor
 public class SecurityUtil {
     private PatientService patientService;

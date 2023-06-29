@@ -1,9 +1,6 @@
 package com.unipi.findoctor.controllers;
 
-import com.unipi.findoctor.dto.AppointmentDto;
-import com.unipi.findoctor.dto.DoctorDto;
-import com.unipi.findoctor.dto.PatientDto;
-import com.unipi.findoctor.dto.RatingDto;
+import com.unipi.findoctor.dto.*;
 import com.unipi.findoctor.mappers.DoctorMapper;
 import com.unipi.findoctor.mappers.PatientMapper;
 import com.unipi.findoctor.security.SecurityUtil;
@@ -33,13 +30,20 @@ public class PatientController {
     private final DoctorService doctorService;
     private final AppointmentService appointmentService;
     private final RatingService ratingService;
-
     private final SecurityUtil securityUtil;
     private final DoctorMapper doctorMapper;
     private final PatientMapper patientMapper;
 
+    private void checkAccess() {
+        AuthDto authDto = securityUtil.getSessionUser();
+        if (authDto != null && !authDto.getUserType().equals(USER_TYPE_PATIENT)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping({PATIENT_ROOT_URL, PATIENT_INDEX_URL_1})
     public String patientIndexPage(Model model) {
+        checkAccess();
 
         PatientDto patientDto = securityUtil.getSessionPatient();
 
@@ -49,6 +53,7 @@ public class PatientController {
 
     @GetMapping(PATIENT_PROFILE_PAGE_URL)
     public String patientProfilePage(Model model) {
+        checkAccess();
 
         PatientDto patientDto = securityUtil.getSessionPatient();
         if (patientDto == null) {
@@ -63,6 +68,7 @@ public class PatientController {
 
     @GetMapping(PATIENT_DETAIL_PAGE_URL)
     public String patientDetailPage(@PathVariable("doctorUsername") String doctorUsername, Model model) {
+        checkAccess();
 
         PatientDto patientDto = securityUtil.getSessionPatient();
         String loggedInUserType = patientDto != null ? USER_TYPE_PATIENT : USER_TYPE_VISITOR;
@@ -91,6 +97,7 @@ public class PatientController {
 
     @GetMapping(PATIENT_GRID_LIST_URL)
     public String patientGridListPage(@RequestParam(required = false, defaultValue = "1") String page, @RequestParam(required = false) String q, Model model) {
+        checkAccess();
 
         int adjustedPageNumber;
 
@@ -117,6 +124,7 @@ public class PatientController {
 
     @GetMapping(PATIENT_GET_SUBMIT_REVIEW_URL)
     public String patientSubmitReviewPage(@PathVariable("doctorUsername") String doctorUsername, Model model) {
+        checkAccess();
 
         PatientDto patientDto = securityUtil.getSessionPatient();
         if (patientDto == null) {
@@ -145,6 +153,7 @@ public class PatientController {
     @GetMapping(PATIENT_GET_EDIT_REVIEW_URL)
     public String patientEditReviewPage(@PathVariable("doctorUsername") String doctorUsername, Model model) {
         // TODO: Fix duplicate code
+        checkAccess();
 
         PatientDto patientDto = securityUtil.getSessionPatient();
         if (patientDto == null) {
@@ -170,6 +179,7 @@ public class PatientController {
 
     @PostMapping(PATIENT_POST_SUBMIT_REVIEW_URL)
     public String patientSubmitReviewEndpoint(@ModelAttribute RatingDto ratingDto, RedirectAttributes redirectAttributes) {
+        checkAccess();
 
         PatientDto patientDto = securityUtil.getSessionPatient();
 
@@ -199,6 +209,7 @@ public class PatientController {
 
     @GetMapping(PATIENT_PUT_REVIEW_URL)
     public String patientPutReviewEndpoint(@ModelAttribute RatingDto ratingDto, RedirectAttributes redirectAttributes) {
+        checkAccess();
 
         PatientDto patientDto = securityUtil.getSessionPatient();
 
@@ -228,6 +239,8 @@ public class PatientController {
 
     @GetMapping(PATIENT_DELETE_REVIEW_URL)
     public String patientDeleteReviewEndpoint(@PathVariable("doctorUsername") String doctorUsername, RedirectAttributes redirectAttributes) {
+        checkAccess();
+
         PatientDto patientDto = securityUtil.getSessionPatient();
 
         if (patientDto == null) {
@@ -260,6 +273,7 @@ public class PatientController {
                                  @RequestParam("doctorUsername") String doctorUsername,
                                  @RequestParam("timeslot") String timeslot,
                                  RedirectAttributes redirectAttributes) {
+        checkAccess();
 
         PatientDto loggedInPatient = securityUtil.getSessionPatient();
 
@@ -295,6 +309,7 @@ public class PatientController {
 
     @GetMapping("/confirmation")
     public String showSuccessPage(@ModelAttribute("status") String status) {
+        checkAccess();
 
         if (status.isBlank() || status == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
