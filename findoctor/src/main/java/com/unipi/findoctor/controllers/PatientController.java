@@ -173,7 +173,7 @@ public class PatientController {
 
         PatientDto patientDto = securityUtil.getSessionPatient();
 
-        if (patientDto == null){
+        if (patientDto == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to leave a review");
         }
 
@@ -202,7 +202,7 @@ public class PatientController {
 
         PatientDto patientDto = securityUtil.getSessionPatient();
 
-        if (patientDto == null){
+        if (patientDto == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to leave a review");
         }
 
@@ -230,7 +230,7 @@ public class PatientController {
     public String patientDeleteReviewEndpoint(@PathVariable("doctorUsername") String doctorUsername, RedirectAttributes redirectAttributes) {
         PatientDto patientDto = securityUtil.getSessionPatient();
 
-        if (patientDto == null){
+        if (patientDto == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to leave a review");
         }
 
