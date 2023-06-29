@@ -7,9 +7,7 @@ import com.unipi.findoctor.models.Appointment;
 import com.unipi.findoctor.repositories.AppointmentRepository;
 import com.unipi.findoctor.services.AppointmentService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,8 +15,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import static java.util.stream.Collectors.toList;
 
 @AllArgsConstructor
 @Service
