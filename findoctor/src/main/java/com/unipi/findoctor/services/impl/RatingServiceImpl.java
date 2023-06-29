@@ -1,6 +1,5 @@
 package com.unipi.findoctor.services.impl;
 
-import com.unipi.findoctor.dto.DoctorDto;
 import com.unipi.findoctor.dto.RatingDto;
 import com.unipi.findoctor.mappers.RatingMapper;
 import com.unipi.findoctor.models.Doctor;
