@@ -30,7 +30,7 @@ public class ControllerConstants {
     public static final String DOCTOR_ADD_LISTING_URL = "/doctor/add-listing";
     public static final String DOCTOR_BOOKINGS_URL = "/doctor/bookings";
     public static final String DOCTOR_CHARTS_URL = "/doctor/charts";
-    public static final String DOCTOR_DOCTOR_PROFILE_URL = "/doctor/doctor-profile";
+    public static final String DOCTOR_DOCTOR_PROFILE_URL = "/doctor/profile";
     public static final String DOCTOR_MESSAGES_URL = "/doctor/messages";
     public static final String DOCTOR_PATIENT_PROFILE_URL = "/doctor/patient-profile";
     public static final String DOCTOR_REVIEWS_URL = "/doctor/reviews";
@@ -57,13 +57,13 @@ public class ControllerConstants {
     public static final String ADMIN_MESSAGES_URL = "/admin/messages";
     public static final String ADMIN_PATIENT_PROFILE_URL = "/admin/patient-profile";
     public static final String ADMIN_REVIEWS_URL = "/admin/reviews";
-    public static final String ADMIN_TABLES_URL = "/admin/tables";
+    public static final String ADMIN_BANNED_DOCTORS_URL = "/admin/banned-doctors";
 
-    public static final String ADMIN_VIEW_URL = "/admin/view_doctors";
+    public static final String ADMIN_VIEW_URL = "/admin/doctors";
 
     public static final String ADMIN_PATIENTS_URL = "/admin/patients";
 
-    public static final String ADMIN_UPDATE_URL = "/admin/update-profile";
+    public static final String ADMIN_PROFILE_URL = "/admin/profile";
     /* END OF ADMIN URL */
 
     /* -------------------------------------------------------------------------- */
@@ -111,12 +111,12 @@ public class ControllerConstants {
     public static final String ADMIN_MESSAGES_FILE = "admin/messages";
     public static final String ADMIN_PATIENT_PROFILE_FILE = "admin/patient-profile";
     public static final String ADMIN_REVIEWS_FILE = "admin/reviews";
-    public static final String ADMIN_TABLES_FILE = "admin/tables";
+    public static final String ADMIN_BANNED_DOCTORS_FILE = "admin/banned-doctors";
 
-    public static final String ADMIN_VIEW_FILE = "admin/view_doctors";
+    public static final String ADMIN_VIEW_FILE = "admin/doctors";
 
     public static final String ADMIN_PATIENTS_FILE = "admin/patients";
 
-    public static final String ADMIN_UPDATE_FILE = "admin/update-profile";
+    public static final String ADMIN_PROFILE_FILE = "admin/admin-profile";
     /* END OF ADMIN HTML FILE NAMES */
 }
