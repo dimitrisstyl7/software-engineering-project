@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en, gr"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin_layout}">
+
+<head>
+    <title>Main</title>
+</head>
+
+<body>
+<div layout:fragment="main">
+    <div class="box_general padding_bottom">
+        <div class="header_box version_2">
+            <h2><i class="fa fa-user"></i>Profile details</h2>
+        </div>
+        <form method="post" th:action="@{/admin/profile}" th:object="${user}" onsubmit="return validation();">
+            <div class="box_form">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="email" id="email_label">Email</label><br>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="Email address"
+                                   th:field="*{email}"
+                                   th:value="*{email}"
+                                   name="email"
+                                   id="email">
+                        </div>
+                    </div>
+                </div>
+                <div class="box_form">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="personal_phone" id="personal_phone_label">Phone</label><br>
+                                <input type="tel"
+                                       class="form-control"
+                                       placeholder="Personal phone"
+                                       name="personal_phone"
+                                       id="personal_phone"
+                                       th:field="*{phone}"
+                                       th:value="*{phone}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group text-left add_top_20">
+                <input class="btn_1" type="submit" value="Submit" name="submit_btn" id="submit_btn">
+            </div>
+            <input type="hidden" th:value="*{username}" th:field="*{username}">
+        </form>
+    </div>
+    <!-- SCRIPT -->
+    <script th:inline="javascript">
+        function setInvalidInput(input, label, message) {
+            input.style.borderColor = "red";
+            label.style.color = "red";
+            label.innerText = message;
+        }
+
+        function validation() {
+            const email = document.getElementById("email");
+            const personalPhone = document.getElementById("personal_phone");
+
+            const emailLabel = document.getElementById("email_label");
+            const personalPhoneLabel = document.getElementById("personal_phone_label");
+
+            email.style.borderColor = personalPhone.style.borderColor = "initial";
+            emailLabel.style.color = personalPhoneLabel.style.color = "initial";
+            emailLabel.innerText = "Email";
+            personalPhoneLabel.innerText = "Phone";
+
+            let validationFailed = false;
+            const email_pattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+            const phone_pattern = /^[0-9]{10}$/;
+
+            if (email.value === "" || email.value === undefined) {
+                setInvalidInput(email, emailLabel, "Email is required");
+                validationFailed = true;
+            } else if (!email_pattern.test(email.value)) {
+                setInvalidInput(email, emailLabel, "Email is invalid");
+                validationFailed = true;
+            }
+
+            if (personalPhone.value === "" || personalPhone.value === undefined) {
+                setInvalidInput(personalPhone, personalPhoneLabel, "Personal phone is required");
+                validationFailed = true;
+            } else if (!phone_pattern.test(personalPhone.value)) {
+                setInvalidInput(personalPhone, personalPhoneLabel, "Personal phone must be 10 digits");
+                validationFailed = true;
+            }
+
+            return !validationFailed; // if validationFailed is true, validation failed
+        }
+    </script>
+    <!-- /SCRIPT -->
+</div>
+<!-- /div -->
+</body>
+
+</html>
