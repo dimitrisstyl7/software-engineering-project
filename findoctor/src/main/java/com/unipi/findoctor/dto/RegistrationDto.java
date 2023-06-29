@@ -44,4 +44,5 @@ public class RegistrationDto {
     private String businessPhone;
     private String city;
     private String address;
+    private String status;
 }

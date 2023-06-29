@@ -21,8 +21,7 @@ public class SecurityUtil {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             return new AuthDto(
                     authentication.getName(),
-                    authentication.getAuthorities().toArray()[0].toString()
-            );
+                    authentication.getAuthorities().toArray()[0].toString());
         }
         return null;
     }

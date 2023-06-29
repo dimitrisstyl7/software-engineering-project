@@ -33,7 +33,6 @@ public class Doctor {
     private String status; // "pending" or "approved" or "rejected"
     private String imageName;
 
-
     @CreationTimestamp
     private LocalDateTime registeredOn;
 
