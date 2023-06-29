@@ -69,7 +69,7 @@ public class ControllerConstants {
     public static final String DOCTOR_ADD_LISTING_URL = "/doctor/add-listing";
     public static final String DOCTOR_BOOKINGS_URL = "/doctor/bookings";
     public static final String DOCTOR_CHARTS_URL = "/doctor/charts";
-    public static final String DOCTOR_DOCTOR_PROFILE_URL = "/doctor/profile";
+    public static final String DOCTOR_PROFILE_URL = "/doctor/profile";
     public static final String DOCTOR_MESSAGES_URL = "/doctor/messages";
     public static final String DOCTOR_PATIENT_PROFILE_URL = "/doctor/patient-profile";
     public static final String DOCTOR_REVIEWS_URL = "/doctor/reviews";
