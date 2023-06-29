@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
@@ -23,6 +24,7 @@ public class DoctorDto {
     private String address;
     private String imageName;
     private String status;
+    private LocalDateTime registeredOn;
     private List<Rating> ratings;
 
     public double getAverageRating() {
@@ -62,5 +64,15 @@ public class DoctorDto {
         return "DoctorDetails(" +
                 "for=" + getUser().getUsername() +
                 ')';
+    }
+
+    public String getRegisteredDate() {
+        // Split the date and time parts
+        String[] parts = getRegisteredOn().toString().split("T");
+        String datePart = parts[0];
+        String timePart = parts[1].substring(0, 5); // Extract only the first 5 characters of the time
+
+        // Join the date and time parts with a space in between
+        return datePart + " " + timePart;
     }
 }
