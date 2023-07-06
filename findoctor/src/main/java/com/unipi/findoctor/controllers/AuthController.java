@@ -32,12 +32,13 @@ public class AuthController {
     private final SecurityUtil securityUtil;
 
     @GetMapping(LOGIN_URL)
-    public String loginPage() {
+    public String loginPage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) { // if logged in
             String role = auth.getAuthorities().iterator().next().getAuthority(); // get logged in user's role
             securityUtil.redirectBasedOnUserRole(role); // redirect user based on his role
         }
+        model.addAttribute("contactDetails", userService.getAdminDetails());
         return LOGIN_FILE; // if not logged in, return login page
     }
 
@@ -49,6 +50,7 @@ public class AuthController {
         }
         model.addAttribute("user", new RegistrationDto());
         model.addAttribute("specializationList", DOCTOR_SPECIALIZATION_LIST);
+        model.addAttribute("contactDetails", userService.getAdminDetails());
         return REGISTER_FILE;
     }
 
@@ -105,6 +107,7 @@ public class AuthController {
     @GetMapping(REGISTER_CONFIRMATION_URL + "/{isDoctor}")
     public String confirmationPage(@PathVariable("isDoctor") boolean isDoctor, Model model) {
         model.addAttribute("isDoctor", isDoctor);
+        model.addAttribute("contactDetails", userService.getAdminDetails());
         return REGISTER_CONFIRMATION_FILE;
     }
 

@@ -2,7 +2,10 @@
 <html lang="en, gr"
         xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{patient_layout}">
+      layout:decorate="~{patient_layout}"
+      th:with="isLoggedIn=${isLoggedIn}, contactPhone=${contactDetails.get('contactPhone')},
+      contactEmail=${contactDetails.get('contactEmail')}"
+>
 
 <head>
     <title>Confirmation</title>
