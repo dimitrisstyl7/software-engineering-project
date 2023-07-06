@@ -1,15 +1,14 @@
+// Nav is to keep track of the Month we're looking at
 let nav = 0;
 
 // ---------------------------------------------------------------------------------------------
-// Otan gini load xana to programa to clicked na min einai stin proigoumeni imera
+// When the program is loaded again, the clicked should not be on the previous day
 let clicked = null;
 // ---------------------------------------------------------------------------------------------
 
 let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [];
 
 const calendar = document.getElementById('calendar');
-const newEventModal = document.getElementById('newEventModal');
-const backDrop = document.getElementById('modalBackDrop');
 const eventTime = document.getElementById('eventTimeOfDate');
 
 const newEventModal2 = document.getElementById('newEventModal2');
@@ -29,11 +28,11 @@ const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frida
 let linklist=[];
 
 // ---------------------------------------------------------------------------------------------
-// Auto to function exei tin leitourgia otan patisi o xristis mia fora na mpori na tou emfanisti
-// enas pinakas me ola ta stoixia tou xristi
+// This function get the data of the api site that has the data for this date and showcase it in a,
+// Array table
 // ---------------------------------------------------------------------------------------------
 function fetchData(date) {
-    // To clicked periexei tin imera pou exi patisi o xristis
+    // The clicked has the date of the user
     clicked = date;
 
     console.log(date);
@@ -107,6 +106,7 @@ function editRow(event){
             let TimeSlots = JSON.parse(data);
 
             // Iterate over the options and disable if the value is false
+            // This is to disable the time that are picked in the system
             for (let i = 0; i < selectElement.options.length; i++) {
                 let optionValue = selectElement.options[i].value;
                 let jsonValue = TimeSlots[optionValue];
@@ -131,8 +131,9 @@ function editRow(event){
 
 
 function createTable(linklist){
-    // Diagrafi oti dara iparxoun sto mytable
-    // Auto to kani oste na min iparxoun proigoumen data apo alles imeres
+    // Delete all data that are im the mytable
+    // This feature correct any mistake that will happen,
+    // for the data of the previous dates
     while (tbl.rows.length > 0) {
         tbl.deleteRow(0);
     }
@@ -142,7 +143,7 @@ function createTable(linklist){
         const deleteButton = document.createElement('button');
         deleteButton.textContent ="delete";
         deleteButton.style.color = "black";
-        // Dimiourgo event gia to delete
+        // Create event for the deleteButton
         deleteButton.addEventListener('click', deleteRow);
         return deleteButton;
     }
@@ -151,7 +152,7 @@ function createTable(linklist){
         const editButton = document.createElement('button');
         editButton.textContent = 'Update time';
         editButton.style.color = "black";
-        // Dimiourgo event gia to edit
+        // Create event for the editButton
         editButton.addEventListener('click', editRow);
         return editButton;
     }
@@ -170,8 +171,7 @@ function createTable(linklist){
     let headerCell6 = headerRow.insertCell();
     let headerCell7 = headerRow.insertCell();
 
-    // Prota Prota vazoume stin proti stili ta pio kato stoixeia oste
-    // o xristis na mpori na xeri ti einai to kathe ena
+    // First of all we put the low elements to help the User know the columns of the table
     headerCell1.innerHTML = "ID";
     headerCell2.innerHTML = "Date and Time";
     headerCell3.innerHTML = "Patient Id";
@@ -180,7 +180,7 @@ function createTable(linklist){
     headerCell6.innerHTML = "Update time";
     headerCell7.innerHTML = "Delete";
 
-
+    // Here we say went we have no data in the api site insert in the table null data
     if (linklist.length === 0 ){
         let r = tbl.insertRow();
         let cell1 = r.insertCell();
@@ -201,7 +201,7 @@ function createTable(linklist){
     }
 
     // Create Rows of Information
-    // Me ena for vazoume ola ta data mesa ston pinaka tis imeras
+    // Here we put all the data in the necessary columns of the table
     for (let i=0; i<linklist.length; i++){
         let r = tbl.insertRow();
         let cell1 = r.insertCell();
@@ -213,6 +213,7 @@ function createTable(linklist){
         let cell7 = r.insertCell();
 
         cell1.innerText=linklist[i]['id'];
+        // Here we put the clicked=Date with the Time to make the User understand what he put in the table
         cell2.innerText= clicked +" " + linklist[i]['timeSlot'];
         cell3.innerText=linklist[i]['amka'];
         cell4.innerText=linklist[i]['name'];
@@ -224,100 +225,107 @@ function createTable(linklist){
     }
 }
 
-// -------------------------------------------------------------------------------------
-//
-// -------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------
+// This function load the days of the Month into the site and add eventListeners in the day<divs>
+// ----------------------------------------------------------------------------------------------
 function load() {
 
+    const dt = new Date(); // Gets the Date Month Year and Time of the Session
 
-    const dt = new Date();
-
+    // Check the nav if it changes
     if (nav !== 0) {
+        // Update the Month with the element nav ( example 7(July) -1 (nav) = 6(June) )
         dt.setMonth(new Date().getMonth() + nav);
     }
 
-    const day = dt.getDate();
-    const month = dt.getMonth();
-    const year = dt.getFullYear();
+    const day = dt.getDate();// Gets the Date
+    const month = dt.getMonth();// Gets the Month
+    const year = dt.getFullYear();// Gets the Year
 
-    const firstDayOfMonth = new Date(year, month, 1);
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const firstDayOfMonth = new Date(year, month, 1); // This is the first day of the Current Month
+    const daysInMonth = new Date(year, month + 1, 0).getDate(); // This is the last day of the previous Month
 
+    // Gets the Name of the Day, DD/MM/YYYY of the Current Month ( example Friday, 1/1/2023)
     const dateString = firstDayOfMonth.toLocaleDateString('en-us', {
         weekday: 'long',
         year: 'numeric',
         month: 'numeric',
         day: 'numeric',
     });
+
+    // Gets the name of the Day and check what is the number in the list of Weekdays
+    // Example Friday = 5 in the Weekdays array list
     const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
 
+    // Put in the monthDisplay the Month and the Year
     document.getElementById('monthDisplay').innerText =
         `${dt.toLocaleDateString('en-us', { month: 'long' })} ${year}`;
 
+    // Wiping out all the daySquare, PaddingSquare and Everything inside the calendar div
     calendar.innerHTML = '';
 
-    for(let i = 1; i <= paddingDays + daysInMonth; i++) {
+    for(let i = 1; i <= paddingDays + daysInMonth; i++) { // Help render the empty squares on the screen for the paddingDays
         const daySquare = document.createElement('div');
         daySquare.classList.add('day');
 
+        // We check if the month is < 10 or > 10
+        // If is < 10 we put the 0 in front of the number
+        // Example ( 9<10 yes then monthString= '09')
         const monthString = (month < 9 ? '0' + (month + 1) : month + 1);
+
+        // We check if the paddingDays is < 10 or > 10
+        // If is < 10 we put the 0 in front of the number
+        // Example ( 9<10 yes then dayString= '09')
         const dayString = (i-paddingDays < 10 ? '0' + (i - paddingDays): i-paddingDays);
+
+        // We put the YY-MM-DD into dateString
         const dateString = `${year}-${monthString}-${dayString}`;
 
         if (i > paddingDays) {
-            daySquare.innerText = i - paddingDays;
-            const eventForDay = events.find(e => e.date === dayString);
+            daySquare.innerText = i - paddingDays;// Put into the InnerText the Current Number for the day we are in
 
-            if (i - paddingDays === day && nav === 0) {
+            if (i - paddingDays === day && nav === 0) { // Create a class name for the Current Day we are in right now
                 daySquare.id = 'currentDay';
             }
 
-            if (eventForDay) {
-                const eventDiv = document.createElement('div');
-                eventDiv.classList.add('event');
-                eventDiv.innerText = eventForDay.title;
-                daySquare.appendChild(eventDiv);
-            }
-
-            daySquare.addEventListener('click', () => fetchData(dateString));
+            daySquare.addEventListener('click', () => fetchData(dateString)); // Add a eventListener to fetch-show the data
         } else {
-            daySquare.classList.add('padding');
+            daySquare.classList.add('padding'); // Make sure that the CSS is different from the daySquare pretty much the paddingDay is invisible
         }
 
-        calendar.appendChild(daySquare);
+        calendar.appendChild(daySquare); // Take daySquare and put it into the Calendar Container
     }
 }
 
 // -------------------------------------------------------------------------------------
-// Auti einai i Function pou klini to Modal block pou einai gia tin eisagogi ton stixion
+// This Function here can close the Modal block for the input of the data
 // -------------------------------------------------------------------------------------
 function closeModal2() {
-    // Prin na to kliso kano remove ta errors ean iparxoun
+    // Before the close of the Modal block we remove the errors that maybe was on them
     newTime.classList.remove('error');
     newClientAFM.classList.remove('error');
     newClientName.classList.remove('error');
     newClientSurname.classList.remove('error');
 
-    // Kano se ola ta display na feugoun apo to screen
+    // Then I remove the display out of the screen
     newEventModal2.style.display = 'none';
     backDrop2.style.display = 'none';
 
-    // Pio kato feugo ola ta stoixia pou egra4e prin sta input
+    // Then I remove all the data out of the inputs
     newClientAFM.value = '';
     newClientName.value = '';
     newClientSurname.value = '';
     eventTime.value = '';
 
-    // Me to clicked null feugo tin imera pou eixe patisi o xristis prin
+    // With the lower element I remove the date print(imprint)
     clicked = null;
-    // Kano load oste na prosthesi tixon kainourgia stoixia stin selida
-    // px. Events Titles
+    // Then I reload the data of the site to be upToDate
     load();
 }
 
 
 // -------------------------------------------------------------------------------------
-// Sto pio kato Function apothikevi ta inputs pou exei kani o xristis
+// In the next function we save the User(Doctor) update input by the appointmentID
 // -------------------------------------------------------------------------------------
 function saveButton2() {
 
@@ -345,9 +353,9 @@ function saveButton2() {
 
 }
 
-// ------------------------------------------------------------------------------------------
-//  Sto pio kato Fuction kani tis leitourgies back - next month kai to save - cancel to Modal
-// ------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------
+//  This Function create the operations back - next month of the site and save - cancel of the Modal block
+// --------------------------------------------------------------------------------------------------------
 function initButtons() {
     document.getElementById('nextButton').addEventListener('click', () => {
         nav++;
@@ -364,4 +372,4 @@ function initButtons() {
 }
 
 initButtons();
-load();
+load();// We load the site to be upToDate of the Date/Months
