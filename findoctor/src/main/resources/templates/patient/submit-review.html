@@ -28,36 +28,42 @@
                     <h1 th:text="${'Write a review for ' + doctorFullName}"></h1>
 
                     <form role="form" method="POST" th:action="@{/review/new}" th:object="${ratingDto}">
-                    <div class="rating_submit">
-                        <div class="form-group">
-                            <label class="d-block">Overall rating</label>
-                            <input type="hidden" th:field="*{doctor}" />
-                            <span class="rating">
+                        <div class="rating_submit">
+                            <div class="form-group">
+                                <label class="d-block">Overall rating</label>
+                                <input type="hidden" th:value="${doctorUsername}"
+                                       th:field="*{doctorDto.userDto.username}"/>
+                                <span class="rating">
 								<input type="radio" class="rating-input" id="5_star" name="rating-input"
-                                       th:field="*{ratingValue}" th:value="5"><label for="5_star" class="rating-star"></label>
+                                       th:field="*{ratingValue}" th:value="5"><label for="5_star"
+                                                                                     class="rating-star"></label>
 								<input type="radio" class="rating-input" id="4_star" name="rating-input"
-                                       th:field="*{ratingValue}" th:value="4"><label for="4_star" class="rating-star"></label>
+                                       th:field="*{ratingValue}" th:value="4"><label for="4_star"
+                                                                                     class="rating-star"></label>
 								<input type="radio" class="rating-input" id="3_star" name="rating-input"
-                                       th:field="*{ratingValue}" th:value="3"><label for="3_star" class="rating-star"></label>
+                                       th:field="*{ratingValue}" th:value="3"><label for="3_star"
+                                                                                     class="rating-star"></label>
 								<input type="radio" class="rating-input" id="2_star" name="rating-input"
-                                       th:field="*{ratingValue}" th:value="2"><label for="2_star" class="rating-star"></label>
-								<input type="radio" class="rating-input" id="1_star" name="rating-input" th:field="*{ratingValue}" th:value="1"><label
-                                    for="1_star" class="rating-star"></label>
+                                       th:field="*{ratingValue}" th:value="2"><label for="2_star"
+                                                                                     class="rating-star"></label>
+								<input type="radio" class="rating-input" id="1_star" name="rating-input"
+                                       th:field="*{ratingValue}" th:value="1"><label
+                                        for="1_star" class="rating-star"></label>
 							</span>
+                            </div>
                         </div>
-                    </div>
-                    <!-- /rating_submit -->
-                    <div class="form-group">
-                        <label>Your review</label>
-                        <textarea
-                                type="text"
-                                th:field="*{review}"
-                                class="form-control" style="height: 180px;"
-                                placeholder="Write your review here ..."></textarea>
-                    </div>
-                    <hr>
+                        <!-- /rating_submit -->
+                        <div class="form-group">
+                            <label>Your review</label>
+                            <textarea
+                                    type="text"
+                                    th:field="*{review}"
+                                    class="form-control" style="height: 180px;"
+                                    placeholder="Write your review here ..."></textarea>
+                        </div>
+                        <hr>
                         <div style="text-align: right">
-                    <input type="submit" class="btn_1">
+                            <input type="submit" class="btn_1">
                         </div>
                     </form>
                 </div>

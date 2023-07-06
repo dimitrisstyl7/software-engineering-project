@@ -211,7 +211,7 @@ public class PatientController {
         }
 
         Patient patient = patientMapper.mapToPatient(patientDto);
-        Doctor doctor = doctorMapper.mapToDoctor(ratingDto.getDoctorDto());
+        Doctor doctor = doctorService.findDoctor(ratingDto.getDoctorDto().getUserDto().getUsername());
 
         if (ratingService.patientHasReviewed(patient, doctor)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -226,6 +226,7 @@ public class PatientController {
         }
 
         ratingDto.setPatientDto(patientDto);
+        ratingDto.setDoctorDto(doctorMapper.mapToDoctorDto(doctor));
         ratingService.saveRating(ratingDto);
 
         redirectAttributes.addFlashAttribute("title", "Success!");
@@ -241,7 +242,7 @@ public class PatientController {
         }
 
         Patient patient = patientMapper.mapToPatient(patientDto);
-        Doctor doctor = doctorMapper.mapToDoctor(ratingDto.getDoctorDto());
+        Doctor doctor = doctorService.findDoctor(ratingDto.getDoctorDto().getUserDto().getUsername());
 
         if (!ratingService.patientHasReviewed(patient, doctor)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -256,6 +257,7 @@ public class PatientController {
         }
 
         ratingDto.setPatientDto(patientDto);
+        ratingDto.setDoctorDto(doctorMapper.mapToDoctorDto(doctor));
         ratingService.updateRating(ratingDto);
 
         redirectAttributes.addFlashAttribute("title", "Success!");

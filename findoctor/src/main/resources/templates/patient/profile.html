@@ -178,7 +178,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="appointment : ${patient.getAppointments()}">
-                            <td th:text="${appointment.getId()}"></td>
+                            <td th:text="${appointment.id}"></td>
                             <td th:text="${appointment.getDoctor().getFullName()}"></td>
                             <td th:text="${appointment.date}"></td>
                             <td th:text="${appointment.timeSlot}"></td>
