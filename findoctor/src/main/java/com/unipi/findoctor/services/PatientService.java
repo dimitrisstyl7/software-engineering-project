@@ -13,4 +13,6 @@ public interface PatientService {
     PatientDto findPatient(String username);
 
     Patient findPatientByUsername(String username);
+
+    void updatePatient(Patient patient);
 }

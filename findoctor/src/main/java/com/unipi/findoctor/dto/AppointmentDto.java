@@ -15,9 +15,9 @@ import java.time.LocalTime;
 @Builder
 @Data
 public class AppointmentDto {
-    private Long id;
-    private Patient patient;
-    private Doctor doctor;
+    private long id;
+    private PatientDto patientDto;
+    private DoctorDto doctorDto;
     private LocalDate date;
-    private LocalTime time_slot;
+    private LocalTime timeSlot;
 }

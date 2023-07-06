@@ -34,15 +34,15 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="name" id="name_label">Name</label>
-                        <input type="text" class="form-control" th:value="*{user.getName()}"
-                               th:field="*{user.name}" id="name" name="name" placeholder="Your name">
+                        <input type="text" class="form-control" th:value="*{userDto.getName()}"
+                               th:field="*{userDto.name}" id="name" name="name" placeholder="Your name">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="surname" id="surname_label">Surname</label>
-                        <input type="text" class="form-control" th:value="*{user.getSurname()}"
-                               th:field="*{user.surname}" id="surname" name="surname" placeholder="Your surname">
+                        <input type="text" class="form-control" th:value="*{userDto.getSurname()}"
+                               th:field="*{userDto.surname}" id="surname" name="surname" placeholder="Your surname">
                     </div>
                 </div>
             </div>
@@ -51,8 +51,8 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="personal_phone" id="personal_phone_label">Personal phone</label>
-                        <input type="text" class="form-control" th:value="*{user.getPhone()}"
-                               th:field="*{user.phone}" id="personal_phone" name="personal_phone"
+                        <input type="text" class="form-control" th:value="*{userDto.getPhone()}"
+                               th:field="*{userDto.phone}" id="personal_phone" name="personal_phone"
                                placeholder="Your personal phone">
                     </div>
                 </div>
@@ -70,15 +70,15 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Username</label>
-                        <input type="text" class="form-control" th:value="*{user.getUsername()}"
-                               th:field="*{user.username}" readonly>
+                        <input type="text" class="form-control" th:value="*{userDto.getUsername()}"
+                               th:field="*{userDto.username}" readonly>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="email" id="email_label">Email</label>
-                        <input type="text" class="form-control" th:value="*{user.getEmail()}"
-                               th:field="*{user.email}" id="email" name="email" placeholder="Your email">
+                        <input type="text" class="form-control" th:value="*{userDto.getEmail()}"
+                               th:field="*{userDto.email}" id="email" name="email" placeholder="Your email">
                     </div>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Date of birth</label>
-                        <input th:type="Date" class="form-control" th:value="*{getDateOfBirth().toString()}" readonly>
+                        <input th:type="text" class="form-control" th:value="*{getDateOfBirth().toString()}" readonly>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -136,7 +136,7 @@
         </div>
         <!-- /box_general-->
         <div class="form-group text-center add_top_30">
-            <input class="btn_1" type="submit" value="Submit" name="submit_btn"
+            <input class="btn_1" type="submit" value="Save changes" name="submit_btn"
                    id="submit_btn">
         </div>
     </form>

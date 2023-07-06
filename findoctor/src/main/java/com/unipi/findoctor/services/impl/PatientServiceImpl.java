@@ -7,9 +7,11 @@ import com.unipi.findoctor.repositories.PatientRepository;
 import com.unipi.findoctor.security.SecurityConfig;
 import com.unipi.findoctor.services.PatientService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Optional;
+import static com.unipi.findoctor.constants.ControllerConstants.USER_TYPE_PATIENT;
 
 @AllArgsConstructor
 @Service
@@ -30,26 +32,38 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public PatientDto findPatient(String username) {
-        Optional<Patient> optionalPatient = patientRepository.findByUser_username(username);
+        Patient patient = patientRepository.findByUser_username(username);
 
-        if (optionalPatient.isEmpty()) {
+        if (patient == null) {
             return null;
         }
-
-        Patient patient = optionalPatient.orElseThrow(() -> new RuntimeException("Patient not found"));
-
         return patientMapper.mapToPatientDto(patient);
     }
 
     @Override
     public Patient findPatientByUsername(String username) {
-        Optional<Patient> optionalPatient = patientRepository.findByUser_username(username);
+        Patient patient = patientRepository.findByUser_username(username);
 
-        if (optionalPatient.isEmpty()) {
+        if (patient == null) {
             return null;
         }
 
-        return optionalPatient.orElseThrow(() -> new RuntimeException("Patient not found"));
+        return patient;
+    }
 
+    @Override
+    public void updatePatient(Patient patient) {
+        Patient existingPatient = patientRepository.findByUser_username(patient.getUser().getUsername());
+
+        if (existingPatient == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        existingPatient.getUser().setName(patient.getUser().getName());
+        existingPatient.getUser().setSurname(patient.getUser().getSurname());
+        existingPatient.getUser().setEmail(patient.getUser().getEmail());
+        existingPatient.getUser().setPhone(patient.getUser().getPhone());
+
+        patientRepository.save(existingPatient);
     }
 }

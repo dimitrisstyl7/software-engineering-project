@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class DoctorDto {
     private String afm;
-    private UserDto user;
+    private UserDto userDto;
     private LocalDate dateOfBirth;
     private String specialization;
     private String businessPhone;
@@ -56,13 +56,13 @@ public class DoctorDto {
     }
 
     public String getFullName() {
-        return "Dr. " + user.getName() + " " + user.getSurname();
+        return "Dr. " + userDto.getName() + " " + userDto.getSurname();
     }
 
     @Override
     public String toString() {
         return "DoctorDetails(" +
-                "for=" + getUser().getUsername() +
+                "for=" + userDto.getUsername() +
                 ')';
     }
 

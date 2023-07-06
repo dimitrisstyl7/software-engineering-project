@@ -70,11 +70,11 @@ public class AppointmentServiceImpl implements AppointmentService {
             return null;
         }
 
-        List<AppointmentDetailsDto> appointmentDetailDtos = appointments.stream()
+        List<AppointmentDetailsDto> appointmentDetailDtoList = appointments.stream()
                 .map(appointment -> appointmentMapper.mapToAppointmentDetailsDto(appointment))
                 .toList();
 
-        return appointmentDetailDtos;
+        return appointmentDetailDtoList;
     }
 
     @Override

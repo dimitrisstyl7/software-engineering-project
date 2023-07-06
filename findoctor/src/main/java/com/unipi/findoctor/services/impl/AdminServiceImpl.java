@@ -3,6 +3,7 @@ package com.unipi.findoctor.services.impl;
 import com.unipi.findoctor.dto.DoctorDto;
 import com.unipi.findoctor.dto.PatientDto;
 import com.unipi.findoctor.mappers.DoctorMapper;
+import com.unipi.findoctor.mappers.PatientMapper;
 import com.unipi.findoctor.models.Doctor;
 import com.unipi.findoctor.models.Patient;
 import com.unipi.findoctor.repositories.AdminRepository;
@@ -18,10 +19,10 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Service
 public class AdminServiceImpl implements AdminService {
-    private AdminRepository adminRepository;
     private DoctorRepository doctorRepository;
     private PatientRepository patientRepository;
     private DoctorMapper doctorMapper;
+    private PatientMapper patientMapper;
 
 
     @Override
@@ -33,7 +34,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<PatientDto> findAllPatients() {
         List<Patient> patients = patientRepository.findAll();
-        return patients.stream().map((patient) -> mapToPatientDto(patient)).collect(Collectors.toList());
+        return patients.stream().map((patient) -> patientMapper.mapToPatientDto(patient)).collect(Collectors.toList());
     }
 
     @Override
@@ -42,15 +43,4 @@ public class AdminServiceImpl implements AdminService {
         if (doctor == null) return null;
         return doctorMapper.mapToDoctorDto(doctor);
     }
-
-
-    public PatientDto mapToPatientDto(Patient patient) {
-        return PatientDto.builder()
-                .amka(patient.getAmka())
-                .user(patient.getUser())
-                .dateOfBirth(patient.getDateOfBirth())
-                .registeredOn(patient.getRegisteredOn())
-                .build();
-    }
-
 }

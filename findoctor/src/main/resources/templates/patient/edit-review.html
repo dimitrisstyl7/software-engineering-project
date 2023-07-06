@@ -31,13 +31,12 @@
             <div class="col-lg-8">
                 <div class="box_general_3 write_review">
                     <h1 th:text="${'Edit your review for ' + doctorFullName}"></h1>
-
-                    <form role="form" method="PUT" th:action="@{/review/edit}" th:object="${ratingDto}">
+                    <form role="form" method="POST" th:action="@{/review/edit}" th:object="${ratingDto}">
                     <div class="rating_submit">
                         <div class="form-group">
                             <label class="d-block">Overall rating</label>
                             <input type="hidden" th:field="*{id}" />
-                            <input type="hidden" th:field="*{doctor}" />
+                            <input type="hidden" th:value="${doctorUsername}" th:field="*{doctorDto.userDto.username}" />
                             <span class="rating">
 								<input type="radio" class="rating-input" id="5_star" name="rating-input"
                                        th:field="*{ratingValue}" th:value="5"><label for="5_star" class="rating-star"></label>

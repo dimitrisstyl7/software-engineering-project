@@ -36,11 +36,11 @@
                     </h4>
                     <ul class="booking_details">
                         <li><strong>Afm </strong><i th:text="${doctor.getAfm()}"></i></li>
-                        <li><strong>Username</strong><i th:text="${doctor.getUser().getUsername()}"></i></li>
+                        <li><strong>Username</strong><i th:text="${doctor.getUserDto().getUsername()}"></i></li>
                         <li><strong>Registered on </strong><i th:text="${doctor.getRegisteredDate()}"></i></li>
                         <li><strong>Specialization </strong><i th:text="${doctor.getSpecialization()}"></i></li>
                         <li><strong>Business phone </strong><i th:text="${doctor.getBusinessPhone()}"></i></li>
-                        <li><strong>Email </strong><i th:text="${doctor.getUser().getEmail()}"></i></li>
+                        <li><strong>Email </strong><i th:text="${doctor.getUserDto().getEmail()}"></i></li>
                     </ul>
                     <ul class="buttons">
                         <li><a th:href="${'/admin/' + doctor.getAfm() + '/approval'}" class="btn_1 gray approve"><i

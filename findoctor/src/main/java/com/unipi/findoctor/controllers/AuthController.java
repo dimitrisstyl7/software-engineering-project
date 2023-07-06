@@ -36,17 +36,7 @@ public class AuthController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) { // if logged in
             String role = auth.getAuthorities().iterator().next().getAuthority(); // get logged in user's role
-            switch (role) { // redirect to the correct page based on the role
-                case USER_TYPE_ADMIN -> {
-                    return "redirect:" + ADMIN_ROOT_URL;
-                }
-                case USER_TYPE_PATIENT -> {
-                    return "redirect:" + PATIENT_ROOT_URL;
-                }
-                case USER_TYPE_DOCTOR -> {
-                    return "redirect:" + DOCTOR_ROOT_URL;
-                }
-            }
+            securityUtil.redirectBasedOnUserRole(role); // redirect user based on his role
         }
         return LOGIN_FILE; // if not logged in, return login page
     }
@@ -54,7 +44,8 @@ public class AuthController {
     @GetMapping(REGISTER_URL)
     public String registerPage(Model model) {
         if (securityUtil.getSessionUser() != null) { // if logged in, redirect to home page
-            return securityUtil.redirectBasedOnUserRole();
+            String role = securityUtil.getSessionUser().getUserType();
+            return securityUtil.redirectBasedOnUserRole(role);
         }
         model.addAttribute("user", new RegistrationDto());
         model.addAttribute("specializationList", DOCTOR_SPECIALIZATION_LIST);

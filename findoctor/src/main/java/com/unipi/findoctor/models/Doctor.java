@@ -36,10 +36,6 @@ public class Doctor {
     @CreationTimestamp
     private LocalDateTime registeredOn;
 
-//    @OneToMany(mappedBy = "doctor", cascade = CascadeType.REFRESH)
-//    private List<Appointment> appointments;
-
-
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.REFRESH)
     @OrderBy("date DESC")
     private List<Rating> ratings;

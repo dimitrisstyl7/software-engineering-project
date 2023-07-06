@@ -16,6 +16,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
+import static com.unipi.findoctor.constants.ControllerConstants.USER_TYPE_DOCTOR;
+
 
 @AllArgsConstructor
 @Service
@@ -71,13 +73,15 @@ public class DoctorServiceImpl implements DoctorService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        doctor.setStatus(existingDoctor.getStatus());
-        doctor.setRegisteredOn(existingDoctor.getRegisteredOn());
-        doctor.setRatings(existingDoctor.getRatings());
-        doctor.setDateOfBirth(existingDoctor.getDateOfBirth());
-        doctor.getUser().setPassword(existingDoctor.getUser().getPassword());
-        doctor.getUser().setUserType("doctor");
-        doctorRepository.save(doctor);
+        existingDoctor.getUser().setName(doctor.getUser().getName());
+        existingDoctor.getUser().setSurname(doctor.getUser().getSurname());
+        existingDoctor.getUser().setPhone(doctor.getUser().getPhone());
+        existingDoctor.setBusinessPhone(doctor.getBusinessPhone());
+        existingDoctor.getUser().setEmail(doctor.getUser().getEmail());
+        existingDoctor.setCity(doctor.getCity());
+        existingDoctor.setAddress(doctor.getAddress());
+
+        doctorRepository.save(existingDoctor);
     }
 
 

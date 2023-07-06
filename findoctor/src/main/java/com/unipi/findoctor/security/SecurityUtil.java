@@ -36,7 +36,7 @@ public class SecurityUtil {
         }
 
         String userType = authentication.getAuthorities().toArray()[0].toString();
-        if (!userType.equals("patient")) {
+        if (!userType.equals(USER_TYPE_PATIENT)) {
             return null;
         }
 
@@ -49,15 +49,13 @@ public class SecurityUtil {
         return patientDto != null;
     }
 
-    public String redirectBasedOnUserRole() {
+    public String redirectBasedOnUserRole(String role) {
         // Redirect user based on his role
-        String role = getSessionUser().getUserType();
-
         switch (role) {
-            case "admin" -> {
+            case USER_TYPE_ADMIN -> {
                 return "redirect:" + ADMIN_ROOT_URL;
             }
-            case "doctor" -> {
+            case USER_TYPE_DOCTOR -> {
                 return "redirect:" + DOCTOR_ROOT_URL;
             }
             default -> {  // patient

@@ -29,7 +29,7 @@
     </div>
     <div th:each="patient :${patients}" class="list_general">
       <ul>
-        <li th:if="${patient.getUser().getUserType().equals('patient')}">
+        <li th:if="${patient.getUserDto().getUserType().equals('patient')}">
           <h4 >
             <span th:utext="${patient.getFullName()}" th:remove="tag"></span>
           </h4>
@@ -38,9 +38,9 @@
             <li><strong>Amka </strong><i th:text="${patient.getAmka()}"></i></li>
             <li><strong>Registered on </strong><i th:text="${patient.getRegisteredDate()}"></i></li>
             <li><strong>Date of Birth </strong><i th:text="${patient.getDateOfBirth()}"></i></li>
-            <li><strong>Contact phone </strong><i th:text="${patient.getUser().getPhone()}"></i></li>
-            <li><strong>Username </strong><i th:text="${patient.getUser().getUsername()}"></i></li>
-            <li><strong>Email </strong><i th:text="${patient.getUser().getEmail()}"></i></li>
+            <li><strong>Contact phone </strong><i th:text="${patient.getUserDto().getPhone()}"></i></li>
+            <li><strong>Username </strong><i th:text="${patient.getUserDto().getUsername()}"></i></li>
+            <li><strong>Email </strong><i th:text="${patient.getUserDto().getEmail()}"></i></li>
           </ul>
         </li>
       </ul>

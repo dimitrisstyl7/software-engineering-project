@@ -30,20 +30,10 @@ public class DoctorController {
         return DOCTOR_INDEX_FILE;
     }
 
-    @GetMapping(DOCTOR_ADD_LISTING_URL)
-    public String doctorAddListingPage() {
-        return DOCTOR_ADD_LISTING_FILE;
-    }
-
     @GetMapping(DOCTOR_BOOKINGS_URL)
     public String doctorBookingsPage(Model model) {
         model.addAttribute("doctorUsername", securityUtil.getSessionUser().getUsername());
         return DOCTOR_BOOKINGS_FILE;
-    }
-
-    @GetMapping(DOCTOR_CHARTS_URL)
-    public String doctorChartsPage() {
-        return DOCTOR_CHARTS_FILE;
     }
 
     @GetMapping(DOCTOR_PROFILE_URL)
@@ -59,20 +49,10 @@ public class DoctorController {
     }
 
     @PostMapping(DOCTOR_PROFILE_URL)
-    public String doctorDoctorProfileUpdate(@ModelAttribute("user") DoctorDto doctorDto) {
+    public String doctorProfileUpdate(@ModelAttribute("user") DoctorDto doctorDto) {
         Doctor doctor = doctorMapper.mapToDoctor(doctorDto);
         doctorService.updateDoctor(doctor);
         return "redirect:" + DOCTOR_PROFILE_URL;
-    }
-
-    @GetMapping(DOCTOR_MESSAGES_URL)
-    public String doctorMessagesPage() {
-        return DOCTOR_MESSAGES_FILE;
-    }
-
-    @GetMapping(DOCTOR_PATIENT_PROFILE_URL)
-    public String doctorPatientProfilePage() {
-        return DOCTOR_PATIENT_PROFILE_FILE;
     }
 
     @GetMapping(DOCTOR_REVIEWS_URL)
@@ -85,10 +65,5 @@ public class DoctorController {
 
         model.addAttribute("allReviews", doctor.getRatings());
         return DOCTOR_REVIEWS_FILE;
-    }
-
-    @GetMapping(DOCTOR_TABLES_URL)
-    public String doctorTablesPage() {
-        return DOCTOR_TABLES_FILE;
     }
 }

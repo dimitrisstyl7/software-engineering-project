@@ -105,7 +105,7 @@
                                     <div id="calendar"></div>
                                     <input type="hidden" id="selectedDate" name="selectedDate">
                                     <input type="hidden" name="doctorUsername"
-                                           th:value="${doctorDetails.getUser().getUsername()}">
+                                           th:value="${doctorDetails.getUserDto().getUsername()}">
                                     <ul class="legend">
                                         <li><strong></strong>Available</li>
                                         <li><strong></strong>Not available</li>
@@ -318,11 +318,11 @@
 
                                 <div th:if="${loggedInUserType.equals('patient')}" class="text-end">
                                     <a th:if="${hasReviewed}"
-                                       th:href="${'/review/edit/'+ doctorDetails.getUser().getUsername()}"
+                                       th:href="${'/review/edit/'+ doctorDetails.getUserDto().getUsername()}"
                                        class="btn_1 add_bottom_15">Edit
                                         review</a>
                                     <a th:unless="${hasReviewed}"
-                                        th:href="${'/review/new/'+ doctorDetails.getUser().getUsername()}"
+                                        th:href="${'/review/new/'+ doctorDetails.getUserDto().getUsername()}"
                                         class="btn_1 add_bottom_15">Submit
                                     review</a>
                                 </div>
@@ -385,7 +385,7 @@
                 document.getElementById('selectedDate').value = selectedDate;
                 // console.log('Selected date:', selectedDate);
 
-                fetch('/api/v1/available-time-slots?date=' + selectedDate + '&doctorUsername=[[ ${doctorDetails.getUser().getUsername()} ]]')
+                fetch('/api/v1/available-time-slots?date=' + selectedDate + '&doctorUsername=[[ ${doctorDetails.getUserDto().getUsername()} ]]')
                     .then(response => response.json())
                     .then(data => {
                         // console.log(data);

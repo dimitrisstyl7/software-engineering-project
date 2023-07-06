@@ -2,7 +2,6 @@ package com.unipi.findoctor.dto;
 
 import com.unipi.findoctor.models.Appointment;
 import com.unipi.findoctor.models.Rating;
-import com.unipi.findoctor.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,10 +19,9 @@ import java.util.Optional;
 public class PatientDto {
 
     private String amka;
-    private User user;
+    private UserDto userDto;
     private LocalDate dateOfBirth;
     private LocalDateTime registeredOn;
-
     private List<Appointment> appointments;
     private List<Rating> ratings;
 
@@ -59,7 +57,7 @@ public class PatientDto {
     }
 
     public String getFullName() {
-        return user.getName() + " " + user.getSurname();
+        return userDto.getName() + " " + userDto.getSurname();
     }
 
     public String getRegisteredDate() {
@@ -69,8 +67,7 @@ public class PatientDto {
         String timePart = parts[1].substring(0, 5); // Extract only the first 5 characters of the time
 
         // Join the date and time parts with a space in between
-        String formattedDateTime = datePart + " " + timePart;
 
-        return formattedDateTime;
+        return datePart + " " + timePart;
     }
 }

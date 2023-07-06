@@ -34,8 +34,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .requestMatchers(ADMIN_INDEX_URL_1, ADMIN_ROOT_URL + "**").hasAuthority("admin")
-                .requestMatchers(DOCTOR_INDEX_URL_1, DOCTOR_ROOT_URL + "**").hasAuthority("doctor")
+                .requestMatchers(ADMIN_INDEX_URL_1, ADMIN_ROOT_URL + "**").hasAuthority(USER_TYPE_ADMIN)
+                .requestMatchers(DOCTOR_INDEX_URL_1, DOCTOR_ROOT_URL + "**").hasAuthority(USER_TYPE_DOCTOR)
                 .requestMatchers(REGISTER_CONFIRMATION_URL).denyAll()
                 .anyRequest().permitAll()
                 .and()

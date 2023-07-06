@@ -5,13 +5,16 @@ import com.unipi.findoctor.models.Doctor;
 import com.unipi.findoctor.models.Patient;
 import com.unipi.findoctor.models.User;
 
+import static com.unipi.findoctor.constants.ControllerConstants.USER_TYPE_DOCTOR;
+import static com.unipi.findoctor.constants.ControllerConstants.USER_TYPE_PATIENT;
+
 public class AuthMapper {
     public static Doctor mapToDoctor(RegistrationDto registrationDto) {
         User user = User.builder()
                 .username(registrationDto.getUsername())
                 .email(registrationDto.getEmail())
                 .password(registrationDto.getPassword())
-                .userType("doctor")
+                .userType(USER_TYPE_DOCTOR)
                 .name(registrationDto.getName())
                 .surname(registrationDto.getSurname())
                 .phone(registrationDto.getPersonalPhone())
@@ -34,7 +37,7 @@ public class AuthMapper {
                 .username(registrationDto.getUsername())
                 .email(registrationDto.getEmail())
                 .password(registrationDto.getPassword())
-                .userType("patient")
+                .userType(USER_TYPE_PATIENT)
                 .name(registrationDto.getName())
                 .surname(registrationDto.getSurname())
                 .phone(registrationDto.getPersonalPhone())

@@ -37,11 +37,6 @@ public class AdminController {
         return ADMIN_INDEX_FILE;
     }
 
-    @GetMapping(ADMIN_ADD_LISTING_URL)
-    public String adminAddListingPage() {
-        return ADMIN_ADD_LISTING_FILE;
-    }
-
     @GetMapping(ADMIN_VALIDATIONS_URL)
     public String adminBookingsPage(Model model) {
         List<DoctorDto> doctors = adminService.findAllDoctors();
@@ -103,35 +98,8 @@ public class AdminController {
         return "redirect:" + ADMIN_PROFILE_URL;
     }
 
-    @GetMapping(ADMIN_CHARTS_URL)
-    public String adminChartsPage() {
-        return ADMIN_CHARTS_FILE;
-    }
-
-    @GetMapping(ADMIN_DOCTOR_PROFILE_URL)
-    public String adminDoctorProfilePage() {
-        return ADMIN_DOCTOR_PROFILE_FILE;
-    }
-
-    @GetMapping(ADMIN_MESSAGES_URL)
-    public String adminMessagesPage() {
-        return ADMIN_MESSAGES_FILE;
-    }
-
-    @GetMapping(ADMIN_PATIENT_PROFILE_URL)
-    public String adminPatientProfilePage() {
-        return ADMIN_PATIENT_PROFILE_FILE;
-    }
-
-    @GetMapping(ADMIN_REVIEWS_URL)
-    public String adminReviewsPage() {
-        return ADMIN_REVIEWS_FILE;
-    }
-
     @GetMapping(ADMIN_BANNED_DOCTORS_URL)
     public String adminTablesPage() {
         return ADMIN_BANNED_DOCTORS_FILE;
     }
-
-
 }

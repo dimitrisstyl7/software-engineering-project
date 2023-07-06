@@ -1,14 +1,18 @@
 package com.unipi.findoctor.mappers;
 
 import com.unipi.findoctor.dto.DoctorDto;
+import com.unipi.findoctor.dto.RatingDto;
 import com.unipi.findoctor.dto.UserDto;
 import com.unipi.findoctor.models.Doctor;
+import com.unipi.findoctor.models.Rating;
 import com.unipi.findoctor.models.User;
 import com.unipi.findoctor.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Component
 @AllArgsConstructor
@@ -27,7 +31,7 @@ public class DoctorMapper {
 
         return DoctorDto.builder()
                 .afm(doctor.getAfm())
-                .user(userDto)
+                .userDto(userDto)
                 .specialization(doctor.getSpecialization())
                 .businessPhone(doctor.getBusinessPhone())
                 .city(doctor.getCity())
@@ -41,15 +45,16 @@ public class DoctorMapper {
     }
 
     public Doctor mapToDoctor(DoctorDto doctorDto) {
-        User user = userService.findByUsername(doctorDto.getUser().getUsername());
+        User user = userService.findByUsername(doctorDto.getUserDto().getUsername());
+
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        user.setName(doctorDto.getUser().getName());
-        user.setSurname(doctorDto.getUser().getSurname());
-        user.setPhone(doctorDto.getUser().getPhone());
-        user.setEmail(doctorDto.getUser().getEmail());
+        user.setName(doctorDto.getUserDto().getName());
+        user.setSurname(doctorDto.getUserDto().getSurname());
+        user.setPhone(doctorDto.getUserDto().getPhone());
+        user.setEmail(doctorDto.getUserDto().getEmail());
 
         return Doctor.builder()
                 .afm(doctorDto.getAfm())

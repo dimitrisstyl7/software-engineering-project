@@ -21,7 +21,6 @@ public class Appointment {
     @Column(unique = true)
     private Long id;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_amka", referencedColumnName = "amka")
     private Patient patient;

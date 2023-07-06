@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en, gr"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{patient_layout}"
+      th:with="isLoggedIn=${isLoggedIn}, contactPhone=${contactDetails.get('contactPhone')},
+      contactEmail=${contactDetails.get('contactEmail')}"
+>
+<head>
+    <title>Profile</title>
+</head>
+<body>
+
+<main layout:fragment="main">
+
+    <hr class="mt-0 mb-4">
+
+    <div class="container-xl px-4 mt-4">
+        <h4>Welcome, <strong th:text="${patient.getUserDto().getName()}"></strong>!</h4>
+        <div class="row mt-3">
+            <div class="col-lg-2 mb-4">
+                <!-- Reviews card 1 -->
+                <div class="card h-100 border-start-lg border-start-primary text-center">
+                    <div class="card-body">
+                        <div class="small text-muted">Total reviews</div>
+                        <div class="h3" th:text="${patient.getCountReviews()}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 mb-4">
+                <!-- Appointments card 2 -->
+                <div class="card h-100 border-start-lg border-start-primary text-center">
+                    <div class="card-body">
+                        <div class="small text-muted">Total appointments</div>
+                        <div class="h3" th:text="${patient.getCountAppointments()}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <!-- Next appointment card 3 -->
+                <div class="card h-100 border-start-lg border-start-secondary">
+                    <div class="card-body">
+                        <div class="small text-muted">Next appointment</div>
+                        <div class="h3" th:unless="${patient.getNextAppointment() == null}"
+                             th:text="${patient.getNextAppointment()}"></div>
+                        <div class="h3" th:if="${patient.getNextAppointment() == null}">None</div>
+                        <a class="text-arrow-icon small" href="#" th:unless="${patient.getNextAppointment() == null}">
+                            View details
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-arrow-right">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                        <a class="text-arrow-icon small" th:href="@{/list}"
+                           th:if="${patient.getNextAppointment() == null}">
+                            Find a doctor
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-arrow-right">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <!-- Billing card 3-->
+                <div class="card h-100 border-start-lg border-start-success">
+                    <div class="card-body">
+                        <div class="small text-muted">Current plan</div>
+                        <div class="h3 d-flex align-items-center">Free</div>
+                        <a class="text-arrow-icon small" href="#!">
+                            Upgrade plan
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-arrow-right">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <dic class="col-lg-12">
+                <div class="card mb-4">
+                    <div class="card-header">Account Details</div>
+                    <div class="card-body">
+                        <form method="post" th:action="@{/profile}" th:object="${patient}"
+                              onsubmit="return validation();">
+                            <!-- Form Group (username)-->
+                            <div class="mb-3">
+                                <label class="small mb-1">Username (you cannot change your
+                                    username)</label>
+                                <input class="form-control" type="text" th:field="*{userDto.username}"
+                                       th:value="${patient.getUserDto().getUsername()}" readonly>
+                            </div>
+                            <!-- Form Row-->
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (name)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" id="name_label" for="name">Name</label>
+                                    <input class="form-control" id="name" name="name" type="text"
+                                           placeholder="Enter your name" th:field="*{userDto.name}"
+                                           th:value="${patient.getUserDto().getName()}">
+                                </div>
+                                <!-- Form Group (surname)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" id="surname_label" for="surname">Surname</label>
+                                    <input class="form-control" id="surname" name="surname" type="text"
+                                           placeholder="Enter your surname" th:field="*{userDto.surname}"
+                                           th:value="${patient.getUserDto().getSurname()}">
+                                </div>
+                            </div>
+                            <!-- Form Row -->
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (organization name)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" id="email_label" for="email">Email</label>
+                                    <input class="form-control" id="email" name="email" type="text"
+                                           th:field="*{userDto.email}" placeholder="Enter your email"
+                                           th:value="${patient.getUserDto().getEmail()}">
+                                </div>
+                                <!-- Form Group (phone number)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1" id="personal_phone_label"
+                                           for="personal_phone">Phone</label>
+                                    <input class="form-control" id="personal_phone" name="personal_phone" type="text"
+                                           placeholder="Enter your phone" th:field="*{userDto.phone}"
+                                           th:value="${patient.getUserDto().getPhone()}">
+                                </div>
+                            </div>
+
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (amka)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1">Amka (you cannot change your amka)</label>
+                                    <input class="form-control" th:field="*{amka}" type="text"
+                                           th:value="${patient.getAmka()}" readonly>
+                                </div>
+                                <!-- Form Group (date of birthday)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1">Date of birth</label>
+                                    <input class="form-control" type="Date" th:field="*{dateOfBirth}"
+                                           th:value="${patient.getDateOfBirth()}" readonly>
+                                </div>
+                            </div>
+                            <!-- Save changes button-->
+                            <div class="form-group text-center add_top_30">
+                                <input class="btn_1" type="submit" value="Save changes" name="submit_btn"
+                                       id="submit_btn">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </dic>
+        </div>
+
+
+        <!-- Appointment history card-->
+        <div class="card mb-4">
+            <div class="card-header">Appointment History</div>
+            <div class="card-body">
+                <!-- Billing history table-->
+                <div class="table table-responsive">
+                    <table class="table mb-0">
+                        <thead>
+                        <tr>
+                            <th class="border-gray-200" scope="col">Appointment ID</th>
+                            <th class="border-gray-200" scope="col">Doctor</th>
+                            <th class="border-gray-200" scope="col">Date</th>
+                            <th class="border-gray-200" scope="col">Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="appointment : ${patient.getAppointments()}">
+                            <td th:text="${appointment.getId()}"></td>
+                            <td th:text="${appointment.getDoctor().getFullName()}"></td>
+                            <td th:text="${appointment.date}"></td>
+                            <td th:text="${appointment.timeSlot}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <hr class="mt-4">
+
+    </div>
+
+    <!-- SCRIPT -->
+    <script th:inline="javascript">
+        function setInvalidInput(input, label, message) {
+            input.style.borderColor = "red";
+            label.style.color = "red";
+            label.innerText = message;
+        }
+
+        function validation() {
+            const name = document.getElementById("name");
+            const surname = document.getElementById("surname");
+            const email = document.getElementById("email");
+            const personalPhone = document.getElementById("personal_phone");
+
+            const nameLabel = document.getElementById("name_label");
+            const surnameLabel = document.getElementById("surname_label");
+            const emailLabel = document.getElementById("email_label");
+            const personalPhoneLabel = document.getElementById("personal_phone_label");
+
+            name.style.borderColor = surname.style.borderColor = email.style.borderColor =
+                personalPhone.style.borderColor = "initial";
+
+            nameLabel.style.color = surnameLabel.style.color = emailLabel.style.color =
+                personalPhoneLabel.style.color = "initial";
+
+            nameLabel.innerText = "Name";
+            surnameLabel.innerText = "Surname";
+            emailLabel.innerText = "Email";
+            personalPhoneLabel.innerText = "Phone";
+
+
+            let validationFailed = false;
+            const email_pattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+            const phone_pattern = /^[0-9]{10}$/;
+            const text_pattern = /^[a-zA-Z]+$/; // name, surname
+
+            if (name.value === "" || name.value === undefined) {
+                setInvalidInput(name, nameLabel, "Name is required");
+                validationFailed = true;
+            } else if (!text_pattern.test(name.value)) {
+                setInvalidInput(name, nameLabel, "Name must contain only letters");
+                validationFailed = true;
+            }
+
+            if (surname.value === "" || surname.value === undefined) {
+                setInvalidInput(surname, surnameLabel, "Surname is required");
+                validationFailed = true;
+            } else if (!text_pattern.test(surname.value)) {
+                setInvalidInput(surname, surnameLabel, "Surname must contain only letters");
+                validationFailed = true;
+            }
+
+            if (email.value === "" || email.value === undefined) {
+                setInvalidInput(email, emailLabel, "Email is required");
+                validationFailed = true;
+            } else if (!email_pattern.test(email.value)) {
+                setInvalidInput(email, emailLabel, "Email is invalid");
+                validationFailed = true;
+            }
+
+            if (personalPhone.value === "" || personalPhone.value === undefined) {
+                setInvalidInput(personalPhone, personalPhoneLabel, "Personal phone is required");
+                validationFailed = true;
+            } else if (!phone_pattern.test(personalPhone.value)) {
+                setInvalidInput(personalPhone, personalPhoneLabel, "Personal phone must be 10 digits");
+                validationFailed = true;
+            }
+
+            return !validationFailed; // if validation failed return false
+        }
+    </script>
+    <!-- /SCRIPT -->
+
+</main>
+
+</body>
+</html>

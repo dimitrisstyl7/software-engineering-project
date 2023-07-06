@@ -8,9 +8,9 @@ import java.util.List;
 
 @Service
 public interface AdminService {
-    public List<DoctorDto> findAllDoctors();
+    List<DoctorDto> findAllDoctors();
 
-    public List<PatientDto> findAllPatients();
+    List<PatientDto> findAllPatients();
 
     DoctorDto findDoctorByAfm(String Afm);
 }

@@ -70,7 +70,7 @@
                                     <small th:text="${'(' + doctor.getRatings().size() + ')'}"></small></span>
                             </div>
                             <ul>
-                                <li><a th:href="@{/details/{username}(username=${doctor.getUser().getUsername()})}">Book now</a></li>
+                                <li><a th:href="@{/details/{username}(username=${doctor.getUserDto().getUsername()})}">Book now</a></li>
                             </ul>
                     </div>
                     </div>
