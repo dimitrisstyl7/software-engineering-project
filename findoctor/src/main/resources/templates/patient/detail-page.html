@@ -2,7 +2,8 @@
 <html lang="en, gr"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{patient_layout}"
-      th:with="isLoggedIn=${isLoggedIn}">
+      th:with="isLoggedIn=${isLoggedIn}, contactPhone=${contactDetails.get('contactPhone')}, contactEmail=${contactDetails.get('contactEmail')}"
+>
 
 <head>
     <title>Details</title>
@@ -94,7 +95,7 @@
                     <div class="tab-content">
 
                         <div class="tab-pane fade show active" id="book" role="tabpanel" aria-labelledby="book-tab">
-                            <p th:unless="${isLoggedIn}">Note: In order to make an appointment, it is required to be
+                            <p th:unless="${isLoggedIn}"><strong>Note:</strong> In order to make an appointment, it is required to be
                                 logged in.</p>
                             <form role="form" method="post" th:action="@{/appointment/new}">
                                 <div class="main_title_3">

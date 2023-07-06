@@ -4,10 +4,7 @@ import com.unipi.findoctor.dto.*;
 import com.unipi.findoctor.mappers.DoctorMapper;
 import com.unipi.findoctor.mappers.PatientMapper;
 import com.unipi.findoctor.security.SecurityUtil;
-import com.unipi.findoctor.services.AppointmentService;
-import com.unipi.findoctor.services.DoctorService;
-import com.unipi.findoctor.services.PatientService;
-import com.unipi.findoctor.services.RatingService;
+import com.unipi.findoctor.services.*;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -33,24 +30,27 @@ public class PatientController {
     private final SecurityUtil securityUtil;
     private final DoctorMapper doctorMapper;
     private final PatientMapper patientMapper;
+    private final UserService userService;
 
-    private void checkAccess() {
-        AuthDto authDto = securityUtil.getSessionUser();
-        if (authDto != null && !authDto.getUserType().equals(USER_TYPE_PATIENT)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-    }
 
     @GetMapping({PATIENT_ROOT_URL, PATIENT_INDEX_URL_1})
     public String patientIndexPage(Model model) {
-        checkAccess();
+        AuthDto authDto = securityUtil.getSessionUser();
+        if (authDto != null && !authDto.getUserType().equals(USER_TYPE_PATIENT)) {
+            return securityUtil.redirectBasedOnUserRole();
+        }
+
         model.addAttribute("isLoggedIn", securityUtil.isPatientLoggedIn());
+        model.addAttribute("contactDetails", userService.getAdminDetails());
         return PATIENT_INDEX_FILE;
     }
 
     @GetMapping(PATIENT_PROFILE_PAGE_URL)
     public String patientProfilePage(Model model) {
-        checkAccess();
+        AuthDto authDto = securityUtil.getSessionUser();
+        if (authDto != null && !authDto.getUserType().equals(USER_TYPE_PATIENT)) {
+            return securityUtil.redirectBasedOnUserRole();
+        }
 
         PatientDto patientDto = securityUtil.getSessionPatient();
         if (patientDto == null) {
@@ -60,12 +60,16 @@ public class PatientController {
 
         model.addAttribute("patient", patientDto);
         model.addAttribute("isLoggedIn", securityUtil.isPatientLoggedIn());
+        model.addAttribute("contactDetails", userService.getAdminDetails());
         return PATIENT_PROFILE_FILE;
     }
 
     @GetMapping(PATIENT_DETAIL_PAGE_URL)
     public String patientDetailPage(@PathVariable("doctorUsername") String doctorUsername, Model model) {
-        checkAccess();
+        AuthDto authDto = securityUtil.getSessionUser();
+        if (authDto != null && !authDto.getUserType().equals(USER_TYPE_PATIENT)) {
+            return securityUtil.redirectBasedOnUserRole();
+        }
 
         PatientDto patientDto = securityUtil.getSessionPatient();
         String loggedInUserType = patientDto != null ? USER_TYPE_PATIENT : USER_TYPE_VISITOR;
@@ -88,13 +92,17 @@ public class PatientController {
         model.addAttribute("doctorDetails", doctorDto);
         model.addAttribute("loggedInUserType", loggedInUserType);
         model.addAttribute("isLoggedIn", securityUtil.isPatientLoggedIn());
+        model.addAttribute("contactDetails", userService.getAdminDetails());
         model.addAttribute("hasReviewed", hasReviewed);
         return PATIENT_DETAIL_PAGE_FILE;
     }
 
     @GetMapping(PATIENT_GRID_LIST_URL)
     public String patientGridListPage(@RequestParam(required = false, defaultValue = "1") String page, @RequestParam(required = false) String q, Model model) {
-        checkAccess();
+        AuthDto authDto = securityUtil.getSessionUser();
+        if (authDto != null && !authDto.getUserType().equals(USER_TYPE_PATIENT)) {
+            return securityUtil.redirectBasedOnUserRole();
+        }
 
         int adjustedPageNumber;
 
@@ -116,12 +124,16 @@ public class PatientController {
         model.addAttribute("totalPages", doctorDetailsDtoPage.getTotalPages());
         model.addAttribute("totalDoctors", doctorDetailsDtoPage.getTotalElements());
         model.addAttribute("isLoggedIn", securityUtil.isPatientLoggedIn());
+        model.addAttribute("contactDetails", userService.getAdminDetails());
         return PATIENT_GRID_LIST_FILE;
     }
 
     @GetMapping(PATIENT_GET_SUBMIT_REVIEW_URL)
     public String patientSubmitReviewPage(@PathVariable("doctorUsername") String doctorUsername, Model model) {
-        checkAccess();
+        AuthDto authDto = securityUtil.getSessionUser();
+        if (authDto != null && !authDto.getUserType().equals(USER_TYPE_PATIENT)) {
+            return securityUtil.redirectBasedOnUserRole();
+        }
 
         PatientDto patientDto = securityUtil.getSessionPatient();
         if (patientDto == null) {
@@ -144,13 +156,17 @@ public class PatientController {
         model.addAttribute("doctorFullName", doctorDto.getFullName());
         model.addAttribute("ratingDto", ratingDto);
         model.addAttribute("doctorUsername", doctorDto.getUser().getUsername());
+        model.addAttribute("isLoggedIn", securityUtil.isPatientLoggedIn());
+        model.addAttribute("contactDetails", userService.getAdminDetails());
         return PATIENT_SUBMIT_REVIEW_FILE;
     }
 
     @GetMapping(PATIENT_GET_EDIT_REVIEW_URL)
     public String patientEditReviewPage(@PathVariable("doctorUsername") String doctorUsername, Model model) {
-        // TODO: Fix duplicate code
-        checkAccess();
+        AuthDto authDto = securityUtil.getSessionUser();
+        if (authDto != null && !authDto.getUserType().equals(USER_TYPE_PATIENT)) {
+            return securityUtil.redirectBasedOnUserRole();
+        }
 
         PatientDto patientDto = securityUtil.getSessionPatient();
         if (patientDto == null) {
@@ -171,12 +187,17 @@ public class PatientController {
         model.addAttribute("doctorFullName", doctorDto.getFullName());
         model.addAttribute("doctorUsername", doctorDto.getUser().getUsername());
         model.addAttribute("ratingDto", ratingDto);
+        model.addAttribute("isLoggedIn", securityUtil.isPatientLoggedIn());
+        model.addAttribute("contactDetails", userService.getAdminDetails());
         return PATIENT_EDIT_REVIEW_FILE;
     }
 
     @PostMapping(PATIENT_POST_SUBMIT_REVIEW_URL)
     public String patientSubmitReviewEndpoint(@ModelAttribute RatingDto ratingDto, RedirectAttributes redirectAttributes) {
-        checkAccess();
+        AuthDto authDto = securityUtil.getSessionUser();
+        if (authDto != null && !authDto.getUserType().equals(USER_TYPE_PATIENT)) {
+            return securityUtil.redirectBasedOnUserRole();
+        }
 
         PatientDto patientDto = securityUtil.getSessionPatient();
 
@@ -205,8 +226,11 @@ public class PatientController {
     }
 
     @GetMapping(PATIENT_PUT_REVIEW_URL)
-    public String patientPutReviewEndpoint(@ModelAttribute RatingDto ratingDto, RedirectAttributes redirectAttributes) {
-        checkAccess();
+    public String patientPutReviewEndpoint(@ModelAttribute RatingDto ratingDto, RedirectAttributes redirectAttributes, Model model) {
+        AuthDto authDto = securityUtil.getSessionUser();
+        if (authDto != null && !authDto.getUserType().equals(USER_TYPE_PATIENT)) {
+            return securityUtil.redirectBasedOnUserRole();
+        }
 
         PatientDto patientDto = securityUtil.getSessionPatient();
 
@@ -236,7 +260,10 @@ public class PatientController {
 
     @GetMapping(PATIENT_DELETE_REVIEW_URL)
     public String patientDeleteReviewEndpoint(@PathVariable("doctorUsername") String doctorUsername, RedirectAttributes redirectAttributes) {
-        checkAccess();
+        AuthDto authDto = securityUtil.getSessionUser();
+        if (authDto != null && !authDto.getUserType().equals(USER_TYPE_PATIENT)) {
+            return securityUtil.redirectBasedOnUserRole();
+        }
 
         PatientDto patientDto = securityUtil.getSessionPatient();
 
@@ -270,7 +297,10 @@ public class PatientController {
                                  @RequestParam("doctorUsername") String doctorUsername,
                                  @RequestParam("timeslot") String timeslot,
                                  RedirectAttributes redirectAttributes) {
-        checkAccess();
+        AuthDto authDto = securityUtil.getSessionUser();
+        if (authDto != null && !authDto.getUserType().equals(USER_TYPE_PATIENT)) {
+            return securityUtil.redirectBasedOnUserRole();
+        }
 
         PatientDto loggedInPatient = securityUtil.getSessionPatient();
 
@@ -305,13 +335,18 @@ public class PatientController {
 
 
     @GetMapping(APPOINTMENT_CONFIRMATION_URL)
-    public String showSuccessPage(@ModelAttribute("status") String status) {
-        checkAccess();
+    public String showSuccessPage(@ModelAttribute("status") String status, Model model) {
+        AuthDto authDto = securityUtil.getSessionUser();
+        if (authDto != null && !authDto.getUserType().equals(USER_TYPE_PATIENT)) {
+            return securityUtil.redirectBasedOnUserRole();
+        }
 
         if (status.isBlank() || status == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
+        model.addAttribute("isLoggedIn", securityUtil.isPatientLoggedIn());
+        model.addAttribute("contactDetails", userService.getAdminDetails());
         return APPOINTMENT_CONFIRMATION_FILE;
     }
 

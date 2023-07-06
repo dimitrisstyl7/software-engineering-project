@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en, gr" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{patient_layout}"
-      th:with="loggedIn=true"
+      th:with="isLoggedIn=${isLoggedIn}, contactPhone=${contactDetails.get('contactPhone')}, contactEmail=${contactDetails.get('contactEmail')}"
 >
 
 <head>

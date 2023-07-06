@@ -2,7 +2,7 @@
 <html lang="en, gr"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{patient_layout}"
-      th:with="isLoggedIn=${isLoggedIn}"
+      th:with="isLoggedIn=${isLoggedIn}, contactPhone=${contactDetails.get('contactPhone')}, contactEmail=${contactDetails.get('contactEmail')}"
       >
 <head>
     <title>Profile</title>
@@ -76,7 +76,7 @@
                                 <!-- Form Group (username)-->
                                 <div class="mb-3">
                                     <label class="small mb-1" for="inputUsername">Username (you cannot change your username)</label>
-                                    <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" th:value="${patient.getUser().getUsername()}" disabled>
+                                    <input class="form-control" id="inputUsername" type="text" th:value="${patient.getUser().getUsername()}" readonly>
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
@@ -91,25 +91,25 @@
                                         <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" th:value="${patient.getUser().getSurname()}">
                                     </div>
                                 </div>
-                                <!-- Form Row        -->
+                                <!-- Form Row -->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (organization name)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="inputOrgName">Email</label>
-                                        <input class="form-control" id="inputOrgName" type="email" placeholder="Enter your organization name" th:value="${patient.getUser().getEmail()}">
+                                        <label class="small mb-1" for="inputEmail">Email</label>
+                                        <input class="form-control" id="inputEmail" type="email" placeholder="Enter your email" th:value="${patient.getUser().getEmail()}">
                                     </div>
                                     <!-- Form Group (location)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="inputLocation">Phone</label>
-                                        <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" th:value="${patient.getUser().getPhone()}">
+                                        <label class="small mb-1" for="inputPhone">Phone</label>
+                                        <input class="form-control" id="inputPhone" type="text" placeholder="Enter your phone" th:value="${patient.getUser().getPhone()}">
                                     </div>
                                 </div>
 
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (phone number)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="inputPhone">Amka (you cannot change your amka)</label>
-                                        <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" th:value="${patient.getAmka()}" disabled>
+                                        <label class="small mb-1" for="inputAmka">Amka (you cannot change your amka)</label>
+                                        <input class="form-control" id="inputAmka" th:value="${patient.getAmka()}" readonly>
                                     </div>
                                     <!-- Form Group (birthday)-->
                                     <div class="col-md-6">
