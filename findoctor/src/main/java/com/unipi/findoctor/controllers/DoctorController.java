@@ -76,7 +76,14 @@ public class DoctorController {
     }
 
     @GetMapping(DOCTOR_REVIEWS_URL)
-    public String doctorReviewsPage() {
+    public String doctorReviewsPage(Model model) {
+        String username = securityUtil.getSessionUser().getUsername();
+        Doctor doctor = doctorRepository.findByUser_username(username);
+        if (doctor == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        model.addAttribute("allReviews", doctor.getRatings());
         return DOCTOR_REVIEWS_FILE;
     }
 

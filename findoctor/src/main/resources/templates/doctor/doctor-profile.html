@@ -12,9 +12,9 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a th:href="@{/doctor}">Dashboard</a>
+            <a th:href="@{/doctor/index}">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">Add listing</li>
+        <li class="breadcrumb-item active">Profile</li>
     </ol>
     <form method="post" th:action="@{/doctor/profile}" th:object="${doctor}" onsubmit="return validation();">
         <div class="box_general padding_bottom">

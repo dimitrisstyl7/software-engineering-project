@@ -68,7 +68,7 @@ public class ControllerConstants {
     public static final String DOCTOR_INDEX_URL_1 = "/doctor";
     public static final String DOCTOR_INDEX_URL_2 = "/doctor/index";
     public static final String DOCTOR_ADD_LISTING_URL = "/doctor/add-listing";
-    public static final String DOCTOR_BOOKINGS_URL = "/doctor/bookings";
+    public static final String DOCTOR_BOOKINGS_URL = "/doctor/appointments";
     public static final String DOCTOR_CHARTS_URL = "/doctor/charts";
     public static final String DOCTOR_PROFILE_URL = "/doctor/profile";
     public static final String DOCTOR_MESSAGES_URL = "/doctor/messages";
@@ -121,7 +121,7 @@ public class ControllerConstants {
     /* DOCTOR HTML FILE NAMES */
     public static final String DOCTOR_INDEX_FILE = "doctor/index";
     public static final String DOCTOR_ADD_LISTING_FILE = "doctor/add-listing";
-    public static final String DOCTOR_BOOKINGS_FILE = "doctor/bookings";
+    public static final String DOCTOR_BOOKINGS_FILE = "doctor/appointments";
     public static final String DOCTOR_CHARTS_FILE = "doctor/charts";
     public static final String DOCTOR_PROFILE_FILE = "doctor/doctor-profile";
     public static final String DOCTOR_MESSAGES_FILE = "doctor/messages";
