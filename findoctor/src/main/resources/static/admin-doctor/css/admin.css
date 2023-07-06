@@ -723,7 +723,7 @@ select.form-control:not([size]):not([multiple]) {
 .list_general > ul > li {
   margin: 0 -30px 0 -30px;
   position: relative;
-  padding: 30px 30px 5px 120px;
+  padding: 30px 30px 5px 40px;
   border-top: 1px solid #ededed;
 }
 .list_general > ul > li:hover {
