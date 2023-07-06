@@ -26,7 +26,7 @@
                     <div class="form-group">
                         <label>Afm</label>
                         <input type="text" class="form-control" th:value="*{getAfm()}"
-                               th:field="*{afm}" disabled>
+                               th:field="*{afm}" readonly>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                     <div class="form-group">
                         <label>Username</label>
                         <input type="text" class="form-control" th:value="*{user.getUsername()}"
-                               th:field="*{user.username}" disabled>
+                               th:field="*{user.username}" readonly>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -87,14 +87,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Date of birth</label>
-                        <input th:type="Date" class="form-control" th:value="*{getDateOfBirth().toString()}" disabled>
+                        <input th:type="Date" class="form-control" th:value="*{getDateOfBirth().toString()}" readonly>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Specialization</label>
                         <input type="text" class="form-control" th:value="*{specialization}"
-                               th:field="*{specialization}" placeholder="Your specialization" disabled>
+                               th:field="*{specialization}" placeholder="Your specialization" readonly>
                     </div>
                 </div>
             </div>
