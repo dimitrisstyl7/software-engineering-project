@@ -26,8 +26,8 @@ public class RestApiController {
     private final SecurityUtil securityUtil;
 
     @GetMapping("/available-time-slots")
-    public ResponseEntity<Map<String, Boolean>> scheduleAppointment(@RequestParam(value = "date", required = true) String dateString,
-                                                                    @RequestParam(value = "doctorUsername", required = true) String doctorUsername) {
+    public ResponseEntity<Map<String, Boolean>> scheduleAppointment(@RequestParam(value = "date") String dateString,
+                                                                    @RequestParam(value = "doctorUsername") String doctorUsername) {
 
         LocalDate date;
 

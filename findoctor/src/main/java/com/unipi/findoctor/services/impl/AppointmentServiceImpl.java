@@ -25,7 +25,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public Map<String, Boolean> getDoctorAvailableTimeSlots(String doctorUsername, LocalDate date) {
 
-        Map<String, Boolean> time_slots = new LinkedHashMap<>();
+        Map<String, Boolean> timeSlots = new LinkedHashMap<>();
 
         List<Appointment> appointments = appointmentRepository.findAppointmentsByDoctor_User_UsernameAndDate(doctorUsername, date);
 
@@ -37,14 +37,20 @@ public class AppointmentServiceImpl implements AppointmentService {
         LocalTime startTime = LocalTime.of(8, 0); // 8:00
         LocalTime endTime = LocalTime.of(20, 0); // 20:00
 
+        // Get the current time
+        LocalTime currentTime = LocalTime.now();
+
         // Iterate through the time slots from start to end with one hour interval
         LocalTime currentSlot = startTime;
         while (!currentSlot.isAfter(endTime)) {
             // Check if the slot is not in the appointments list
-            if (appointment_times.contains(currentSlot)) {
-                time_slots.put(currentSlot.toString(), false);
+            if (currentSlot.isBefore(currentTime)) {
+                timeSlots.put(currentSlot.toString(), false);
+            }
+            else if (appointment_times.contains(currentSlot)) {
+                timeSlots.put(currentSlot.toString(), false);
             } else {
-                time_slots.put(currentSlot.toString(), true);
+                timeSlots.put(currentSlot.toString(), true);
             }
 
             // Move to the next slot
@@ -52,7 +58,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
 
 
-        return time_slots;
+        return timeSlots;
     }
 
     @Override
