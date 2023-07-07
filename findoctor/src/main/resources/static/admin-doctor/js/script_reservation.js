@@ -141,7 +141,7 @@ function createTable(linklist){
     // Function to create a delete button for each row
     function createDeleteButton() {
         const deleteButton = document.createElement('button');
-        deleteButton.textContent ="delete";
+        deleteButton.textContent ="Delete";
         deleteButton.style.color = "black";
         // Create event for the deleteButton
         deleteButton.addEventListener('click', deleteRow);
@@ -150,7 +150,7 @@ function createTable(linklist){
 
     function createEditButton() {
         const editButton = document.createElement('button');
-        editButton.textContent = 'Update time';
+        editButton.textContent = 'Update';
         editButton.style.color = "black";
         // Create event for the editButton
         editButton.addEventListener('click', editRow);
@@ -161,7 +161,7 @@ function createTable(linklist){
     let headerRow = tbl.insertRow();
     headerRow.style.paddingTop = "12px";
     headerRow.style.paddingBottom = "12px";
-    headerRow.style.backgroundColor = "Green";
+    headerRow.style.backgroundColor = "#3F4079";
     headerRow.style.color = "white";
     let headerCell1 = headerRow.insertCell();
     let headerCell2 = headerRow.insertCell();
