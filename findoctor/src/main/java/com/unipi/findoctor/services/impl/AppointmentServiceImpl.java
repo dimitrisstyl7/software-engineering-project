@@ -27,15 +27,29 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         Map<String, Boolean> timeSlots = new LinkedHashMap<>();
 
+        // Define the start and end time for available slots
+        LocalTime startTime = LocalTime.of(8, 0); // 8:00
+        LocalTime endTime = LocalTime.of(20, 0); // 20:00
+
+        // Check if the date is in the past
+        LocalDate currentDate = LocalDate.now();
+        if (date.isBefore(currentDate)) {
+            // All time slots are unavailable
+
+            LocalTime currentSlot = startTime;
+            while (!currentSlot.isAfter(endTime)) {
+                timeSlots.put(currentSlot.toString(), false);
+                currentSlot = currentSlot.plusHours(1);
+            }
+
+            return timeSlots;
+        }
+
         List<Appointment> appointments = appointmentRepository.findAppointmentsByDoctor_User_UsernameAndDate(doctorUsername, date);
 
         List<LocalTime> appointment_times = appointments.stream()
                 .map(Appointment::getTimeSlot)
                 .toList();
-
-        // Define the start and end time for available slots
-        LocalTime startTime = LocalTime.of(8, 0); // 8:00
-        LocalTime endTime = LocalTime.of(20, 0); // 20:00
 
         // Get the current time
         LocalTime currentTime = LocalTime.now();
