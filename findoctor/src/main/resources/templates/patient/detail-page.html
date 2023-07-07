@@ -121,7 +121,7 @@
                                 <hr>
                                 <div class="col-12 text-center">
                                     <input th:if="${isLoggedIn}" type="submit" value="Book Now"
-                                           class="btn_1 medium text-center">
+                                           class="btn_1 medium text-center" id="bookButton" style="display: none" disabled>
                                 </div>
                             </form>
                         </div>
@@ -389,7 +389,6 @@
                     .then(response => response.json())
                     .then(data => {
                         // console.log(data);
-
                         const timeSelect = document.querySelector('.time_select');
 
                         // Clear existing <li> elements
@@ -406,6 +405,7 @@
                             input.id = `radio-${timeSlot}`;
                             input.name = 'timeslot';
                             input.value = timeSlot;
+                            input.onclick = handleTimeSlotChange;
 
                             // Set the disabled property based on the availability
                             input.disabled = !availability;
@@ -423,12 +423,30 @@
                             timeSelect.appendChild(li);
                         }
 
+                        handleTimeSlotChange();
+
                     })
                     .catch(error => {
                         console.error('Error:', error);
                     });
             });
         });
+
+        function handleTimeSlotChange() {
+            let timeSlotRadios = document.getElementsByName("timeslot");
+            let submitButton = document.getElementById("bookButton");
+
+            for (let i = 0; i < timeSlotRadios.length; i++) {
+                if (timeSlotRadios[i].checked) {
+                    submitButton.disabled = false;
+                    submitButton.style.display = "";
+                    return;
+                }
+            }
+
+            submitButton.disabled = true;
+            submitButton.style.display = "none";
+        }
     </script>
 </div>
 </body>

@@ -56,21 +56,34 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         // Iterate through the time slots from start to end with one hour interval
         LocalTime currentSlot = startTime;
-        while (!currentSlot.isAfter(endTime)) {
-            // Check if the slot is not in the appointments list
-            if (currentSlot.isBefore(currentTime)) {
-                timeSlots.put(currentSlot.toString(), false);
+        if (date.isEqual(currentDate)) {
+            while (!currentSlot.isAfter(endTime)) {
+                // Check if the slot is not in the appointments list
+                if (currentSlot.isBefore(currentTime)) {
+                    timeSlots.put(currentSlot.toString(), false);
+                } else if (appointment_times.contains(currentSlot)) {
+                    timeSlots.put(currentSlot.toString(), false);
+                } else {
+                    timeSlots.put(currentSlot.toString(), true);
+                }
+
+                // Move to the next slot
+                currentSlot = currentSlot.plusHours(1);
             }
-            else if (appointment_times.contains(currentSlot)) {
-                timeSlots.put(currentSlot.toString(), false);
-            } else {
-                timeSlots.put(currentSlot.toString(), true);
+        } else {
+            while (!currentSlot.isAfter(endTime)) {
+                // Check if the slot is not in the appointments list
+                if (appointment_times.contains(currentSlot)) {
+                    timeSlots.put(currentSlot.toString(), false);
+                } else {
+                    timeSlots.put(currentSlot.toString(), true);
+                }
+
+                // Move to the next slot
+                currentSlot = currentSlot.plusHours(1);
             }
 
-            // Move to the next slot
-            currentSlot = currentSlot.plusHours(1);
         }
-
 
         return timeSlots;
     }
