@@ -86,12 +86,15 @@
                         <li th:class="${currentPage - 1 < 1} ? 'page-item disabled' : 'page-item'">
                             <a class="page-link" th:href="@{/list(page=${currentPage - 1})}" tabindex="-1">Previous</a>
                         </li>
-                        <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+                        <li th:if="${totalPages > 1}" th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
                             th:classappend="${pageNumber} == ${currentPage} ? 'page-item active' : 'page-item'">
-                            <a class="page-link" th:href="@{/list(page=${pageNumber})}" th:text="${pageNumber}"></a>
+                            <a class="page-link" th:href="@{/list(page=${pageNumber}, q=${q})}" th:text="${pageNumber}"></a>
+                        </li>
+                        <li th:unless="${totalPages > 1}" class="page-item active">
+                            <a class="page-link" th:href="@{/list(page=1, q=${q})}" th:text="1"></a>
                         </li>
                         <li th:class="${currentPage + 1 > totalPages} ? 'page-item disabled' : 'page-item'">
-                            <a class="page-link" th:href="@{/list(page=${currentPage + 1})}">Next</a>
+                            <a class="page-link" th:href="@{/list(page=${currentPage + 1}, q=${q})}">Next</a>
                         </li>
                     </ul>
                 </nav>

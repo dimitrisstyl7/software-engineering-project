@@ -130,6 +130,7 @@ public class PatientController {
         model.addAttribute("totalDoctors", doctorDetailsDtoPage.getTotalElements());
         model.addAttribute("isLoggedIn", securityUtil.isPatientLoggedIn());
         model.addAttribute("contactDetails", userService.getAdminDetails());
+        model.addAttribute("q", q);
         return PATIENT_GRID_LIST_FILE;
     }
 
