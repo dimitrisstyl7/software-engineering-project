@@ -187,22 +187,14 @@
             let validationFailed = false;
             const email_pattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
             const phone_pattern = /^[0-9]{10}$/;
-            const text_pattern = /^[a-zA-Z]+$/; // name, surname
-            const city_pattern = /^[a-zA-Z\s]+$/;
 
             if (name.value === "" || name.value === undefined) {
                 setInvalidInput(name, nameLabel, "Name is required");
-                validationFailed = true;
-            } else if (!text_pattern.test(name.value)) {
-                setInvalidInput(name, nameLabel, "Name must contain only letters");
                 validationFailed = true;
             }
 
             if (surname.value === "" || surname.value === undefined) {
                 setInvalidInput(surname, surnameLabel, "Surname is required");
-                validationFailed = true;
-            } else if (!text_pattern.test(surname.value)) {
-                setInvalidInput(surname, surnameLabel, "Surname must contain only letters");
                 validationFailed = true;
             }
 
@@ -237,9 +229,6 @@
 
             if (city.value === "" || city.value === undefined) {
                 setInvalidInput(city, cityLabel, "City is required");
-                validationFailed = true;
-            } else if (!city_pattern.test(city.value)) {
-                setInvalidInput(city, cityLabel, "City must contain only letters");
                 validationFailed = true;
             }
 
