@@ -3,7 +3,7 @@
 
 <h3>Τμήμα Πληροφορικής</h3>
 
-<h3>Μάθημα:</h3>&nbsp;&nbsp;Λογισμίκο Διαχείρισης Μάθησης / Learning Management Software
+<h3>Μάθημα:</h3>&nbsp;&nbsp;Τεχνολογία Λογισμικού / Software Engineering
 
 <h3>Έτος:</h3>&nbsp;&nbsp;2023
 
