@@ -1,4 +1,4 @@
-# software_engineering_project_unipi_2023
+# software_engineering_project_2023
 <h3>Πανεπιστήμιο Πειραιώς</h3>
 
 <h3>Τμήμα Πληροφορικής</h3>
