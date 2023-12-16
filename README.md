@@ -1,16 +1,6 @@
-# software_engineering_project_2023
-<h3>Πανεπιστήμιο Πειραιώς</h3>
-
-<h3>Τμήμα Πληροφορικής</h3>
-
-<h3>Μάθημα:</h3>&nbsp;&nbsp;Τεχνολογία Λογισμικού / Software Engineering
-
-<h3>Έτος:</h3>&nbsp;&nbsp;2023
-
-<h3>Εξάμηνο:</h3>&nbsp;&nbsp;6ο
-
-<h3>Ομάδα Εργασίας:</h3>
-&nbsp;&nbsp;Δημήτρης Στυλιανού Π20004,<br>
-&nbsp;&nbsp;Σωτήρης Χατζηκυριάκου Π20011,<br>
-&nbsp;&nbsp;Κωνσταντίνος Λοϊζίδης Π20007,<br>
-&nbsp;&nbsp;Αντώνης Ρούσσος Π20167
+# software-engineering-project-2023
+## [Universirty of Piraeus](https://www.unipi.gr/unipi/en/)<br>[Department of Informatics](https://www.cs.unipi.gr/index.php?lang=en)
+### Course: Software Engineering
+### Semester: 6
+### Project Completion Year: 2023
+### Project Team: [Dimitris Stylianou](https://github.com/dimitrisstyl7) | [Sotiris Chatzikyriakou](https://github.com/IamInloveWitheCode) | [Anthony Roussos](https://github.com/anthonyrouss) | [Konstantinos Loizidis](https://github.com/kostas96674)
