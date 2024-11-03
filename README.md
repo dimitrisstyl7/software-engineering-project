@@ -3,4 +3,4 @@
 ### Course: Software Engineering
 ### Semester: 6
 ### Project Completion Year: 2023
-### Project Team: [Dimitris Stylianou](https://github.com/dimitrisstyl7) | [Sotiris Chatzikyriakou](https://github.com/IamInloveWitheCode) | [Antonis Roussos](https://github.com/antoroussos) | [Konstantinos Loizidis](https://github.com/kostas96674)
+### Project Team: [Dimitris Stylianou](https://github.com/dimitrisstyl7) | [Sotiris Chatzikyriakou](https://github.com/IamInloveWitheCode) | [Antonis Roussos](https://github.com/roussosan) | [Konstantinos Loizidis](https://github.com/kostas96674)
