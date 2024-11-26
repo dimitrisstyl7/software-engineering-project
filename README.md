@@ -1,7 +1,7 @@
 # Patient-Doctor Appointment Scheduling Application
 
 ## [University of Piraeus](https://www.unipi.gr/en/home/) | [Department of Informatics](https://cs.unipi.gr/en/)
-**Course**: Software Engineering
+**BSc course**: Software Engineering
 
 **Semester**: 6
 
@@ -31,7 +31,7 @@ This project involves the development of a web application for scheduling patien
 </table>
 
 ## Acknowledgments
-This project was developed as part of the "Software Engineering" course at the University of Piraeus. Contributions and feedback are always welcome!
+This project was developed as part of the "Software Engineering" BSc course at the University of Piraeus. Contributions and feedback are always welcome!
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
