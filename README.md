@@ -25,7 +25,7 @@ This project involves the development of a web application for scheduling patien
   <tr>
     <td align="center"><a href="https://github.com/dimitrisstyl7"><img src="https://avatars.githubusercontent.com/u/75742419?v=4" width="100px;" alt="Dimitris Stylianou"/><br /><sub><b>Dimitris Stylianou</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/IamInloveWitheCode"><img src="https://avatars.githubusercontent.com/u/79903936?v=4" width="100px;" alt="Sotiris Chatzikyriakou"/><br /><sub><b>Sotiris Chatzikyriakou</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/roussosan"><img src="https://avatars.githubusercontent.com/u/79643636?v=4" width="100px;" alt="Anthony Roussos"/><br /><sub><b>Antonis Roussos</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/roussosan"><img src="https://avatars.githubusercontent.com/u/79643636?v=4" width="100px;" alt="Antonis Roussos"/><br /><sub><b>Antonis Roussos</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/kostas96674"><img src="https://avatars.githubusercontent.com/u/79859276?v=4" width="100px;" alt="Konstantinos Loizidis"/><br /><sub><b>Konstantinos Loizidis</b></sub></a><br /></td>
   </tr>
 </table>
